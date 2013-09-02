@@ -133,8 +133,8 @@ end
 -- Given a area returns a string in the format "name [id]: owner (x1, y1, z1) (x2, y2, z2) -> children"
 function areas:toString(area)
 	local message = area.name..
-		"["..area.id.."]: "..area.owner..
-		minetest.pos_to_string(area.pos1)..
+		" ["..area.id.."]: "..area.owner.." "..
+		minetest.pos_to_string(area.pos1).." "..
 		minetest.pos_to_string(area.pos2)
 
 	local children = areas:getChildren(id)
