@@ -3,12 +3,11 @@
 
 minetest.register_chatcommand("legacy_load_areas", {
 	params = "",
-	description = "Loads, converts, and saves the areas from a legacy save file.",
-	privs = {areas=true, server=true},
+	description = "Loads, converts, and saves the areas from"
+		.." a legacy node_ownership save file.",
+	privs = {areas=true, server=true, privs=true},
 	func = function(name, param)
 		minetest.chat_send_player(name, "Converting areas...")
-		local startTime = os.clock()
-
 		err = areas:legacy_load()
 		if err then
 			minetest.chat_send_player(name, "Error loading legacy file: "..err)
@@ -36,8 +35,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 		minetest.chat_send_player(name, "Table format updated.")
 
 		areas:save()
-		minetest.chat_send_player(name, "Converted areas saved.")
-		minetest.chat_send_player(name, "Finished in "..tostring(os.clock() - startTime).."s.")
+		minetest.chat_send_player(name, "Converted areas saved. Done.")
 end})
 
 -- The old load function from node_ownership (with minor modifications)

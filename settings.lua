@@ -11,13 +11,15 @@ end
 areas.filename =
 	minetest.setting_get("areas.filename") or worldpath.."/areas.dat"
 
--- Allow players with a privilege create their own areas within the max_size and number
+-- Allow players with a privilege create their own areas
+-- within the max_size and number
 areas.self_protection =
 	setting_getbool_default("areas.self_protection", false)
 areas.self_protection_privilege =
 	minetest.setting_get("areas.self_protection_privilege") or "interact"
 areas.self_protection_max_size =
-	minetest.setting_get_pos("areas.self_protection_max_size") or {x=50, y=100, z=50}
+	minetest.setting_get_pos("areas.self_protection_max_size") or
+			{x=50, y=100, z=50}
 areas.self_protection_max_areas =
 	tonumber(minetest.setting_get("areas.self_protection_max_areas")) or 3
 

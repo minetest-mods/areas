@@ -45,7 +45,8 @@ function areas:remove(id, recurse)
 		local parent = self:getAreaById(id).parent
 		local children = self:getChildren(id)
 		for _, child in pairs(children) do
-			-- The subarea parent will be niled out if the removed area does not have a parent
+			-- The subarea parent will be niled out if the
+			-- removed area does not have a parent
 			areas.areas[self:getIndexById(child)].parent = parent
 
 		end
@@ -58,15 +59,18 @@ end
 -- Checks if a area between two points is entirely contained by another area
 function areas:isSubarea(pos1, pos2, id)
 	local area = areas:getAreaById(id)
-	if area then
-		p1, p2 = area.pos1, area.pos2
-		if (pos1.x >= p1.x and pos1.x <= p2.x) and (pos2.x >= p1.x and pos2.x <= p2.x) and
-		   (pos1.y >= p1.y and pos1.y <= p2.y) and (pos2.y >= p1.y and pos2.y <= p2.y) and
-		   (pos1.z >= p1.z and pos1.z <= p2.z) and (pos2.z >= p1.z and pos2.z <= p2.z) then
-			return true
-		end
+	if not area then
+		return false
 	end
-	return false
+	p1, p2 = area.pos1, area.pos2
+	if (pos1.x >= p1.x and pos1.x <= p2.x) and
+	   (pos2.x >= p1.x and pos2.x <= p2.x) and
+	   (pos1.y >= p1.y and pos1.y <= p2.y) and
+	   (pos2.y >= p1.y and pos2.y <= p2.y) and
+	   (pos1.z >= p1.z and pos1.z <= p2.z) and
+	   (pos2.z >= p1.z and pos2.z <= p2.z) then
+		return true
+	end
 end
 
 -- Returns a table (list) of children of an area given it's identifier
@@ -83,17 +87,20 @@ end
 -- Checks if the user has sufficient privileges.
 -- If the player is not a administrator it also checks
 -- if the area intersects other areas that they do not own.
--- Also checks the size of the area and if the user already has more than max_areas.
+-- Also checks the size of the area and if the user already
+-- has more than max_areas.
 function areas:canPlayerAddArea(pos1, pos2, name)
-	--[[
 	if minetest.check_player_privs(name, {areas=true}) then
 		return true
-	end--]]
+	end
 
-	-- Check self protection privilege, if it is enabled, and if the area is too big.
+	-- Check self protection privilege, if it is enabled,
+	-- and if the area is too big.
 	if (not self.self_protection) or 
-	   (not minetest.check_player_privs(name, {[areas.self_protection_privilege]=true})) then
-		return false, "Self protection is disabled or you do not have the necessary privilege."
+	   (not minetest.check_player_privs(name,
+	   		{[areas.self_protection_privilege]=true})) then
+		return false, "Self protection is disabled or you do not have"
+				.." the necessary privilege."
 	end
 
 	if (pos2.x - pos1.x) > self.self_protection_max_size.x or
@@ -111,7 +118,9 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			end
 		end
 		if count > self.self_protection_max_areas then
-			return false, "You have reached the maximum amount of areas that you are allowed to protect."
+			return false, "You have reached the maximum amount"
+					.." of areas that you are allowed to"
+					.." protect."
 		end
 	end
 
@@ -122,7 +131,8 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 		   (area.pos1.z <= pos2.z and area.pos2.z >= pos1.z) then
 			--Found an area intersecting with the suplied area
 			if area.owner ~= name then
-				return false, "The area intersects with a area that you do not own."
+				return false, "The area intersects with an"
+						.." area that you do not own."
 			end
 		end
 	end
@@ -130,7 +140,8 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 	return true, ""
 end
 
--- Given a area returns a string in the format "name [id]: owner (x1, y1, z1) (x2, y2, z2) -> children"
+-- Given a area returns a string in the format:
+-- "name [id]: owner (x1, y1, z1) (x2, y2, z2) -> children"
 function areas:toString(area)
 	local message = area.name..
 		" ["..area.id.."]: "..area.owner.." "..
