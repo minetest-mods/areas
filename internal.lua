@@ -186,7 +186,7 @@ end
 
 -- Checks if a player owns an area or a parent of it
 function areas:isAreaOwner(id, name)
-	cur = self:getAreaById(id)
+	local cur = self:getAreaById(id)
 	if cur and minetest.check_player_privs(name, {areas=true}) then
 		return true
 	end

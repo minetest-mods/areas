@@ -144,14 +144,14 @@ minetest.register_chatcommand("rename_area", {
 	privs = {},
 	func = function(name, param)
 	local found, _, id, newName = param:find("^(%d+)%s(.+)$")
-
 	if not found then
 		minetest.chat_send_player(name,
 				"Invalid usage, see /help rename_area")
 		return
 	end
 
-	index = areas:getIndexById(tonumber(id))
+	id = tonumber(id)
+	index = areas:getIndexById(id)
 
 	if not index then
 		minetest.chat_send_player(name, "That area doesn't exist.")
@@ -165,6 +165,7 @@ minetest.register_chatcommand("rename_area", {
 
 	areas.areas[index].name = newName
 	areas:save()
+	minetest.chat_send_player(name, "Area renamed.")
 end})
 
 
