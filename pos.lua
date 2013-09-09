@@ -19,6 +19,7 @@ minetest.register_chatcommand("select_area", {
 		if not id then
 			minetest.chat_send_player(name,
 					"Invalid usage, see /help select_area.")
+			return
 		end
 
 		for k, area in pairs(areas.areas) do
