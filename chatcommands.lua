@@ -132,7 +132,7 @@ minetest.register_chatcommand("add_owner", {
 		areas:save()
 	
 		minetest.chat_send_player(ownername,
-				"You have been gtanted control over an area."
+				"You have been granted control over an area."
 				.." Type /list_areas to show your areas.")
 		minetest.chat_send_player(name, "Area protected.")
 end})
