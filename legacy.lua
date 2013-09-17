@@ -2,15 +2,21 @@
 -- the old areas format and other compatability code.
 
 minetest.register_chatcommand("legacy_load_areas", {
-	params = "",
+	params = "<version>",
 	description = "Loads, converts, and saves the areas from"
-		.." a legacy node_ownership save file.",
+		.." a legacy save file.",
 	privs = {areas=true, server=true, privs=true},
 	func = function(name, param)
 		minetest.chat_send_player(name, "Converting areas...")
-		err = areas:node_ownership_load()
-		if err then
-			minetest.chat_send_player(name, "Error loading legacy file: "..err)
+		local version = tonumber(param)
+		if version == 0 then
+			err = areas:node_ownership_load()
+			if err then
+				minetest.chat_send_player(name, "Error loading legacy file: "..err)
+				return
+			end
+		else
+			minetest.chat_send_player(name, "Invalid version number. (0 allowed)")
 			return
 		end
 		minetest.chat_send_player(name, "Legacy file loaded.")
