@@ -8,7 +8,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 	privs = {areas=true, server=true, privs=true},
 	func = function(name, param)
 		minetest.chat_send_player(name, "Converting areas...")
-		err = areas:legacy_load()
+		err = areas:node_ownership_load()
 		if err then
 			minetest.chat_send_player(name, "Error loading legacy file: "..err)
 			return
@@ -39,7 +39,8 @@ minetest.register_chatcommand("legacy_load_areas", {
 end})
 
 -- The old load function from node_ownership (with minor modifications)
-function areas:legacy_load()
+-- Licensed GPLv2 as it is only slightly modified.
+function areas:node_ownership_load()
 	local filename = minetest.get_worldpath().."/owners.tbl"
 	tables, err = loadfile(filename)
 	if err then
@@ -106,6 +107,7 @@ IsPlayerNodeOwner = areas.isNodeOwner
 GetNodeOwnerName  = areas.getNodeOwnerName
 HasOwner          = areas.hasOwner
 
+-- This is entirely untested and may break in strange and new ways.
 if areas.legacy_table then
 	owner_defs = {}
 	setmetatable(owner_defs, {

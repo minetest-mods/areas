@@ -1,6 +1,6 @@
 -- Areas mod by ShadowNinja
 -- Based on node_ownership
--- License: GPLv2+
+-- License: LGPLv2+
 
 areas = {}
 
