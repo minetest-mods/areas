@@ -67,9 +67,6 @@ Chat commands
 	For example:
 	/find_areas [Cc]astle To find castles.
 
- * /list\_owners
-	Lists the owners of your position.
-
  * /remove\_area &lt;ID&gt;
 	Removes a area that you own. Any sub-areas of that area are made sub-areas
 	of the removed area's parent, if it exists. Otherwise they will have no

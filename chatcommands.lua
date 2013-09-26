@@ -169,29 +169,6 @@ minetest.register_chatcommand("rename_area", {
 end})
 
 
-minetest.register_chatcommand("list_owners", {
-	params = "",
-	description = "List the owners of your position",
-	privs = {},
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-		if not player then
-			minetest.chat_send_player(name,
-					"Unable to find your position.")
-			return
-		end
-		local pos = vector.round(player:getpos())
-		local owners = areas:getNodeOwners(pos)
-		if #owners > 0 then
-			minetest.chat_send_player(name,
-					"Owners: "..table.concat(owners, ", "))
-		else
-			minetest.chat_send_player(name,
-					"Your position is unowned.")
-		end
-end})
-
-
 minetest.register_chatcommand("find_areas", {
 	params = "<regexp>",
 	description = "Find areas using a Lua regular expression",
