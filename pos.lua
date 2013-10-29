@@ -41,7 +41,7 @@ minetest.register_chatcommand("area_pos1", {
 		.." location or the one specified",
 	privs = {},
 	func = function(name, param)
-		local pos = {}
+		local pos = nil
 		local found, _, x, y, z = param:find(
 				"^(-?%d+)[%s%,]+(-?%d+)[%s%,]+(-?%d+)$")
 		if found then
@@ -58,6 +58,7 @@ minetest.register_chatcommand("area_pos1", {
 		else
 			minetest.chat_send_player(name,
 					"Invalid usage, see /help area_pos1")
+			return
 		end
 		pos = vector.round(pos)
 		areas:setPos1(name, pos)
@@ -73,7 +74,7 @@ minetest.register_chatcommand("area_pos2", {
 		.." location or the one specified",
 	privs = {},
 	func = function(name, param)
-		local pos = {}
+		local pos = nil
 		local found, _, x, y, z = param:find(
 				"^(-?%d+)[%s%,]+(-?%d+)[%s%,]+(-?%d+)$")
 		if found then
@@ -90,6 +91,7 @@ minetest.register_chatcommand("area_pos2", {
 		else
 			minetest.chat_send_player(name,
 					"Invalid usage, see /help area_pos2")
+			return
 		end
 		pos = vector.round(pos)
 		areas:setPos2(name, pos)
