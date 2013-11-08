@@ -3,38 +3,37 @@ minetest.register_chatcommand("protect", {
 	description = "Protect your own area",
 	privs = {[areas.self_protection_privilege]=true},
 	func = function(name, param)
-		if param ~= "" then
-
-			local pos1, pos2 = {}, {}
-			if areas:getPos1(name) and areas:getPos2(name) then
-				pos1 = areas:getPos1(name)
-				pos2 = areas:getPos2(name)
-				pos1, pos2 = areas:sortPos(pos1, pos2)
-			else
-				minetest.chat_send_player(name, 'You need to select an area first')
-				return
-			end
-
-			minetest.log("action", "/protect invoked, owner="..name..
-					" areaname="..param..
-					" startpos="..minetest.pos_to_string(pos1)..
-					" endpos="  ..minetest.pos_to_string(pos2))
-
-			local canAdd, errMsg = areas:canPlayerAddArea(pos1, pos2, name)
-			if not canAdd then
-				minetest.chat_send_player(name,
-						"You can't protect that area: "
-						..errMsg)
-				return
-			end
-
-			areas:add(name, param, pos1, pos2, nil)
-			areas:save()
-		
-			minetest.chat_send_player(name, "Area protected")
-		else
+		if param == "" then
 			minetest.chat_send_player(name, 'Invalid usage, see /help protect')
+			return
 		end
+		local pos1, pos2 = {}, {}
+		if areas:getPos1(name) and areas:getPos2(name) then
+			pos1 = areas:getPos1(name)
+			pos2 = areas:getPos2(name)
+			pos1, pos2 = areas:sortPos(pos1, pos2)
+		else
+			minetest.chat_send_player(name, 'You need to select an area first')
+			return
+		end
+
+		minetest.log("action", "/protect invoked, owner="..name..
+				" areaname="..param..
+				" startpos="..minetest.pos_to_string(pos1)..
+				" endpos="  ..minetest.pos_to_string(pos2))
+
+		local canAdd, errMsg = areas:canPlayerAddArea(pos1, pos2, name)
+		if not canAdd then
+			minetest.chat_send_player(name,
+					"You can't protect that area: "
+					..errMsg)
+			return
+		end
+
+		areas:add(name, param, pos1, pos2, nil)
+		areas:save()
+
+		minetest.chat_send_player(name, "Area protected")
 end})
 
 
@@ -58,17 +57,17 @@ minetest.register_chatcommand("set_owner", {
 			pos2 = areas:getPos2(name)
 			pos1, pos2 = areas:sortPos(pos1, pos2)
 		else
-			minetest.chat_send_player(name, 'You need to select an area first')
+			minetest.chat_send_player(name, "You need to select an area first")
 			return
 		end
 
 		if not areas:player_exists(ownername) then
-			minetest.chat_send_player(name, 'The player "'
-					..ownername..'" does not exist')
+			minetest.chat_send_player(name, "The player \""
+					..ownername.."\" does not exist")
 			return
 		end
 
-		minetest.log("action", "/set_owner invoked, Owner="..ownername..
+		minetest.log("action", name.." runs /set_owner. Owner="..ownername..
 				" AreaName="..areaname..
 				" StartPos="..minetest.pos_to_string(pos1)..
 				" EndPos="  ..minetest.pos_to_string(pos2))
@@ -114,7 +113,7 @@ minetest.register_chatcommand("add_owner", {
 			return
 		end
 
-		minetest.log("action", "add_owner invoked, Owner = "..ownername..
+		minetest.log("action", name.." runs /add_owner. Owner = "..ownername..
 				" AreaName = "..areaname.." ParentID = "..pid..
 				" StartPos = "..pos1.x..","..pos1.y..","..pos1.z..
 				" EndPos = "  ..pos2.x..","..pos2.y..","..pos2.z)
@@ -130,7 +129,7 @@ minetest.register_chatcommand("add_owner", {
 
 		areas:add(ownername, areaname, pos1, pos2, pid)
 		areas:save()
-	
+
 		minetest.chat_send_player(ownername,
 				"You have been granted control over an area."
 				.." Type /list_areas to show your areas.")
@@ -143,29 +142,29 @@ minetest.register_chatcommand("rename_area", {
 	description = "Rename a area that you own",
 	privs = {},
 	func = function(name, param)
-	local found, _, id, newName = param:find("^(%d+)%s(.+)$")
-	if not found then
-		minetest.chat_send_player(name,
-				"Invalid usage, see /help rename_area")
-		return
-	end
+		local found, _, id, newName = param:find("^(%d+)%s(.+)$")
+		if not found then
+			minetest.chat_send_player(name,
+					"Invalid usage, see /help rename_area")
+			return
+		end
 
-	id = tonumber(id)
-	index = areas:getIndexById(id)
+		id = tonumber(id)
+		index = areas:getIndexById(id)
 
-	if not index then
-		minetest.chat_send_player(name, "That area doesn't exist.")
-		return
-	end
+		if not index then
+			minetest.chat_send_player(name, "That area doesn't exist.")
+			return
+		end
 
-	if not areas:isAreaOwner(id, name) then
-		minetest.chat_send_player(name, "You don't own that area.")
-		return
-	end
+		if not areas:isAreaOwner(id, name) then
+			minetest.chat_send_player(name, "You don't own that area.")
+			return
+		end
 
-	areas.areas[index].name = newName
-	areas:save()
-	minetest.chat_send_player(name, "Area renamed.")
+		areas.areas[index].name = newName
+		areas:save()
+		minetest.chat_send_player(name, "Area renamed.")
 end})
 
 
@@ -198,7 +197,7 @@ minetest.register_chatcommand("list_areas", {
 	description = "List your areas, or all areas if you are an admin.",
 	privs = {},
 	func = function(name, param)
-		admin = minetest.check_player_privs(name, {areas=true})
+		local admin = minetest.check_player_privs(name, {areas=true})
 		if admin then
 			minetest.chat_send_player(name,
 					"Showing all areas.")
