@@ -297,7 +297,7 @@ minetest.register_chatcommand("change_owner", {
 					.." or is not owned by you.")
 			return
 		end
-		local index = areas:getImdexById(id)
+		local index = areas:getIndexById(id)
 		areas.areas[index].owner = new_owner
 		areas:save()
 		minetest.chat_send_player(name, 'Owner changed.')
