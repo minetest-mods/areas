@@ -36,16 +36,3 @@ function areas:getNodeOwners(pos)
 	return owners
 end
 
--- Checks if an area has an owner
-function areas.hasOwner(pos)
-	for _, area in pairs(areas.areas) do
-		p1, p2 = area.pos1, area.pos2
-		if pos.x >= p1.x and pos.x <= p2.x and
-		   pos.y >= p1.y and pos.y <= p2.y and
-		   pos.z >= p1.z and pos.z <= p2.z then
-			return true
-		end
-	end
-	return false
-end
-
