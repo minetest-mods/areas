@@ -44,7 +44,7 @@ minetest.register_chatcommand("area_pos1", {
 	func = function(name, param)
 		local pos = nil
 		local found, _, x, y, z = param:find(
-				"^(-?%d+)[%s%,]+(-?%d+)[%s%,]+(-?%d+)$")
+				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
 		elseif param == "" then
@@ -77,7 +77,7 @@ minetest.register_chatcommand("area_pos2", {
 	func = function(name, param)
 		local pos = nil
 		local found, _, x, y, z = param:find(
-				"^(-?%d+)[%s%,]+(-?%d+)[%s%,]+(-?%d+)$")
+				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
 		elseif param == "" then

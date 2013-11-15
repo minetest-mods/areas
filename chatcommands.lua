@@ -44,7 +44,7 @@ minetest.register_chatcommand("set_owner", {
 		.." area to any existing area",
 	privs = {areas=true},
 	func = function(name, param)
-		local found, _, ownername, areaname = param:find('^([^%s]+)%s(.+)$')
+		local found, _, ownername, areaname = param:find('^([^ ]+) (.+)$')
 
 		if not found then
 			minetest.chat_send_player(name, "Incorrect usage, see /help set_owner")
@@ -90,7 +90,7 @@ minetest.register_chatcommand("add_owner", {
 	privs = {},
 	func = function(name, param)
 		local found, _, pid, ownername, areaname
-				= param:find('^(%d+)%s([^%s]+)%s(.+)$')
+				= param:find('^(%d+) ([^ ]+) (.+)$')
 
 		if not found then
 			minetest.chat_send_player(name, "Incorrect usage, see /help set_owner")
@@ -142,7 +142,7 @@ minetest.register_chatcommand("rename_area", {
 	description = "Rename a area that you own",
 	privs = {},
 	func = function(name, param)
-		local found, _, id, newName = param:find("^(%d+)%s(.+)$")
+		local found, _, id, newName = param:find("^(%d+) (.+)$")
 		if not found then
 			minetest.chat_send_player(name,
 					"Invalid usage, see /help rename_area")
@@ -274,8 +274,8 @@ minetest.register_chatcommand("change_owner", {
 	privs = {},
 	func = function(name, param)
 		local found, _, id, new_owner =
-				param:find('^(%d+)%s+([^%s]+)$')
-		
+				param:find('^(%d+) ([^ ]+)$')
+
 		if not found then
 			minetest.chat_send_player(name,
 					"Invalid usage,"
