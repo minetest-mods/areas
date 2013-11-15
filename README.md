@@ -90,3 +90,10 @@ Chat commands
  * /area\_pos2 \[X,Y,Z|X Y Z\]
 	Sets area position two to your position or the one supplied.
 
+License
+-------
+Copyright (C) 2013 ShadowNinja
+
+Licensed under the GNU LGPL version 2.1 or higher.
+See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
+

@@ -1,8 +1,9 @@
 
 -- I could depend on WorldEdit for this, but you need to have the 'worldedit'
 -- permission to use those commands and you don't have
--- /area_pos{1,2} [x y z|x,y,z]. Since this is mostly copied from WorldEdit
--- it is licensed under the AGPL.
+-- /area_pos{1,2} [X Y Z|X,Y,Z].
+-- Since this is mostly copied from WorldEdit it is mostly
+-- licensed under the AGPL. (select_area is a exception)
 
 areas.marker1 = {}
 areas.marker2 = {}

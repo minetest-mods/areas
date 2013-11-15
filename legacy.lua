@@ -44,8 +44,6 @@ minetest.register_chatcommand("legacy_load_areas", {
 		minetest.chat_send_player(name, "Converted areas saved. Done.")
 end})
 
--- The old load function from node_ownership (with minor modifications)
--- Licensed GPLv2 as it is only slightly modified.
 function areas:node_ownership_load()
 	local filename = minetest.get_worldpath().."/owners.tbl"
 	tables, err = loadfile(filename)
