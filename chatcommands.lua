@@ -93,7 +93,7 @@ minetest.register_chatcommand("add_owner", {
 				= param:find('^(%d+) ([^ ]+) (.+)$')
 
 		if not found then
-			minetest.chat_send_player(name, "Incorrect usage, see /help set_owner")
+			minetest.chat_send_player(name, "Incorrect usage, see /help add_owner")
 			return
 		end
 
