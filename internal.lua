@@ -158,16 +158,20 @@ end
 
 -- Returns a area given it's identifier
 function areas:getAreaById(id)
-	for _, area in pairs(self.areas) do
-		if area.id == id then return area end
+	if not self.areas[id] then
+		return nil
 	end
+	assert(self.areas[id].id == id)
+	return self.areas[id]
 end
 
 -- Returns a table index for an area given it's identifier
 function areas:getIndexById(id)
-	for i, area in pairs(self.areas) do
-		if area.id == id then return i end
+	if not self.areas[id] then
+		return nil
 	end
+	assert(self.areas[id].id == id)
+	return id
 end
 
 -- Re-order areas in table by their identifiers
