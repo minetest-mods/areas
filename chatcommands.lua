@@ -206,7 +206,7 @@ minetest.register_chatcommand("list_areas", {
 					"Showing your areas.")
 		end
 		for _, area in pairs(areas.areas) do
-			if admin or area.owner == name then
+			if admin or areas:isAreaOwner(area.id, name) then
 				minetest.chat_send_player(name,
 						areas:toString(area))
 			end
