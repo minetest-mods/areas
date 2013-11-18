@@ -38,7 +38,7 @@ function areas:remove(id, recurse)
 		-- Recursively find child entries and remove them
 		local cids = self:getChildren(id)
 		for _, cid in pairs(cids) do
-			self:removeArea(cid, true)
+			self:remove(cid, true)
 		end
 	else
 		-- Update parents
