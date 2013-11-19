@@ -1,3 +1,4 @@
+
 function areas:player_exists(name)
 	return minetest.auth_table[name] ~= nil
 end
@@ -20,45 +21,59 @@ function areas:load()
 		return err
 	end
 	self.areas = minetest.deserialize(file:read("*a"))
-	if type(self.areas) ~= "table" then self.areas = {} end
+	if type(self.areas) ~= "table" then
+		self.areas = {}
+	end
 	file:close()
 end
 
--- Shorter than the table function
+-- Finds the first usable index in a table
+-- Eg: {[1]=false,[4]=true} -> 2
+local function findFirstUnusedIndex(t)
+	for i = 1, #t + 1 do
+		if t[i] == nil then
+			return i
+		end
+	end
+end
+
+-- Add a area, returning the new area's id.
 function areas:add(owner, name, pos1, pos2, parent)
-	table.insert(areas.areas, {id=table.maxn(self.areas)+1, name=name,
-			pos1=pos1, pos2=pos2, owner=owner, parent=parent})
+	local id = findFirstUnusedIndex(self.areas)
+	self.areas[id] = {name=name, pos1=pos1, pos2=pos2, owner=owner,
+			parent=parent}
+	return id
 end
 
 -- Remove a area, and optionally it's children recursively.
 -- If a area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
-function areas:remove(id, recurse)
+function areas:remove(id, recurse, secondrun)
 	if recurse then
 		-- Recursively find child entries and remove them
 		local cids = self:getChildren(id)
 		for _, cid in pairs(cids) do
-			self:remove(cid, true)
+			self:remove(cid, true, true)
 		end
 	else
 		-- Update parents
-		local parent = self:getAreaById(id).parent
+		local parent = self.areas[id].parent
 		local children = self:getChildren(id)
-		for _, child in pairs(children) do
+		for _, cid in pairs(children) do
 			-- The subarea parent will be niled out if the
 			-- removed area does not have a parent
-			areas.areas[self:getIndexById(child)].parent = parent
+			self.areas[cid].parent = parent
 
 		end
 	end
 
 	-- Remove main entry
-	table.remove(self.areas, self:getIndexById(id))
+	self.areas[id] = nil
 end
 
 -- Checks if a area between two points is entirely contained by another area
 function areas:isSubarea(pos1, pos2, id)
-	local area = areas:getAreaById(id)
+	local area = self.areas[id]
 	if not area then
 		return false
 	end
@@ -76,9 +91,9 @@ end
 -- Returns a table (list) of children of an area given it's identifier
 function areas:getChildren(id)
 	local children = {}
-	for _, area in pairs(self.areas) do
+	for cid, area in pairs(self.areas) do
 		if area.parent and area.parent == id then
-			table.insert(children, area.id)
+			table.insert(children, cid)
 		end
 	end
 	return children
@@ -140,57 +155,43 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 	return true, ""
 end
 
--- Given a area returns a string in the format:
+-- Given a id returns a string in the format:
 -- "name [id]: owner (x1, y1, z1) (x2, y2, z2) -> children"
-function areas:toString(area)
-	local message = area.name..
-		" ["..area.id.."]: "..area.owner.." "..
-		minetest.pos_to_string(area.pos1).." "..
-		minetest.pos_to_string(area.pos2)
+function areas:toString(id)
+	local area = self.areas[id]
+	local message = ("%s [%d]: %s %s %s"):format(
+		area.name, id, area.owner,
+		minetest.pos_to_string(area.pos1),
+		minetest.pos_to_string(area.pos2))
 
 	local children = areas:getChildren(id)
 	if #children > 0 then
-		message = message..
-		" -> "..table.concat(children, ", ")
+		message = message.." -> "..table.concat(children, ", ")
 	end
-	return message		
-end
-
--- Returns a area given it's identifier
-function areas:getAreaById(id)
-	if not self.areas[id] then
-		return nil
-	end
-	assert(self.areas[id].id == id)
-	return self.areas[id]
-end
-
--- Returns a table index for an area given it's identifier
-function areas:getIndexById(id)
-	if not self.areas[id] then
-		return nil
-	end
-	assert(self.areas[id].id == id)
-	return id
+	return message
 end
 
 -- Re-order areas in table by their identifiers
 function areas:sort()
+	local sa = {}
 	for k, area in pairs(self.areas) do
-		if area.id ~= k then
+		if not area.parent then
+			table.insert(sa, area)
+			local newid = #sa
 			for _, subarea in pairs(self.areas) do
-				if subarea.parent == area.id then
-					subarea.parent = k
+				if subarea.parent == k then
+					subarea.parent = newid
+					table.insert(sa, subarea)
 				end
 			end
-			area.id = k
 		end
 	end
+	self.areas = sa
 end
 
 -- Checks if a player owns an area or a parent of it
 function areas:isAreaOwner(id, name)
-	local cur = self:getAreaById(id)
+	local cur = self.areas[id]
 	if cur and minetest.check_player_privs(name, {areas=true}) then
 		return true
 	end
@@ -198,7 +199,7 @@ function areas:isAreaOwner(id, name)
 		if cur.owner == name then
 			return true
 		elseif cur.parent then
-			cur = self:getAreaById(cur.parent)
+			cur = self.areas[cur.parent]
 		else
 			return false
 		end

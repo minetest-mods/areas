@@ -21,12 +21,17 @@ areas:load()
 minetest.register_privilege("areas", {description = "Can administer areas"})
 
 if not minetest.registered_privileges[areas.self_protection_privilege] then
-	minetest.register_privilege(areas.self_protection_privilege,
-		{description = "Can protect areas"})
+	minetest.register_privilege(areas.self_protection_privilege, {
+		description = "Can protect areas",
+	})
+end
+
+for _, area in pairs(areas.areas) do
+	area.id = nil
 end
 
 if minetest.setting_getbool("log_mod") then
 	local diffTime = os.clock() - areas.startTime
-	print("[areas] loaded in "..diffTime.."s.")
+	minetest.log("action", "areas loaded in "..diffTime.."s.")
 end
 

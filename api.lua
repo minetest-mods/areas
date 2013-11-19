@@ -1,4 +1,3 @@
---TODO Less code duplication
 
 -- Checks if the area is unprotected or owned by you
 function areas:canInteract(pos, name)
@@ -28,9 +27,7 @@ function areas:getNodeOwners(pos)
 		if pos.x >= area.pos1.x and pos.x <= area.pos2.x and
 		   pos.y >= area.pos1.y and pos.y <= area.pos2.y and
 		   pos.z >= area.pos1.z and pos.z <= area.pos2.z then
-			if area.owner ~= nil then
-				table.insert(owners, area.owner)
-			end
+			table.insert(owners, area.owner)
 		end
 	end
 	return owners

@@ -22,21 +22,22 @@ minetest.register_chatcommand("legacy_load_areas", {
 		minetest.chat_send_player(name, "Legacy file loaded.")
 
 		for k, area in pairs(areas.areas) do
-			--New position format
-			areas.areas[k].pos1 = {x=area.x1, y=area.y1, z=area.z1}
-			areas.areas[k].pos2 = {x=area.x2, y=area.y2, z=area.z2}
+			-- New position format
+			area.pos1 = {x=area.x1, y=area.y1, z=area.z1}
+			area.pos2 = {x=area.x2, y=area.y2, z=area.z2}
 
-			areas.areas[k].x1, areas.areas[k].y1,
-			areas.areas[k].z1, areas.areas[k].x2,
-			areas.areas[k].y2, areas.areas[k].z2 =
+			area.x1, area.y1, area.z1,
+			area.x2, area.y2, area.z2 =
 				nil, nil, nil, nil, nil, nil
 
-			--Area positions sorting
-			areas.areas[k].pos1, areas.areas[k].pos2 =
-				areas:sortPos(areas.areas[k].pos1, areas.areas[k].pos2)
+			-- Area positions sorting
+			area.pos1, area.pos2 = areas:sortPos(area.pos1, area.pos2)
 
-			--Add name
-			areas.areas[k].name = "unnamed"
+			-- Add name
+			area.name = "unnamed"
+
+			-- Remove ID
+			area.id = nil
 		end
 		minetest.chat_send_player(name, "Table format updated.")
 
@@ -81,9 +82,7 @@ function areas.getNodeOwnerName(pos)
 		if pos.x >= p1.x and pos.x <= p2.x and
 		   pos.y >= p1.y and pos.y <= p2.y and
 		   pos.z >= p1.z and pos.z <= p2.z then
-			if area.owner ~= nil then
-				return area.owner
-			end
+			return area.owner
 		end
 	end
 	return false
@@ -138,6 +137,7 @@ if areas.legacy_table then
 				a.y2 = a.pos2.y
 				a.z2 = a.pos2.z
 				a.pos1, a.pos2 = nil, nil
+				a.id = key
 			end
 			return a
 		end,
@@ -151,10 +151,11 @@ if areas.legacy_table then
 				a.pos2.x = a.x2
 				a.pos2.y = a.y2
 				a.pos2.z = a.z2
-				a.x1, a.y1, a.z1, a.x2, a.y2, a.z2
-				= nil, nil, nil, nil, nil, nil
+				a.x1, a.y1, a.z1, a.x2, a.y2, a.z2 =
+					nil, nil, nil, nil, nil, nil
 				a.name = a.name or "unnamed"
-				return rawset(areas.areas, key, a);
+				a.id = nil
+				return rawset(areas.areas, key, a)
 			end
 		end
 	})

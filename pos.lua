@@ -22,19 +22,18 @@ minetest.register_chatcommand("select_area", {
 					"Invalid usage, see /help select_area.")
 			return
 		end
-
-		for k, area in pairs(areas.areas) do
-			if area.id == id then
-				areas:setPos1(name, area.pos1)
-				areas:setPos2(name, area.pos2)
-				minetest.chat_send_player(name,
-						"Area "..id.." selected.")
-				return
-			end
+		if not areas.areas[id] then
+			minetest.chat_send_player(name,
+					"The area "..id.." does not exist.")
+			return
 		end
+
+		areas:setPos1(name, areas.areas[id].pos1)
+		areas:setPos2(name, areas.areas[id].pos2)
 		minetest.chat_send_player(name,
-				"The area "..id.." does not exist.")
-end})
+				"Area "..id.." selected.")
+	end,
+})
 
 minetest.register_chatcommand("area_pos1", {
 	params = "[X Y Z|X,Y,Z]",

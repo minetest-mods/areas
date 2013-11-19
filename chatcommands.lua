@@ -1,3 +1,4 @@
+
 minetest.register_chatcommand("protect", {
 	params = "<AreaName>",
 	description = "Protect your own area",
@@ -7,10 +8,8 @@ minetest.register_chatcommand("protect", {
 			minetest.chat_send_player(name, 'Invalid usage, see /help protect')
 			return
 		end
-		local pos1, pos2 = {}, {}
-		if areas:getPos1(name) and areas:getPos2(name) then
-			pos1 = areas:getPos1(name)
-			pos2 = areas:getPos2(name)
+		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
+		if pos1 and pos2 then
 			pos1, pos2 = areas:sortPos(pos1, pos2)
 		else
 			minetest.chat_send_player(name, 'You need to select an area first')
@@ -30,10 +29,10 @@ minetest.register_chatcommand("protect", {
 			return
 		end
 
-		areas:add(name, param, pos1, pos2, nil)
+		local id = areas:add(name, param, pos1, pos2, nil)
 		areas:save()
 
-		minetest.chat_send_player(name, "Area protected")
+		minetest.chat_send_player(name, "Area protected. ID: "..id)
 end})
 
 
@@ -51,10 +50,8 @@ minetest.register_chatcommand("set_owner", {
 			return
 		end
 
-		local pos1, pos2 = {}, {}
-		if areas:getPos1(name) and areas:getPos2(name) then
-			pos1 = areas:getPos1(name)
-			pos2 = areas:getPos2(name)
+		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
+		if pos1 and pos2 then
 			pos1, pos2 = areas:sortPos(pos1, pos2)
 		else
 			minetest.chat_send_player(name, "You need to select an area first")
@@ -67,18 +64,18 @@ minetest.register_chatcommand("set_owner", {
 			return
 		end
 
-		minetest.log("action", name.." runs /set_owner. Owner="..ownername..
-				" AreaName="..areaname..
-				" StartPos="..minetest.pos_to_string(pos1)..
-				" EndPos="  ..minetest.pos_to_string(pos2))
+		minetest.log("action", name.." runs /set_owner. Owner = "..ownername..
+				" AreaName = "..areaname..
+				" StartPos = "..minetest.pos_to_string(pos1)..
+				" EndPos = "  ..minetest.pos_to_string(pos2))
 
-		areas:add(ownername, areaname, pos1, pos2, nil)
+		local id = areas:add(ownername, areaname, pos1, pos2, nil)
 		areas:save()
 	
 		minetest.chat_send_player(ownername,
-				"You have been granted control over an area."
-				.." Type /list_areas to show your areas.")
-		minetest.chat_send_player(name, "Area protected")
+				"You have been granted control over area #"..
+				id..". Type /list_areas to show your areas.")
+		minetest.chat_send_player(name, "Area protected. ID: "..id)
 end})
 
 
@@ -97,10 +94,8 @@ minetest.register_chatcommand("add_owner", {
 			return
 		end
 
-		local pos1, pos2 = {}, {}
-		if areas:getPos1(name) and areas:getPos2(name) then
-			pos1 = areas:getPos1(name)
-			pos2 = areas:getPos2(name)
+		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
+		if pos1 and pos2 then
 			pos1, pos2 = areas:sortPos(pos1, pos2)
 		else
 			minetest.chat_send_player(name, 'You need to select an area first')
@@ -127,13 +122,13 @@ minetest.register_chatcommand("add_owner", {
 			return
 		end
 
-		areas:add(ownername, areaname, pos1, pos2, pid)
+		local id = areas:add(ownername, areaname, pos1, pos2, pid)
 		areas:save()
 
 		minetest.chat_send_player(ownername,
-				"You have been granted control over an area."
-				.." Type /list_areas to show your areas.")
-		minetest.chat_send_player(name, "Area protected.")
+				"You have been granted control over area #"..
+				id..". Type /list_areas to show your areas.")
+		minetest.chat_send_player(name, "Area protected. ID: "..id)
 end})
 
 
@@ -150,9 +145,7 @@ minetest.register_chatcommand("rename_area", {
 		end
 
 		id = tonumber(id)
-		index = areas:getIndexById(id)
-
-		if not index then
+		if not id then
 			minetest.chat_send_player(name, "That area doesn't exist.")
 			return
 		end
@@ -162,7 +155,7 @@ minetest.register_chatcommand("rename_area", {
 			return
 		end
 
-		areas.areas[index].name = newName
+		areas.areas[id].name = newName
 		areas:save()
 		minetest.chat_send_player(name, "Area renamed.")
 end})
@@ -178,11 +171,12 @@ minetest.register_chatcommand("find_areas", {
 					"A regular expression is required.")
 			return
 		end
+
 		local found = false
-		for _, area in pairs(areas.areas) do
-			if areas:isAreaOwner(area.id, name) and
-			   areas:toString(area):find(param) then
-				minetest.chat_send_player(name, areas:toString(area))
+		for id, area in pairs(areas.areas) do
+			if areas:isAreaOwner(id, name) and
+			   areas:toString(id):find(param) then
+				minetest.chat_send_player(name, areas:toString(id))
 				found = true
 			end
 		end
@@ -205,10 +199,10 @@ minetest.register_chatcommand("list_areas", {
 			minetest.chat_send_player(name,
 					"Showing your areas.")
 		end
-		for _, area in pairs(areas.areas) do
-			if admin or areas:isAreaOwner(area.id, name) then
+		for id, area in pairs(areas.areas) do
+			if admin or areas:isAreaOwner(id, name) then
 				minetest.chat_send_player(name,
-						areas:toString(area))
+						areas:toString(id))
 			end
 		end
 end})
@@ -227,16 +221,15 @@ minetest.register_chatcommand("recursive_remove_areas", {
 			return
 		end
 
-		if areas:isAreaOwner(id, name) then
-			areas:remove(id, true)
-			areas:sort()
-			areas:save()
-		else
+		if not areas:isAreaOwner(id, name) then
 			minetest.chat_send_player(name, "Area "..id
 					.." does not exist or is"
 					.." not owned by you.")
 			return
 		end
+
+		areas:remove(id, true)
+		areas:save()
 		minetest.chat_send_player(name, "Removed area "..id
 				.." and it's sub areas.")
 end})
@@ -254,16 +247,15 @@ minetest.register_chatcommand("remove_area", {
 			return
 		end
 
-		if areas:isAreaOwner(id, name) then
-			areas:remove(id, false)
-			areas:sort()
-			areas:save()
-		else
+		if not areas:isAreaOwner(id, name) then
 			minetest.chat_send_player(name, "Area "..id
 					.." does not exist or"
 					.." is not owned by you")
 			return
 		end
+
+		areas:remove(id)
+		areas:save()
 		minetest.chat_send_player(name, 'Removed area '..id)
 end})
 
@@ -296,8 +288,7 @@ minetest.register_chatcommand("change_owner", {
 					.." or is not owned by you.")
 			return
 		end
-		local index = areas:getIndexById(id)
-		areas.areas[index].owner = new_owner
+		areas.areas[id].owner = new_owner
 		areas:save()
 		minetest.chat_send_player(name, 'Owner changed.')
 		minetest.chat_send_player(new_owner,
