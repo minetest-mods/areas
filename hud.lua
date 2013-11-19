@@ -15,10 +15,10 @@ minetest.register_globalstep(function(dtime)
 				name = "AreaOwners",
 				number = 0xFFFFFF,
 				position = {x=0, y=1},
-				offset = {x=5, y=-40},
+				offset = {x=5, y=-60},
 				direction = 0,
 				text = "Area owners: "..ownerString,
-				scale = {x=200, y=40},
+				scale = {x=200, y=60},
 				alignment = {x=1, y=1},
 			})
 			areas.hud[name].oldOwners = ownerString
