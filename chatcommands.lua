@@ -172,6 +172,16 @@ minetest.register_chatcommand("find_areas", {
 			return
 		end
 
+		-- Check expression for validity
+		local function testRegExp()
+			("Test [1]: Player (0,0,0) (0,0,0)"):find(param)
+		end
+		if not pcall(testRegExp) then
+			minetest.chat_send_player(name,
+				       "Invalid regular expression.")
+			return
+		end
+
 		local found = false
 		for id, area in pairs(areas.areas) do
 			if areas:isAreaOwner(id, name) and
