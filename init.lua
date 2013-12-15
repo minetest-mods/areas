@@ -26,10 +26,6 @@ if not minetest.registered_privileges[areas.self_protection_privilege] then
 	})
 end
 
-for _, area in pairs(areas.areas) do
-	area.id = nil
-end
-
 if minetest.setting_getbool("log_mod") then
 	local diffTime = os.clock() - areas.startTime
 	minetest.log("action", "areas loaded in "..diffTime.."s.")
