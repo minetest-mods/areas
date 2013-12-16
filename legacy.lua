@@ -142,21 +142,19 @@ if areas.legacy_table then
 			return a
 		end,
 		__newindex = function(table, key, value)
-			if rawget(areas.areas, key) ~= nil then
-				local a = value
-				a.pos1, a.pos2 = {}, {}
-				a.pos1.x = a.x1
-				a.pos1.y = a.y1
-				a.pos1.z = a.z1
-				a.pos2.x = a.x2
-				a.pos2.y = a.y2
-				a.pos2.z = a.z2
-				a.x1, a.y1, a.z1, a.x2, a.y2, a.z2 =
-					nil, nil, nil, nil, nil, nil
-				a.name = a.name or "unnamed"
-				a.id = nil
-				return rawset(areas.areas, key, a)
-			end
+			local a = value
+			a.pos1, a.pos2 = {}, {}
+			a.pos1.x = a.x1
+			a.pos1.y = a.y1
+			a.pos1.z = a.z1
+			a.pos2.x = a.x2
+			a.pos2.y = a.y2
+			a.pos2.z = a.z2
+			a.x1, a.y1, a.z1, a.x2, a.y2, a.z2 =
+				nil, nil, nil, nil, nil, nil
+			a.name = a.name or "unnamed"
+			a.id = nil
+			return rawset(areas.areas, key, a)
 		end
 	})
 end
