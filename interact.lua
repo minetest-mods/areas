@@ -1,5 +1,5 @@
 
-old_is_protected = minetest.is_protected
+local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
 	if not areas:canInteract(pos, name) then
 		return true

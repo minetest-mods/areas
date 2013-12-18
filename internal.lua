@@ -5,7 +5,7 @@ end
 
 -- Save the areas table to a file
 function areas:save()
-	file, err = io.open(self.filename, "w")
+	local file, err = io.open(self.filename, "w")
 	if err then
 		return err
 	end
@@ -15,7 +15,7 @@ end
 
 -- Load the areas table from the save file
 function areas:load()
-	file, err = io.open(self.filename, "r")
+	local file, err = io.open(self.filename, "r")
 	if err then
 		self.areas = self.areas or {}
 		return err
