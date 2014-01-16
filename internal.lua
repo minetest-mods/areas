@@ -130,7 +130,7 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			count = count + 1
 		end
 	end
-	if count > self.self_protection_max_areas then
+	if count >= self.self_protection_max_areas then
 		return false, "You have reached the maximum amount"
 				.." of areas that you are allowed to"
 				.." protect."
