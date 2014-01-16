@@ -30,11 +30,10 @@ end
 -- Finds the first usable index in a table
 -- Eg: {[1]=false,[4]=true} -> 2
 local function findFirstUnusedIndex(t)
-	for i = 1, #t + 1 do
-		if t[i] == nil then
-			return i
-		end
-	end
+	local i = 0
+	repeat i = i + 1
+	until t[i] == nil
+	return i
 end
 
 -- Add a area, returning the new area's id.
