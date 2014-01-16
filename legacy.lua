@@ -77,13 +77,8 @@ end
 
 -- Returns the name of the first player that owns an area
 function areas.getNodeOwnerName(pos)
-	for _, area in pairs(areas.areas) do
-		p1, p2 = area.pos1, area.pos2
-		if pos.x >= p1.x and pos.x <= p2.x and
-		   pos.y >= p1.y and pos.y <= p2.y and
-		   pos.z >= p1.z and pos.z <= p2.z then
-			return area.owner
-		end
+	for id, area in pairs(areas:getAreasAtPos(pos)) do
+		return area.owner
 	end
 	return false
 end
@@ -93,14 +88,9 @@ function areas.isNodeOwner(pos, name)
 	if minetest.check_player_privs(name, {areas=true}) then
 		return true
 	end
-	for _, area in pairs(areas.areas) do
-		p1, p2 = area.pos1, area.pos2
-		if pos.x >= p1.x and pos.x <= p2.x and
-		   pos.y >= p1.y and pos.y <= p2.y and
-		   pos.z >= p1.z and pos.z <= p2.z then
-			if name == area.owner then
-				return true
-			end
+	for id, area in pairs(areas:getAreasAtPos(pos)) do
+		if name == area.owner then
+			return true
 		end
 	end
 	return false
@@ -108,13 +98,8 @@ end
 
 -- Checks if an area has an owner
 function areas.hasOwner(pos)
-	for _, area in pairs(areas.areas) do
-		p1, p2 = area.pos1, area.pos2
-		if pos.x >= p1.x and pos.x <= p2.x and
-		   pos.y >= p1.y and pos.y <= p2.y and
-		   pos.z >= p1.z and pos.z <= p2.z then
-			return true
-		end
+	for id, area in pairs(areas:getAreasAtPos(pos)) do
+		return true
 	end
 	return false
 end

@@ -6,28 +6,36 @@ minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
-		local owners = areas:getNodeOwners(pos)
-		local ownerString = table.concat(owners, ", ")
+		local a = areas:getAreasAtPos(pos)
+		local areaString = ""
+		local first = true
+		for id, area in pairs(areas:getAreasAtPos(pos)) do
+			if not first then
+				areaString = areaString..", "
+			else
+				first = false
+			end
+			areaString = areaString..id.." ("..area.owner..")"
+		end
 		if not areas.hud[name] then
 			areas.hud[name] = {}
-			areas.hud[name].ownersId = player:hud_add({
+			areas.hud[name].areasId = player:hud_add({
 				hud_elem_type = "text",
-				name = "AreaOwners",
+				name = "Areas",
 				number = 0xFFFFFF,
 				position = {x=0, y=1},
 				offset = {x=5, y=-60},
 				direction = 0,
-				text = "Area owners: "..ownerString,
+				text = "Areas: "..areaString,
 				scale = {x=200, y=60},
 				alignment = {x=1, y=1},
 			})
-			areas.hud[name].oldOwners = ownerString
+			areas.hud[name].oldAreas = areaString
 			return
-		end
-		if areas.hud[name].oldOwners ~= ownerString then
-			player:hud_change(areas.hud[name].ownersId, "text",
-					"Area owners: "..ownerString)
-			areas.hud[name].oldOwners = ownerString
+		elseif areas.hud[name].oldAreas ~= areaString then
+			player:hud_change(areas.hud[name].areasId, "text",
+					"Areas: "..areaString)
+			areas.hud[name].oldAreas = areaString
 		end
 	end
 end)
