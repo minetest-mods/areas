@@ -124,18 +124,16 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 	end
 
 	-- Check number of areas the user has and make sure it not above the max
-	if self.self_protection then
-		local count = 0
-		for _, area in pairs(self.areas) do
-			if area.owner == name then
-				count = count + 1
-			end
+	local count = 0
+	for _, area in pairs(self.areas) do
+		if area.owner == name then
+			count = count + 1
 		end
-		if count > self.self_protection_max_areas then
-			return false, "You have reached the maximum amount"
-					.." of areas that you are allowed to"
-					.." protect."
-		end
+	end
+	if count > self.self_protection_max_areas then
+		return false, "You have reached the maximum amount"
+				.." of areas that you are allowed to"
+				.." protect."
 	end
 
 	-- Check intersecting areas
