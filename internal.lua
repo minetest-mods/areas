@@ -5,11 +5,16 @@ end
 
 -- Save the areas table to a file
 function areas:save()
+	local datastr = minetest.serialize(self.areas)
+	if not datastr then
+		minetest.log("error", "[areas] Failed to serialize area data!")
+		return
+	end
 	local file, err = io.open(self.filename, "w")
 	if err then
 		return err
 	end
-	file:write(minetest.serialize(self.areas))
+	file:write(datastr)
 	file:close()
 end
 
