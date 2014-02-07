@@ -305,3 +305,31 @@ minetest.register_chatcommand("change_owner", {
 				name..'" has given you control over an area.')
 end})
 
+minetest.register_chatcommand("area_open", {
+	params = "<id> <yes/no>",
+	description = "Set area open (anyone can interact) or not",
+	privs = {},
+	func = function(name, param)
+		local found, _, id, yesno =
+				param:find('^(%d+) (%l+)$')
+
+		if not found  or (yesno ~= "yes" and yesno ~= "no") then
+			minetest.chat_send_player(name,
+					"Invalid usage,"
+					.." see /help area_open")
+			return
+		end
+		
+		id = tonumber(id)
+		if not areas:isAreaOwner(id, name) then
+			minetest.chat_send_player(name,
+					"Area "..id.." does not exist"
+					.." or is not owned by you.")
+			return
+		end
+		areas.areas[id].open = yesno == "yes"
+		areas:save()
+		minetest.chat_send_player(name, 'Area updated.')
+end})
+
+

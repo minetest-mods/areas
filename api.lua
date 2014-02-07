@@ -24,7 +24,9 @@ function areas:canInteract(pos, name)
 		if area.owner == name then
 			return true
 		else
-			owned = true
+			if not area.open then
+				owned = true
+			end
 		end
 	end
 	return not owned
