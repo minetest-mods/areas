@@ -305,3 +305,29 @@ minetest.register_chatcommand("change_owner", {
 				name..'" has given you control over an area.')
 end})
 
+minetest.register_chatcommand("area_open", {
+	params = "<id>",
+	description = "Toggle an area open (anyone can interact) or not",
+	privs = {},
+	func = function(name, param)
+		local id = tonumber(param)
+
+		if not id then
+			minetest.chat_send_player(name,
+					"Invalid usage, see /help area_open")
+			return
+		end
+
+		if not areas:isAreaOwner(id, name) then
+			minetest.chat_send_player(name,
+					"Area "..id.." does not exist"
+					.." or is not owned by you.")
+			return
+		end
+		local open = not areas.areas[id].open
+		-- Save false as nil to avoid inflating the DB.
+		areas.areas[id].open = open or nil
+		areas:save()
+		minetest.chat_send_player(name, "Area "..(open and "opened" or "closed")..".")
+end})
+
