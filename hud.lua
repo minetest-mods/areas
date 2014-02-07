@@ -19,7 +19,7 @@ minetest.register_globalstep(function(dtime)
 			if area.open then
 				ownertxt = ownertxt.."/open"
 			end
-			areaString = areaString..id.." ("..ownertxt..")"
+			areaString = areaString..area.name.." ("..id.."/"..ownertxt..")"
 		end
 		if not areas.hud[name] then
 			areas.hud[name] = {}
