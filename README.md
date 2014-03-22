@@ -7,7 +7,7 @@ Configuration
 -------------
 If you wish to specify configuration options, such as whether players are
 allowed to protect their own areas with /protect (Disabled by default), you
-should check config.lua and set the apropriate settings in your minetest.conf.
+should check config.lua and set the appropriate settings in your minetest.conf.
 
 
 Tutorial
@@ -29,11 +29,11 @@ The area name is used so that you can easily find the area that you want when
 using a command like /list\_areas. It is not used for any other purpose.
 For example: /set\_owner SomePlayer Diamond city
 
-Now that you own a area you may want to add sub-owners to it. You can do this
-with the /add\_owner command. Anyone with a area can use the add\_owner
+Now that you own an area you may want to add sub-owners to it. You can do this
+with the /add\_owner command. Anyone with an area can use the add\_owner
 command on their areas. Before using the add\_owner command you have to select
 the corners of the sub-area as you did for set\_owner. If your markers are
-still around your origional area and you want to grant access to your entire
+still around your original area and you want to grant access to your entire
 area you will not have to re-set them. You can also use select\_area to place
 the markers at the corners of an existing area.
 The add\_owner command expects three arguments:
@@ -46,16 +46,16 @@ For example: /add\_owner 123 BobTheBuilder Diamond lighthouse
 Chat commands
 -------------
  * /protect &lt;AreaName&gt;
-	Protects a area for yourself. (If self-protection is enabled)
+	Protects an area for yourself. (If self-protection is enabled)
 
  * /set\_owner &lt;OwnerName&gt; &lt;AreaName&gt;
-	Protects a area. (Requires the "areas" privilege)
+	Protects an area. (Requires the "areas" privilege)
 
  * /add\_owner &lt;ParentID&gt; &lt;OwnerName&gt; &lt;ChildName&gt;
-	Grants annother player control over part(or all) of a area.
+	Grants another player control over part (or all) of an area.
 
  * /rename\_area &lt;ID&gt; &lt;NewName&gt;
-	Renames a existing area, usefull after converting from node_ownership
+	Renames an existing area, useful after converting from node_ownership
 	when all areas are unnamed.
 
  * /list\_areas
@@ -68,15 +68,15 @@ Chat commands
 	/find_areas [Cc]astle To find castles.
 
  * /remove\_area &lt;ID&gt;
-	Removes a area that you own. Any sub-areas of that area are made sub-areas
+	Removes an area that you own. Any sub-areas of that area are made sub-areas
 	of the removed area's parent, if it exists. Otherwise they will have no
 	parent.
 
  * /recursive\_remove\_areas &lt;ID&gt;
-	Removes a area and all sub-areas of it.
+	Removes an area and all sub-areas of it.
 
  * /change\_owner &lt;ID&gt; &lt;NewOwner&gt;
-	Change the owner of a area.
+	Change the owner of an area.
 
  * /select\_area &lt;ID&gt;
 	Sets the area positions to those of an existing area.
