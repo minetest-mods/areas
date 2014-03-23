@@ -21,12 +21,10 @@ function areas:canInteract(pos, name)
 	end
 	local owned = false
 	for _, area in pairs(self:getAreasAtPos(pos)) do
-		if area.owner == name then
+		if area.owner == name or area.open then
 			return true
 		else
-			if not area.open then
-				owned = true
-			end
+			owned = true
 		end
 	end
 	return not owned
