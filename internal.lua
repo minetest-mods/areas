@@ -136,25 +136,25 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 		end
 	end
 	if count >= self.self_protection_max_areas then
-		return false, "You have reached the maximum amount"
-				.." of areas that you are allowed to"
-				.." protect."
+		return false, "You have reached the maximum amount of"
+				.." areas that you are allowed to  protect."
 	end
 
 	-- Check intersecting areas
-	for _, area in pairs(self.areas) do
+	for id, area in pairs(self.areas) do
 		if (area.pos1.x <= pos2.x and area.pos2.x >= pos1.x) and
 		   (area.pos1.y <= pos2.y and area.pos2.y >= pos1.y) and
 		   (area.pos1.z <= pos2.z and area.pos2.z >= pos1.z) then
-			--Found an area intersecting with the suplied area
-			if area.owner ~= name then
-				return false, "The area intersects with an"
-						.." area that you do not own."
+			-- Found an area intersecting with the suplied area
+			if not areas:isAreaOwner(id, name) then
+				return false, ("The area intersects with"
+					.." %s [%u] owned by %s.")
+					:format(area.name, id, area.owner)
 			end
 		end
 	end
 
-	return true, ""
+	return true
 end
 
 -- Given a id returns a string in the format:
