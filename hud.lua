@@ -6,7 +6,6 @@ minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
-		local a = areas:getAreasAtPos(pos)
 		local areaString = ""
 		local first = true
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
@@ -15,11 +14,9 @@ minetest.register_globalstep(function(dtime)
 			else
 				first = false
 			end
-			local ownertxt = area.owner
-			if area.open then
-				ownertxt = ownertxt.."/open"
-			end
-			areaString = areaString..id.." ("..ownertxt..")"
+			areaString = areaString .. ("%s [%u] (%s%s)")
+					:format(area.name, id, area.owner,
+					area.open and ":open" or "")
 		end
 		if not areas.hud[name] then
 			areas.hud[name] = {}
