@@ -12,26 +12,20 @@ areas.pos1 = {}
 areas.pos2 = {}
 
 minetest.register_chatcommand("select_area", {
-	params = "<id>",
+	params = "<ID>",
 	description = "Select a area by id.",
-	privs = {},
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then
-			minetest.chat_send_player(name,
-					"Invalid usage, see /help select_area.")
-			return
+			return false, "Invalid usage, see /help select_area."
 		end
 		if not areas.areas[id] then
-			minetest.chat_send_player(name,
-					"The area "..id.." does not exist.")
-			return
+			return false, "The area "..id.." does not exist."
 		end
 
 		areas:setPos1(name, areas.areas[id].pos1)
 		areas:setPos2(name, areas.areas[id].pos2)
-		minetest.chat_send_player(name,
-				"Area "..id.." selected.")
+		return true, "Area "..id.." selected."
 	end,
 })
 
@@ -47,24 +41,19 @@ minetest.register_chatcommand("area_pos1", {
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
 		elseif param == "" then
-			player = minetest.get_player_by_name(name)
+			local player = minetest.get_player_by_name(name)
 			if player then
 				pos = player:getpos()
 			else
-				minetest.chat_send_player(name,
-						"Unable to get position")
-				return
+				return false, "Unable to get position."
 			end
 		else
-			minetest.chat_send_player(name,
-					"Invalid usage, see /help area_pos1")
-			return
+			return false, "Invalid usage, see /help area_pos1."
 		end
 		pos = vector.round(pos)
 		areas:setPos1(name, pos)
-		minetest.chat_send_player(name,
-				"Area position 1 set to "
-				..minetest.pos_to_string(pos))
+		return true, "Area position 1 set to "
+				..minetest.pos_to_string(pos)
 	end,
 })
 
@@ -72,7 +61,6 @@ minetest.register_chatcommand("area_pos2", {
 	params = "[X Y Z|X,Y,Z]",
 	description = "Set area protection region position 2 to your"
 		.." location or the one specified",
-	privs = {},
 	func = function(name, param)
 		local pos = nil
 		local found, _, x, y, z = param:find(
@@ -80,24 +68,19 @@ minetest.register_chatcommand("area_pos2", {
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
 		elseif param == "" then
-			player = minetest.get_player_by_name(name)
+			local player = minetest.get_player_by_name(name)
 			if player then
 				pos = player:getpos()
 			else
-				minetest.chat_send_player(name,
-						"Unable to get position")
-				return
+				return false, "Unable to get position."
 			end
 		else
-			minetest.chat_send_player(name,
-					"Invalid usage, see /help area_pos2")
-			return
+			return false, "Invalid usage, see /help area_pos2."
 		end
 		pos = vector.round(pos)
 		areas:setPos2(name, pos)
-		minetest.chat_send_player(name,
-				"Area position 2 set to "
-				..minetest.pos_to_string(pos))
+		return true, "Area position 2 set to "
+				..minetest.pos_to_string(pos)
 	end,
 })
 
@@ -106,38 +89,31 @@ minetest.register_chatcommand("area_pos", {
 	params = "set/set1/set2/get",
 	description = "Set area protection region, position 1, or position 2"
 		.." by punching nodes, or display the region",
-	privs = {},
 	func = function(name, param)
 		if param == "set" then -- Set both area positions
 			areas.set_pos[name] = "pos1"
-			minetest.chat_send_player(name,
-					"Select positions by punching two nodes")
+			return true, "Select positions by punching two nodes."
 		elseif param == "set1" then -- Set area position 1
 			areas.set_pos[name] = "pos1only"
-			minetest.chat_send_player(name,
-					"Select position 1 by punching a node")
+			return true, "Select position 1 by punching a node."
 		elseif param == "set2" then -- Set area position 2
 			areas.set_pos[name] = "pos2"
-			minetest.chat_send_player(name,
-					"Select position 2 by punching a node")
+			return true, "Select position 2 by punching a node."
 		elseif param == "get" then -- Display current area positions
-			if areas.pos1[name] ~= nil then
-				minetest.chat_send_player(name, "Position 1: "
-						..minetest.pos_to_string(areas.pos1[name]))
+			local pos1str, pos2str = "Position 1: ", "Position 2: "
+			if areas.pos1[name] then
+				pos1str = pos1str..minetest.pos_to_string(areas.pos1[name])
 			else
-				minetest.chat_send_player(name,
-						"Position 1 not set")
+				pos1str = pos1str.."<not set>"
 			end
-			if areas.pos2[name] ~= nil then
-				minetest.chat_send_player(name, "Position 2: "
-						..minetest.pos_to_string(areas.pos2[name]))
+			if areas.pos2[name] then
+				pos2str = pos2str..minetest.pos_to_string(areas.pos2[name])
 			else
-				minetest.chat_send_player(name,
-						"Position 2 not set")
+				pos2str = pos2str.."<not set>"
 			end
+			return true, pos1str.."\n"..pos2str
 		else
-			minetest.chat_send_player(name,
-					"Unknown subcommand: "..param)
+			return false, "Unknown subcommand: "..param
 		end
 	end,
 })
