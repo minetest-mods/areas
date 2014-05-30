@@ -118,12 +118,12 @@ minetest.register_chatcommand("area_pos", {
 	end,
 })
 
-function areas:getPos1(playerName)
-	return areas.pos1[playerName]
-end
-
-function areas:getPos2(playerName)
-	return areas.pos2[playerName]
+function areas:getPos(playerName)
+	local pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName]
+	if not (pos1 and pos2) then
+		return nil
+	end
+	return areas:sortPos(pos1, pos2)
 end
 
 function areas:setPos1(playerName, pos)

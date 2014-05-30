@@ -7,10 +7,8 @@ minetest.register_chatcommand("protect", {
 		if param == "" then
 			return false, "Invalid usage, see /help protect."
 		end
-		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
-		if pos1 and pos2 then
-			pos1, pos2 = areas:sortPos(pos1, pos2)
-		else
+		local pos1, pos2 = areas:getPos(name)
+		if not (pos1 and pos2) then
 			return false, "You need to select an area first."
 		end
 
@@ -45,10 +43,8 @@ minetest.register_chatcommand("set_owner", {
 			return false, "Incorrect usage, see /help set_owner."
 		end
 
-		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
-		if pos1 and pos2 then
-			pos1, pos2 = areas:sortPos(pos1, pos2)
-		else
+		local pos1, pos2 = areas:getPos(name)
+		if not (pos1 and pos2) then
 			return false, "You need to select an area first."
 		end
 
@@ -87,10 +83,8 @@ minetest.register_chatcommand("add_owner", {
 			return
 		end
 
-		local pos1, pos2 = areas:getPos1(name), areas:getPos2(name)
-		if pos1 and pos2 then
-			pos1, pos2 = areas:sortPos(pos1, pos2)
-		else
+		local pos1, pos2 = areas:getPos(name)
+		if not (pos1 and pos2) then
 			return false, "You need to select an area first."
 		end
 
