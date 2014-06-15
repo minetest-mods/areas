@@ -258,7 +258,7 @@ minetest.register_chatcommand("change_owner", {
 		areas:save()
 		minetest.chat_send_player(newOwner,
 			("%s has given you control over the area %q (ID %d).")
-				:format(name, areas[id].name, id))
+				:format(name, areas.areas[id].name, id))
 		return true, "Owner changed."
 	end
 })
