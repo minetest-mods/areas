@@ -120,7 +120,7 @@ minetest.register_chatcommand("rename_area", {
 	description = "Rename a area that you own",
 	func = function(name, param)
 		local id, newName = param:match("^(%d+)%s(.+)$")
-		if not found then
+		if not id then
 			return false, "Invalid usage, see /help rename_area."
 		end
 
