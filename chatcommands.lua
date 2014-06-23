@@ -78,7 +78,7 @@ minetest.register_chatcommand("add_owner", {
 		local pid, ownerName, areaName
 				= param:match('^(%d+) ([^ ]+) (.+)$')
 
-		if not found then
+		if not pid then
 			minetest.chat_send_player(name, "Incorrect usage, see /help add_owner")
 			return
 		end
