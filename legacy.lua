@@ -5,7 +5,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 	params = "<version>",
 	description = "Loads, converts, and saves the areas from"
 		.." a legacy save file.",
-	privs = {areas=true, server=true, privs=true},
+	privs = {areas=true, server=true},
 	func = function(name, param)
 		minetest.chat_send_player(name, "Converting areas...")
 		local version = tonumber(param)
@@ -86,7 +86,7 @@ end
 
 -- Checks if a node is owned by you
 function areas.isNodeOwner(pos, name)
-	if minetest.check_player_privs(name, {areas=true}) then
+	if minetest.check_player_privs(name, areas.adminPrivs) then
 		return true
 	end
 	for id, area in pairs(areas:getAreasAtPos(pos)) do

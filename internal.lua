@@ -109,7 +109,7 @@ end
 -- Also checks the size of the area and if the user already
 -- has more than max_areas.
 function areas:canPlayerAddArea(pos1, pos2, name)
-	if minetest.check_player_privs(name, {areas=true}) then
+	if minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
 
@@ -188,7 +188,7 @@ end
 -- Checks if a player owns an area or a parent of it
 function areas:isAreaOwner(id, name)
 	local cur = self.areas[id]
-	if cur and minetest.check_player_privs(name, {areas=true}) then
+	if cur and minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
 	while cur do
