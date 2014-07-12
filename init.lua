@@ -4,6 +4,7 @@
 
 areas = {}
 
+areas.adminPrivs = {areas=true}
 areas.startTime = os.clock()
 
 areas.modpath = minetest.get_modpath("areas")
