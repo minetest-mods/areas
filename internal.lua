@@ -81,7 +81,7 @@ function areas:isSubarea(pos1, pos2, id)
 	if not area then
 		return false
 	end
-	p1, p2 = area.pos1, area.pos2
+	local p1, p2 = area.pos1, area.pos2
 	if (pos1.x >= p1.x and pos1.x <= p2.x) and
 	   (pos2.x >= p1.x and pos2.x <= p2.x) and
 	   (pos1.y >= p1.y and pos1.y <= p2.y) and
@@ -141,17 +141,11 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 	end
 
 	-- Check intersecting areas
-	for id, area in pairs(self.areas) do
-		if (area.pos1.x <= pos2.x and area.pos2.x >= pos1.x) and
-		   (area.pos1.y <= pos2.y and area.pos2.y >= pos1.y) and
-		   (area.pos1.z <= pos2.z and area.pos2.z >= pos1.z) then
-			-- Found an area intersecting with the suplied area
-			if not areas:isAreaOwner(id, name) then
-				return false, ("The area intersects with"
-					.." %s [%u] owned by %s.")
-					:format(area.name, id, area.owner)
-			end
-		end
+	local can, id = self:canInteractInArea(pos1, pos2, name)
+	if not can then
+		local area = self.areas[id]
+		return false, ("The area intersects with %s [%u] owned by %s.")
+				:format(area.name, id, area.owner)
 	end
 
 	return true

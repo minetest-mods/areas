@@ -31,7 +31,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 				nil, nil, nil, nil, nil, nil
 
 			-- Area positions sorting
-			area.pos1, area.pos2 = areas:sortPos(area.pos1, area.pos2)
+			areas:sortPos(area.pos1, area.pos2)
 
 			-- Add name
 			area.name = "unnamed"
@@ -43,7 +43,8 @@ minetest.register_chatcommand("legacy_load_areas", {
 
 		areas:save()
 		minetest.chat_send_player(name, "Converted areas saved. Done.")
-end})
+	end
+})
 
 function areas:node_ownership_load()
 	local filename = minetest.get_worldpath().."/owners.tbl"

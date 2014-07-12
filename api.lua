@@ -39,3 +39,34 @@ function areas:getNodeOwners(pos)
 	return owners
 end
 
+--- Checks if the area intersects with an area that the player can't interact in.
+-- Note that this fails and returns false when the specified area is fully
+-- owned by the player, but with miltiple protection zones, none of which
+-- cover the entire checked area.
+-- @return Boolean indicating whether the player can interact in that area.
+-- @return Un-owned intersecting area id, if found.
+function areas:canInteractInArea(pos1, pos2, name)
+	areas:sortPos(pos1, pos2)
+	-- First check for a fully enclosing owned area
+	for id, area in pairs(self.areas) do
+		-- A little optimization: isAreaOwner isn't necessary here
+		-- since we're iterating through all areas.
+		if area.owner == name and self:isSubarea(pos1, pos2, id) then
+			return true
+		end
+	end
+	-- Then check for intersecting non-owned areas
+	for id, area in pairs(self.areas) do
+		local p1, p2 = area.pos1, area.pos2
+		if (p1.x <= pos2.x and p2.x >= pos1.x) and
+		   (p1.y <= pos2.y and p2.y >= pos1.y) and
+		   (p1.z <= pos2.z and p2.z >= pos1.z) then
+			-- Found an intersecting area
+			if not areas:isAreaOwner(id, name) then
+				return false, id
+			end
+		end
+	end
+	return true
+end
+
