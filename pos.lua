@@ -123,6 +123,9 @@ function areas:getPos(playerName)
 	if not (pos1 and pos2) then
 		return nil
 	end
+	-- Copy positions so that the area table doesn't contain multiple
+	-- references to the same position.
+	pos1, pos2 = vector.new(pos1), vector.new(pos2)
 	return areas:sortPos(pos1, pos2)
 end
 
