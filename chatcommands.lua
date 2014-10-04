@@ -143,6 +143,7 @@ minetest.register_chatcommand("rename_area", {
 minetest.register_chatcommand("find_areas", {
 	params = "<regexp>",
 	description = "Find areas using a Lua regular expression",
+	privs = areas.adminPrivs,
 	func = function(name, param)
 		if param == "" then
 			return false, "A regular expression is required."
@@ -158,12 +159,12 @@ minetest.register_chatcommand("find_areas", {
 
 		local matches = {}
 		for id, area in pairs(areas.areas) do
-			if areas:isAreaOwner(id, name) and
-			   areas:toString(id):find(param) then
-				table.insert(matches, areas:toString(id))
+			local str = areas:toString(id)
+			if str:find(param) then
+				table.insert(matches, str)
 			end
 		end
-		if #matches > 1 then
+		if #matches > 0 then
 			return true, table.concat(matches, "\n")
 		else
 			return true, "No matches found."
