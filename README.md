@@ -1,99 +1,102 @@
 Areas mod for Minetest 0.4.8+
 =============================
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 Configuration
 -------------
+
 If you wish to specify configuration options, such as whether players are
-allowed to protect their own areas with /protect (Disabled by default), you
-should check config.lua and set the appropriate settings in your minetest.conf.
+allowed to protect their own areas with the `protect` command (disabled by
+default), you should check config.lua and set the appropriate settings in your
+server's configuration file (probably `minetest.conf`).
 
 
 Tutorial
 --------
+
 To protect an area you must first set the corner positions of the area.
-In order to set the corner positions you run:
-1. "/area\_pos set" punch the two border nodes.
-2. "/area\_pos set1/2" punch only the first or second border node.
-3. "/area\_pos1/2" set position one or two to your current position.
-4. "/area\_pos1/2 X Y Z" set position one or two to the specified coordinates.
+In order to set the corner positions you can run:
+  * `/area_pos set` and punch the two corner nodes to set them.
+  * `/area_pos set1/set2` and punch only the first or second corner node to
+	set them one at a time.
+  * `/area_pos1/2` to set one of the positions to your current position.
+  * `/area_pos1/2 X Y Z` to set one of the positions to the specified
+	coordinates.
 
-Once you have set the border positions you can protect the area by running:
-1. "/set\_owner &lt;OwnerName&gt; &lt;AreaName&gt;"
-	-- If you are a administrator or moderator with the "areas" privilege.
-2. "/protect &lt;AreaName&gt;"
-	-- If the server administraor has enabled area self-protection.
+Once you have set the border positions you can protect the area by running one
+of the following commands:
+  * `/set_owner <OwnerName> <AreaName>` -- If you have the `areas` privilege.
+  * `/protect <AreaName>` -- If you have the `areas` privilege or the server
+	administrator has enabled area self-protection.
 
-The area name is used so that you can easily find the area that you want when
-using a command like /list\_areas. It is not used for any other purpose.
-For example: /set\_owner SomePlayer Diamond city
+The area name is used only for informational purposes (so that you know what
+an area is for).  It is not used for any other purpose.
+For example: `/set_owner SomePlayer Mese city`
 
 Now that you own an area you may want to add sub-owners to it. You can do this
-with the /add\_owner command. Anyone with an area can use the add\_owner
-command on their areas. Before using the add\_owner command you have to select
-the corners of the sub-area as you did for set\_owner. If your markers are
-still around your original area and you want to grant access to your entire
-area you will not have to re-set them. You can also use select\_area to place
-the markers at the corners of an existing area.
-The add\_owner command expects three arguments:
-1. The id of the parent area. (The area that you want it to be a sub-area of)
-2. The name of the player that will own the sub-area.
-3. The name of the sub-area.
+with the `add_owner` command.  Anyone with an area can use the `add_owner`
+command on their areas.  Before using the `add_owner` command you have to
+select the corners of the sub-area as you did for `set_owner`. If your markers
+are still around your original area and you want to grant access to your
+entire area you will not have to re-set them. You can also use `select_area` to
+place the markers at the corners of an existing area if you've reset your
+markers and want to grant access to a full area.
+The `add_owner` command expects three arguments:
+  1. The ID number of the parent area (the area that you want to add a
+	sub-area to).
+  2. The name of the player that will own the sub-area.
+  3. The name of the sub-area. (can contain spaces)
 
-For example: /add\_owner 123 BobTheBuilder Diamond lighthouse
+For example: `/add_owner 123 BobTheBuilder Diamond lighthouse`
 
-Chat commands
--------------
- * /protect &lt;AreaName&gt;
-	Protects an area for yourself. (If self-protection is enabled)
 
- * /set\_owner &lt;OwnerName&gt; &lt;AreaName&gt;
-	Protects an area. (Requires the "areas" privilege)
+Commands
+--------
 
- * /add\_owner &lt;ParentID&gt; &lt;OwnerName&gt; &lt;ChildName&gt;
-	Grants another player control over part (or all) of an area.
+  * `/protect <AreaName>` -- Protects an area for yourself. (if
+	self-protection is enabled)
 
- * /rename\_area &lt;ID&gt; &lt;NewName&gt;
-	Renames an existing area, useful after converting from node_ownership
-	when all areas are unnamed.
+  * `/set_owner <OwnerName> <AreaName>` -- Protects an area for a specified
+	player. (requires the `areas` privilege)
 
- * /list\_areas
-	Lists all of the areas that you own.
-	(Or all of them if you have the "areas" privilege)
+  * `/add_owner <ParentID> <OwnerName> <ChildName>` -- Grants another player
+	control over part (or all) of an area.
 
- * /find\_areas &lt;Regex&gt;
-	Finds areas using a Lua regular expresion.
-	For example:
-	/find_areas [Cc]astle To find castles.
+  * `/rename_area <ID> <NewName>` -- Renames an existing area.
 
- * /remove\_area &lt;ID&gt;
-	Removes an area that you own. Any sub-areas of that area are made sub-areas
-	of the removed area's parent, if it exists. Otherwise they will have no
-	parent.
+  * `/list_areas` -- Lists all of the areas that you own, or all areas if you
+	have the `areas` privilege.
 
- * /recursive\_remove\_areas &lt;ID&gt;
-	Removes an area and all sub-areas of it.
+  * `/find_areas <Regex>` -- Finds areas using a Lua regular expresion.
+	For example, to find castles:
 
- * /change\_owner &lt;ID&gt; &lt;NewOwner&gt;
-	Change the owner of an area.
+		/find_areas [Cc]astle
 
- * /select\_area &lt;ID&gt;
-	Sets the area positions to those of an existing area.
+  * `/remove_area <ID>` -- Removes an area that you own. Any sub-areas of that
+	area are made sub-areas of the removed area's parent, if it exists.
+	If the removed area has no parent it's sub-areas will have no parent.
 
- * /area\_pos {set,set1,set2,get}
-	Sets the area positions by punching nodes or shows the current area positions.
+  * `/recursive_remove_areas <ID>` -- Removes an area and all sub-areas of it.
 
- * /area\_pos1 \[X,Y,Z|X Y Z\]
-	Sets area position one to your position or the one supplied.
+  * `/change_owner <ID> <NewOwner>` -- Change the owner of an area.
 
- * /area\_pos2 \[X,Y,Z|X Y Z\]
-	Sets area position two to your position or the one supplied.
+  * `/select_area <ID>` -- Sets the area positions to those of an existing
+	area.
+
+  * `/area_pos {set,set1,set2,get}` -- Sets the area positions by punching
+	nodes or shows the current area positions.
+
+  * `/area_pos1 [X,Y,Z|X Y Z]` -- Sets area position one to your position or
+	the one supplied.
+
+  * `/area_pos2 [X,Y,Z|X Y Z]` -- Sets area position two to your position or
+	the one supplied.
 
 License
 -------
+
 Copyright (C) 2013 ShadowNinja
 
-Licensed under the GNU LGPL version 2.1 or higher.
+Licensed under the GNU LGPL version 2.1 or later.
 See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
 
