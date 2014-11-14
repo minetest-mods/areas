@@ -41,17 +41,18 @@ end
 
 --- Checks if the area intersects with an area that the player can't interact in.
 -- Note that this fails and returns false when the specified area is fully
--- owned by the player, but with miltiple protection zones, none of which
+-- owned by the player, but with multiple protection zones, none of which
 -- cover the entire checked area.
 -- @param name (optional) player name.  If not specified checks for any intersecting areas.
+-- @param allow_open Whether open areas should be counted as is they didn't exist.
 -- @return Boolean indicating whether the player can interact in that area.
 -- @return Un-owned intersecting area id, if found.
-function areas:canInteractInArea(pos1, pos2, name)
+function areas:canInteractInArea(pos1, pos2, name, allow_open)
 	if name and minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
 	areas:sortPos(pos1, pos2)
-	-- First check for a fully enclosing owned area
+	-- First check for a fully enclosing owned area.
 	if name then
 		for id, area in pairs(self.areas) do
 			-- A little optimization: isAreaOwner isn't necessary
@@ -62,14 +63,17 @@ function areas:canInteractInArea(pos1, pos2, name)
 			end
 		end
 	end
-	-- Then check for intersecting (non-owned) areas
+	-- Then check for intersecting (non-owned) areas.
 	for id, area in pairs(self.areas) do
 		local p1, p2 = area.pos1, area.pos2
 		if (p1.x <= pos2.x and p2.x >= pos1.x) and
 		   (p1.y <= pos2.y and p2.y >= pos1.y) and
 		   (p1.z <= pos2.z and p2.z >= pos1.z) then
-			-- Found an intersecting area
-			if not name or not areas:isAreaOwner(id, name) then
+			-- Found an intersecting area.
+			-- Return if the area is closed or open areas aren't
+			-- allowed, and the area isn't owned.
+			if (not allow_open or not area.open) and
+					(not name or not areas:isAreaOwner(id, name)) then
 				return false, id
 			end
 		end

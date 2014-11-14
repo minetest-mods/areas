@@ -19,11 +19,16 @@ dofile(areas.modpath.."/hud.lua")
 
 areas:load()
 
-minetest.register_privilege("areas", {description = "Can administer areas"})
+minetest.register_privilege("areas", {
+	description = "Can administer areas."
+})
+minetest.register_privilege("areas_high_limit", {
+	description = "Can can more, bigger areas."
+})
 
 if not minetest.registered_privileges[areas.self_protection_privilege] then
 	minetest.register_privilege(areas.self_protection_privilege, {
-		description = "Can protect areas",
+		description = "Can protect areas.",
 	})
 end
 
