@@ -110,7 +110,7 @@ GetNodeOwnerName  = areas.getNodeOwnerName
 HasOwner          = areas.hasOwner
 
 -- This is entirely untested and may break in strange and new ways.
-if areas.legacy_table then
+if areas.config.legacy_table then
 	owner_defs = setmetatable({}, {
 		__index = function(table, key)
 			local a = rawget(areas.areas, key)

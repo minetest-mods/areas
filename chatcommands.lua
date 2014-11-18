@@ -2,7 +2,7 @@
 minetest.register_chatcommand("protect", {
 	params = "<AreaName>",
 	description = "Protect your own area",
-	privs = {[areas.self_protection_privilege]=true},
+	privs = {[areas.config.self_protection_privilege]=true},
 	func = function(name, param)
 		if param == "" then
 			return false, "Invalid usage, see /help protect."

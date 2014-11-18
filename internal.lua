@@ -10,7 +10,7 @@ function areas:save()
 		minetest.log("error", "[areas] Failed to serialize area data!")
 		return
 	end
-	local file, err = io.open(self.filename, "w")
+	local file, err = io.open(self.config.filename, "w")
 	if err then
 		return err
 	end
@@ -20,7 +20,7 @@ end
 
 -- Load the areas table from the save file
 function areas:load()
-	local file, err = io.open(self.filename, "r")
+	local file, err = io.open(self.config.filename, "r")
 	if err then
 		self.areas = self.areas or {}
 		return err
@@ -116,15 +116,15 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 
 	-- Check self protection privilege, if it is enabled,
 	-- and if the area is too big.
-	if not self.self_protection or
-			not privs[areas.self_protection_privilege] then
+	if not self.config.self_protection or
+			not privs[areas.config.self_protection_privilege] then
 		return false, "Self protection is disabled or you do not have"
 				.." the necessary privilege."
 	end
 
 	local max_size = privs.areas_high_limit and
-			self.self_protection_max_size_high or
-			self.self_protection_max_size
+			self.config.self_protection_max_size_high or
+			self.config.self_protection_max_size
 	if
 			(pos2.x - pos1.x) > max_size.x or
 			(pos2.y - pos1.y) > max_size.y or
@@ -140,8 +140,8 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 		end
 	end
 	local max_areas = privs.areas_high_limit and
-			self.self_protection_max_areas_high or
-			self.self_protection_max_areas
+			self.config.self_protection_max_areas_high or
+			self.config.self_protection_max_areas
 	if count >= max_areas then
 		return false, "You have reached the maximum amount of"
 				.." areas that you are allowed to  protect."
