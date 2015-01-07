@@ -1,10 +1,6 @@
 -- This is inspired by the landrush mod by Bremaweb
 
 areas.hud = {}
-local xOffset = 8
-local yOffset = -16
--- Approximate the text height
-local textHeight = (tonumber(minetest.setting_get("font_size")) or 13) * 1.16
 
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
@@ -16,7 +12,11 @@ minetest.register_globalstep(function(dtime)
 					:format(area.name, id, area.owner,
 					area.open and ":open" or ""))
 		end
-		local areaString = table.concat(areaStrings, "\n")
+		local areaString = "Areas:"
+		if #areaStrings > 0 then
+			areaString = areaString.."\n"..
+				table.concat(areaStrings, "\n")
+		end
 		local hud = areas.hud[name]
 		if not hud then
 			hud = {}
@@ -26,19 +26,15 @@ minetest.register_globalstep(function(dtime)
 				name = "Areas",
 				number = 0xFFFFFF,
 				position = {x=0, y=1},
-				offset = {x=xOffset, y=yOffset - ((#areaStrings + 1) * textHeight)},
-				direction = 0,
-				text = "Areas:\n"..areaString,
+				offset = {x=8, y=-8},
+				text = areaString,
 				scale = {x=200, y=60},
-				alignment = {x=1, y=1},
+				alignment = {x=1, y=-1},
 			})
 			hud.oldAreas = areaString
 			return
 		elseif hud.oldAreas ~= areaString then
-			player:hud_change(hud.areasId, "offset",
-				{x=xOffset, y=yOffset - ((#areaStrings + 1) * textHeight)})
-			player:hud_change(hud.areasId, "text",
-					"Areas:\n"..areaString)
+			player:hud_change(hud.areasId, "text", areaString)
 			hud.oldAreas = areaString
 		end
 	end
