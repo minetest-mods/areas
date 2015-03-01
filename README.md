@@ -80,6 +80,8 @@ Commands
 
   * `/change_owner <ID> <NewOwner>` -- Change the owner of an area.
 
+  * `/area_info` -- Returns information about area configuration and usage.
+
   * `/select_area <ID>` -- Sets the area positions to those of an existing
 	area.
 

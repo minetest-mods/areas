@@ -313,3 +313,92 @@ minetest.register_chatcommand("move_area", {
 	end,
 })
 
+minetest.register_chatcommand("area_info", {
+	description = "Get information about area configuration and usage.",
+	func = function(name, param)
+		local lines = {}
+		local privs = minetest.get_player_privs(name)
+
+		-- Short (and fast to access) names
+		local cfg = areas.config
+		local self_prot  = cfg.self_protection
+		local prot_priv  = cfg.self_protection_privilege
+		local limit      = cfg.self_protection_max_areas
+		local limit_high = cfg.self_protection_max_areas_high
+		local size_limit = cfg.self_protection_max_size
+		local size_limit_high = cfg.self_protection_max_size_high
+
+		local has_high_limit = privs.areas_high_limit
+		local has_prot_priv = not prot_priv or privs[prot_priv]
+		local can_prot = privs.areas or (self_prot and has_prot_priv)
+		local max_count = can_prot and
+			(has_high_limit and limit_high or limit) or 0
+		local max_size = has_high_limit and
+			size_limit_high or size_limit
+
+		-- Privilege information
+		local self_prot_line = ("Self protection is %sabled"):format(
+				self_prot and "en" or "dis")
+		if self_prot and prot_priv then
+			self_prot_line = self_prot_line..
+				(" %s have the neccessary privilege (%q).")
+				:format(
+					has_prot_priv and "and you" or
+						"but you don't",
+					prot_priv)
+		else
+			self_prot_line = self_prot_line.."."
+		end
+		table.insert(lines, self_prot_line)
+		if privs.areas then
+			table.insert(lines, "You are an area"..
+				" administrator (\"areas\" privilege).")
+		elseif has_high_limit then
+			table.insert(lines,
+				"You have extended area protection"..
+				" limits (\"areas_high_limit\" privilege).")
+		end
+
+		-- Area count
+		local area_num = 0
+		for id, area in pairs(areas.areas) do
+			if area.owner == name then
+				area_num = area_num + 1
+			end
+		end
+		local count_line = ("You have %d area%s"):format(
+			area_num, area_num == 1 and "" or "s")
+		if privs.areas then
+			count_line = count_line..
+				" and have no area protection limits."
+		elseif can_prot then
+			count_line = count_line..(", out of a maximum of %d.")
+				:format(max_count)
+		end
+		table.insert(lines, count_line)
+
+		-- Area size limits
+		local function size_info(str, size)
+			table.insert(lines, ("%s spanning up to %dx%dx%d.")
+				:format(str, size.x, size.y, size.z))
+		end
+		local function priv_limit_info(priv, max_count, max_size)
+			size_info(("Players with the %q privilege"..
+				" can protect up to %d areas"):format(
+					priv, max_count), max_size)
+		end
+		if self_prot then
+			if privs.areas then
+				priv_limit_info(prot_priv,
+					limit, size_limit)
+				priv_limit_info("areas_high_limit",
+					limit_high, size_limit_high)
+			elseif has_prot_priv then
+				size_info("You can protect areas", max_size)
+			end
+		end
+
+		return true, table.concat(lines, "\n")
+	end,
+})
+
