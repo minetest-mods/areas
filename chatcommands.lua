@@ -313,3 +313,61 @@ minetest.register_chatcommand("move_area", {
 	end,
 })
 
+minetest.register_chatcommand("area_limits", {
+	description = "Print self-protection limit settings, and current area usage.",
+	func = function(name, param)
+		local ret_strings = {}
+		local privs = minetest.get_player_privs(name)
+
+		-- print priv information
+		table.insert(ret_strings, "Self protection is " ..
+			(areas.config.self_protection and "enabled" or "disabled")
+			.. (areas.config.self_protection and (" and you %s the neccessary privilege %q."):format(
+				(privs[areas.config.self_protection_privilege] and "have" or "don't have"),
+				areas.config.self_protection_privilege) or "."))
+		if privs.areas then
+			table.insert(ret_strings, "You have the \"areas\" privilege, belonging to admins"
+				.. ((privs[areas.config.self_protection_privilege] and areas.config.self_protection)
+					and "." or ", which means you can still protect."))
+		elseif privs.areas_high_limit then
+			table.insert(ret_strings, "You have the \"areas_high_limit\" privilege.")
+		end
+
+		-- print area number information
+		local area_num = 0
+		for id, area in pairs(areas.areas) do
+			if areas:isAreaOwner(id, name) then
+				area_num = area_num + 1
+			end
+		end
+		local max_areas = areas.config.self_protection and (privs.areas_high_limit and
+			areas.config.self_protection_max_areas_high or
+			areas.config.self_protection_max_areas) or 0
+		table.insert(ret_strings, ("You have %d areas%s"):format(area_num,
+			privs.areas and "." or (", out of maximum %d."):format(max_areas)))
+
+		-- print size information
+		local function max_size_info(str, max)
+			table.insert(ret_strings, ("%s spanning %d for x, %d in height, and %d for z."):format(
+				str, max.x, max.y, max.z))
+		end
+		local max_size = privs.areas_high_limit and
+			areas.config.self_protection_max_size_high or
+			areas.config.self_protection_max_size
+		if privs.areas then
+			table.insert(ret_strings, "You can protect areas of arbitrary size.")
+			if areas.config.self_protection then
+				max_size_info(("Players with the %q priv can protect max %d areas"):format(
+					areas.config.self_protection_privilege, areas.config.self_protection_max_areas),
+					areas.config.self_protection_max_size)
+				max_size_info(("Players with the \"areas_high_limit\" priv can protect max %d areas"):format(
+					areas.config.self_protection_max_areas_high),
+					areas.config.self_protection_max_size_high)
+			end
+		elseif areas.config.self_protection and privs[areas.config.self_protection_privilege] then
+			max_size_info("You can protect areas", max_size)
+		end
+
+		return true, table.concat(ret_strings, "\n")
+	end,
+})
