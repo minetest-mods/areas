@@ -30,6 +30,40 @@ function areas:load()
 		self.areas = {}
 	end
 	file:close()
+	self:populateStore()
+end
+
+--- Checks an AreaStore ID.
+-- Deletes the AreaStore (falling back to the iterative method)
+-- and prints an error message if the ID is invalid.
+-- @return Whether the ID was valid.
+function areas:checkAreaStoreId(sid)
+	if not sid then
+		minetest.log("error", "AreaStore failed to find an ID for an "
+			.."area!  Falling back to iterative area checking.")
+		self.store = nil
+		self.store_ids = nil
+	end
+	return sid and true or false
+end
+
+-- Populates the AreaStore after loading, if needed.
+function areas:populateStore()
+	if not rawget(_G, "AreaStore") then
+		return
+	end
+	local store = AreaStore()
+	local store_ids = {}
+	for id, area in pairs(areas.areas) do
+		local sid = store:insert_area(area.pos1,
+			area.pos2, tostring(id))
+		if not self:checkAreaStoreId(sid) then
+			return
+		end
+		store_ids[id] = sid
+	end
+	self.store = store
+	self.store_ids = store_ids
 end
 
 -- Finds the first usable index in a table
@@ -41,15 +75,28 @@ local function findFirstUnusedIndex(t)
 	return i
 end
 
--- Add a area, returning the new area's id.
+--- Add a area.
+-- @return The new area's ID.
 function areas:add(owner, name, pos1, pos2, parent)
 	local id = findFirstUnusedIndex(self.areas)
-	self.areas[id] = {name=name, pos1=pos1, pos2=pos2, owner=owner,
-			parent=parent}
+	self.areas[id] = {
+		name = name,
+		pos1 = pos1,
+		pos2 = pos2,
+		owner = owner,
+		parent = parent
+	}
+	-- Add to AreaStore
+	if self.store then
+		local sid = self.store:insert_area(pos1, pos2, tostring(id))
+		if self:checkAreaStoreId(sid) then
+			self.store_ids[id] = sid
+		end
+	end
 	return id
 end
 
--- Remove a area, and optionally it's children recursively.
+--- Remove a area, and optionally it's children recursively.
 -- If a area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
 function areas:remove(id, recurse)
@@ -73,6 +120,12 @@ function areas:remove(id, recurse)
 
 	-- Remove main entry
 	self.areas[id] = nil
+
+	-- Remove from AreaStore
+	if self.store then
+		self.store:remove_area(self.store_ids[id])
+		self.store_ids[id] = nil
+	end
 end
 
 -- Checks if a area between two points is entirely contained by another area
