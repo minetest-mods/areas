@@ -128,19 +128,25 @@ function areas:remove(id, recurse)
 	end
 end
 
--- Checks if a area between two points is entirely contained by another area
+-- Checks if a area between two points is entirely contained by another area.
+-- Positions must be sorted.
 function areas:isSubarea(pos1, pos2, id)
 	local area = self.areas[id]
 	if not area then
 		return false
 	end
-	local p1, p2 = area.pos1, area.pos2
-	if (pos1.x >= p1.x and pos1.x <= p2.x) and
-	   (pos2.x >= p1.x and pos2.x <= p2.x) and
-	   (pos1.y >= p1.y and pos1.y <= p2.y) and
-	   (pos2.y >= p1.y and pos2.y <= p2.y) and
-	   (pos1.z >= p1.z and pos1.z <= p2.z) and
-	   (pos2.z >= p1.z and pos2.z <= p2.z) then
+	local ap1, ap2 = area.pos1, area.pos2
+	local ap1x, ap1y, ap1z = ap1.x, ap1.y, ap1.z
+	local ap2x, ap2y, ap2z = ap2.x, ap2.y, ap2.z
+	local p1x, p1y, p1z = pos1.x, pos1.y, pos1.z
+	local p2x, p2y, p2z = pos2.x, pos2.y, pos2.z
+	if
+			(p1x >= ap1x and p1x <= ap2x) and
+			(p2x >= ap1x and p2x <= ap2x) and
+			(p1y >= ap1y and p1y <= ap2y) and
+			(p2y >= ap1y and p2y <= ap2y) and
+			(p1z >= ap1z and p1z <= ap2z) and
+			(p2z >= ap1z and p2z <= ap2z) then
 		return true
 	end
 end
