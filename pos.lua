@@ -118,25 +118,46 @@ minetest.register_chatcommand("area_pos", {
 	end,
 })
 
+function areas.useWorldedit(playerName)
+   if minetest.get_modpath("worldedit") then
+	  return nil == playerName or minetest.check_player_privs(playerName, "worldedit");
+   else
+	  return false;
+   end
+end
+   
 function areas:getPos(playerName)
-	local pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName]
-	if not (pos1 and pos2) then
-		return nil
-	end
-	-- Copy positions so that the area table doesn't contain multiple
-	-- references to the same position.
-	pos1, pos2 = vector.new(pos1), vector.new(pos2)
-	return areas:sortPos(pos1, pos2)
+   if areas.useWorldedit(playerName) then
+	  local pos1, pos2 = worldedit.pos1[playerName], worldedit.pos2[playerName];
+   else	  
+	  local pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName];
+   end
+   
+   if not (pos1 and pos2) then
+	  return nil
+   end
+   -- Copy positions so that the area table doesn't contain multiple
+   -- references to the same position.
+   pos1, pos2 = vector.new(pos1), vector.new(pos2)
+   return areas:sortPos(pos1, pos2)
 end
 
 function areas:setPos1(playerName, pos)
-	areas.pos1[playerName] = pos
-	areas.markPos1(playerName)
+   if areas.useWorldedit(playerName) then
+	  worldedit.pos1[playerName] = pos;
+   else
+	  areas.pos1[playerName] = pos
+	  areas.markPos1(playerName)
+   end
 end
 
 function areas:setPos2(playerName, pos)
-	areas.pos2[playerName] = pos
-	areas.markPos2(playerName)
+   if areas.useWorldedit(playerName) then
+	  worldedit.pos2[playerName] = pos;
+   else
+	  areas.pos2[playerName] = pos
+	  areas.markPos2(playerName)
+   end
 end
 
 
