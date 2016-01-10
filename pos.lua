@@ -119,22 +119,22 @@ minetest.register_chatcommand("area_pos", {
 })
 
 function areas.useWorldedit(playerName)
-   if worldedit or minetest.get_modpath("worldedit") then
+   if worldedit then
 	  if nil == playerName then
 		 return true;
 	  elseif minetest.check_player_privs(playerName, {worldedit = true}) then
 		 return true;
 	  end
-   else
-	  return false;
    end
+   return false;
 end
    
 function areas:getPos(playerName)
+   local pos1, pos2 = nil, nil;
    if areas.useWorldedit(playerName) then
-	  local pos1, pos2 = worldedit.pos1[playerName], worldedit.pos2[playerName];
+	  pos1, pos2 = worldedit.pos1[playerName], worldedit.pos2[playerName];
    else	  
-	  local pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName];
+	  pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName];
    end
    
    if not (pos1 and pos2) then
