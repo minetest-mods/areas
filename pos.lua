@@ -149,7 +149,7 @@ end
 function areas:setPos1(playerName, pos)
    if areas.useWorldedit(playerName) then
 	  worldedit.pos1[playerName] = pos;
-	  worldedit.mark_pos1(name);
+	  worldedit.mark_pos1(playerName);
    else
 	  areas.pos1[playerName] = pos
 	  areas.markPos1(playerName)
@@ -159,7 +159,7 @@ end
 function areas:setPos2(playerName, pos)
    if areas.useWorldedit(playerName) then
 	  worldedit.pos2[playerName] = pos;
-	  worldedit.mark_pos2(name);
+	  worldedit.mark_pos2(playerName);
    else
 	  areas.pos2[playerName] = pos
 	  areas.markPos2(playerName)
