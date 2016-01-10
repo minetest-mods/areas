@@ -120,7 +120,7 @@ minetest.register_chatcommand("area_pos", {
 
 function areas.useWorldedit(playerName)
    if minetest.get_modpath("worldedit") then
-	  return nil == playerName or minetest.check_player_privs(playerName, "worldedit");
+	  return nil == playerName or minetest.check_player_privs(playerName, {worldedit = true});
    else
 	  return false;
    end
