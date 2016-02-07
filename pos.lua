@@ -11,6 +11,17 @@ areas.set_pos = {}
 areas.pos1 = {}
 areas.pos2 = {}
 
+function areas.useWorldedit(playerName)
+   if nil ~= worldedit then
+	  if nil == playerName then
+		 return true
+	  elseif minetest.check_player_privs(playerName, {worldedit = true}) then
+		 return true
+	  end
+   end
+   return false
+end
+
 minetest.register_chatcommand("select_area", {
 	params = "<ID>",
 	description = "Select a area by id.",
@@ -101,13 +112,13 @@ minetest.register_chatcommand("area_pos", {
 			return true, "Select position 2 by punching a node."
 		elseif param == "get" then -- Display current area positions
 			local pos1str, pos2str = "Position 1: ", "Position 2: "
-			if areas.pos1[name] then
-				pos1str = pos1str..minetest.pos_to_string(areas.pos1[name])
+			if nil ~= areas:getPos1(name) then
+			    pos1str = pos1str..minetest.pos_to_string(areas:getPos1(name))
 			else
 				pos1str = pos1str.."<not set>"
 			end
-			if areas.pos2[name] then
-				pos2str = pos2str..minetest.pos_to_string(areas.pos2[name])
+			if nil ~= areas:getPos2(name) then
+			    pos2str = pos2str..minetest.pos_to_string(areas:getPos2(name))
 			else
 				pos2str = pos2str.."<not set>"
 			end
@@ -117,24 +128,13 @@ minetest.register_chatcommand("area_pos", {
 		end
 	end,
 })
-
-function areas.useWorldedit(playerName)
-   if worldedit then
-	  if nil == playerName then
-		 return true;
-	  elseif minetest.check_player_privs(playerName, {worldedit = true}) then
-		 return true;
-	  end
-   end
-   return false;
-end
    
 function areas:getPos(playerName)
-   local pos1, pos2 = nil, nil;
+   local pos1, pos2 = nil, nil
    if areas.useWorldedit(playerName) then
-	  pos1, pos2 = worldedit.pos1[playerName], worldedit.pos2[playerName];
+	  pos1, pos2 = worldedit.pos1[playerName], worldedit.pos2[playerName]
    else	  
-	  pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName];
+	  pos1, pos2 = areas.pos1[playerName], areas.pos2[playerName]
    end
    
    if not (pos1 and pos2) then
@@ -146,10 +146,20 @@ function areas:getPos(playerName)
    return areas:sortPos(pos1, pos2)
 end
 
+function areas:getPos1(playerName)
+   local pos1, pos2 = areas:getPos(playerName)
+   return pos1
+end
+
+function areas:getPos2(playerName)
+   local pos1, pos2 = areas:getPos(playerName)
+   return pos2
+end
+
 function areas:setPos1(playerName, pos)
    if areas.useWorldedit(playerName) then
-	  worldedit.pos1[playerName] = pos;
-	  worldedit.mark_pos1(playerName);
+	  worldedit.pos1[playerName] = pos
+	  worldedit.mark_pos1(playerName)
    else
 	  areas.pos1[playerName] = pos
 	  areas.markPos1(playerName)
@@ -158,8 +168,8 @@ end
 
 function areas:setPos2(playerName, pos)
    if areas.useWorldedit(playerName) then
-	  worldedit.pos2[playerName] = pos;
-	  worldedit.mark_pos2(playerName);
+	  worldedit.pos2[playerName] = pos
+	  worldedit.mark_pos2(playerName)
    else
 	  areas.pos2[playerName] = pos
 	  areas.markPos2(playerName)
@@ -172,21 +182,21 @@ minetest.register_on_punchnode(function(pos, node, puncher)
 	-- Currently setting position
 	if name ~= "" and areas.set_pos[name] then
 		if areas.set_pos[name] == "pos1" then
-			areas.pos1[name] = pos
+		    areas:setPos1(name, pos)
 			areas.markPos1(name)
 			areas.set_pos[name] = "pos2"
 			minetest.chat_send_player(name,
 					"Position 1 set to "
 					..minetest.pos_to_string(pos))
 		elseif areas.set_pos[name] == "pos1only" then
-			areas.pos1[name] = pos
+		    areas:pos1(name, pos)
 			areas.markPos1(name)
 			areas.set_pos[name] = nil
 			minetest.chat_send_player(name,
 					"Position 1 set to "
 					..minetest.pos_to_string(pos))
 		elseif areas.set_pos[name] == "pos2" then
-			areas.pos2[name] = pos
+		    areas:setPos2(name, pos)
 			areas.markPos2(name)
 			areas.set_pos[name] = nil
 			minetest.chat_send_player(name,
@@ -214,7 +224,7 @@ end
 
 -- Marks area position 1
 areas.markPos1 = function(name)
-	local pos = areas.pos1[name]
+    local pos = areas.getPos1(name)
 	if areas.marker1[name] ~= nil then -- Marker already exists
 		areas.marker1[name]:remove() -- Remove marker
 		areas.marker1[name] = nil
@@ -227,7 +237,7 @@ end
 
 -- Marks area position 2
 areas.markPos2 = function(name)
-	local pos = areas.pos2[name]
+    local pos = areas.getPos2(name)
 	if areas.marker2[name] ~= nil then -- Marker already exists
 		areas.marker2[name]:remove() -- Remove marker
 		areas.marker2[name] = nil
