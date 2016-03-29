@@ -12,10 +12,10 @@ minetest.register_chatcommand("protect", {
 			return false, "You need to select an area first."
 		end
 
-		minetest.log("action", "/protect invoked, owner="..name..
-				" AreaName="..param..
-				" StartPos="..minetest.pos_to_string(pos1)..
-				" EndPos="  ..minetest.pos_to_string(pos2))
+		minetest.log("action", "/protect invoked. Owner = "..name..
+				" AreaName = "..param..
+				" StartPos = "..minetest.pos_to_string(pos1)..
+				" EndPos = "  ..minetest.pos_to_string(pos2))
 
 		local canAdd, errMsg = areas:canPlayerAddArea(pos1, pos2, name)
 		if not canAdd then
@@ -32,9 +32,9 @@ minetest.register_chatcommand("protect", {
 
 minetest.register_chatcommand("set_owner", {
 	params = "<PlayerName> <AreaName>",
-	description = "Protect an area beetween two positions and give"
-		.." a player access to it without setting the parent of the"
-		.." area to any existing area",
+	description = [[ Protect an area between two positions and give
+		a player access to it without setting the parent of the
+		area to any existing area. ]],
 	privs = areas.adminPrivs,
 	func = function(name, param)
 		local ownerName, areaName = param:match('^(%S+)%s(.+)$')
@@ -49,8 +49,7 @@ minetest.register_chatcommand("set_owner", {
 		end
 
 		if not areas:player_exists(ownerName) then
-			return false, "The player \""
-					..ownerName.."\" does not exist."
+			return false, "The player \""..ownerName.."\" does not exist."
 		end
 
 		minetest.log("action", name.." runs /set_owner. Owner = "..ownerName..
@@ -71,9 +70,9 @@ minetest.register_chatcommand("set_owner", {
 
 minetest.register_chatcommand("add_owner", {
 	params = "<ParentID> <Player> <AreaName>",
-	description = "Give a player access to a sub-area beetween two"
-		.." positions that have already been protected,"
-		.." Use set_owner if you don't want the parent to be set.",
+	description = [[ Give a player access to a sub-area between two
+		positions that have already been protected. 
+		Use set_owner if you don't want the parent to be set. ]],
 	func = function(name, param)
 		local pid, ownerName, areaName
 				= param:match('^(%d+) ([^ ]+) (.+)$')
@@ -117,7 +116,7 @@ minetest.register_chatcommand("add_owner", {
 
 minetest.register_chatcommand("rename_area", {
 	params = "<ID> <newName>",
-	description = "Rename a area that you own",
+	description = "Rename an area that you own",
 	func = function(name, param)
 		local id, newName = param:match("^(%d+)%s(.+)$")
 		if not id then
@@ -191,9 +190,26 @@ minetest.register_chatcommand("list_areas", {
 })
 
 
+minetest.register_chatcommand("list_owners", {
+	description = "List owners for an area",
+	func = function(name, param)
+		local player = minetest.get_player_by_name(name)
+		local pos = vector.round(player:getpos())
+		local areaStrings = {}
+		for id, area in pairs(areas:getAreasAtPos(pos)) do
+			table.insert(areaStrings, areas:toString(id))
+		end
+		if #areaStrings == 0 then
+			return true, "No owner found."
+		end
+		return true, table.concat(areaStrings, "\n")
+	end
+})
+
+
 minetest.register_chatcommand("recursive_remove_areas", {
-	params = "<id>",
-	description = "Recursively remove areas using an id",
+	params = "<ID>",
+	description = "Recursively remove areas using an ID",
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then
@@ -208,14 +224,14 @@ minetest.register_chatcommand("recursive_remove_areas", {
 
 		areas:remove(id, true)
 		areas:save()
-		return true, "Removed area "..id.." and it's sub areas."
+		return true, "Removed area "..id.." and its sub-areas."
 	end
 })
 
 
 minetest.register_chatcommand("remove_area", {
-	params = "<id>",
-	description = "Remove an area using an id",
+	params = "<ID>",
+	description = "Remove an area using an ID",
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then
@@ -236,17 +252,15 @@ minetest.register_chatcommand("remove_area", {
 
 minetest.register_chatcommand("change_owner", {
 	params = "<ID> <NewOwner>",
-	description = "Change the owner of an area using it's ID",
+	description = "Change the owner of an area using its ID",
 	func = function(name, param)
 		local id, newOwner = param:match("^(%d+)%s(%S+)$")
 		if not id then
-			return false, "Invalid usage, see"
-					.." /help change_owner."
+			return false, "Invalid usage, see /help change_owner."
 		end
 
 		if not areas:player_exists(newOwner) then
-			return false, "The player \""..newOwner
-					.."\" does not exist."
+			return false, "The player \""..newOwner.."\" does not exist."
 		end
 
 		id = tonumber(id)
@@ -313,6 +327,7 @@ minetest.register_chatcommand("move_area", {
 	end,
 })
 
+
 minetest.register_chatcommand("area_info", {
 	description = "Get information about area configuration and usage.",
 	func = function(name, param)
@@ -337,11 +352,11 @@ minetest.register_chatcommand("area_info", {
 			size_limit_high or size_limit
 
 		-- Privilege information
-		local self_prot_line = ("Self protection is %sabled"):format(
+		local self_prot_line = ("Self-protection is %sabled"):format(
 				self_prot and "en" or "dis")
 		if self_prot and prot_priv then
 			self_prot_line = self_prot_line..
-				(" %s have the neccessary privilege (%q).")
+				(" %s have the necessary privilege (%q).")
 				:format(
 					has_prot_priv and "and you" or
 						"but you don't",

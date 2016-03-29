@@ -67,6 +67,8 @@ Commands
   * `/list_areas` -- Lists all of the areas that you own, or all areas if you
 	have the `areas` privilege.
 
+  * `/list_owners` -- Lists the owner(s) of an area where the player stands inside.
+
   * `/find_areas <Regex>` -- Finds areas using a Lua regular expresion.
 	For example, to find castles:
 
