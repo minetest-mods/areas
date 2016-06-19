@@ -296,8 +296,7 @@ minetest.register_chatcommand("move_area", {
 			return false, "Invalid usage, see /help move_area."
 		end
 
-		local area = areas.areas[id]
-		if not area then
+		if not areas.areas[id] then
 			return false, "Area does not exist."
 		end
 
@@ -306,8 +305,8 @@ minetest.register_chatcommand("move_area", {
 			return false, "You need to select an area first."
 		end
 
-		area.pos1 = pos1
-		area.pos2 = pos2
+		areas.areas[id].pos1 = pos1
+		areas.areas[id].pos2 = pos2
 		areas:save()
 		return true, "Area successfully moved."
 	end,
