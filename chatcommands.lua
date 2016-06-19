@@ -307,6 +307,10 @@ minetest.register_chatcommand("move_area", {
 
 		areas.areas[id].pos1 = pos1
 		areas.areas[id].pos2 = pos2
+		
+		areas.store:remove_area(areas.store_ids[id])
+		areas.store:insert_area(pos1, pos2, tostring(id))
+		
 		areas:save()
 		return true, "Area successfully moved."
 	end,
