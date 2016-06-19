@@ -128,6 +128,20 @@ function areas:remove(id, recurse)
 	end
 end
 
+--- Move an area.
+function areas:move(id, area, pos1, pos2)
+	area.pos1 = pos1
+	area.pos2 = pos2
+
+	if self.store then
+		self.store:remove_area(areas.store_ids[id])
+		local sid = self.store:insert_area(pos1, pos2, tostring(id))
+		if self:checkAreaStoreId(sid) then
+			self.store_ids[id] = sid
+		end
+	end
+end
+
 -- Checks if a area between two points is entirely contained by another area.
 -- Positions must be sorted.
 function areas:isSubarea(pos1, pos2, id)
