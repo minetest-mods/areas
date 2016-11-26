@@ -1,7 +1,31 @@
 
+local get_protector_area = function(pos)
+	-- Add protector to the hud
+	local res = {}
+	local radius = (tonumber(minetest.setting_get("protector_radius")) or 5)
+	local protectors = minetest.find_nodes_in_area(
+		{x=pos.x -radius , y=pos.y -radius , z=pos.z -radius},
+		{x=pos.x +radius , y=pos.y +radius , z=pos.z +radius},
+		{"protector:protect","protector:protect2"}
+	)
+	for _,npos in pairs(protectors) do
+		local node = minetest.get_node(npos)
+		local meta = minetest.get_meta(npos)
+		local nodeowner = meta:get_string("owner")
+		if minetest.is_protected(pos,nodeowner) then
+			res["protector"] = {name="("..node.name..")",owner=nodeowner}
+			break
+		end
+	end
+	return res
+end
+-- //
+
 --- Returns a list of areas that include the provided position.
 function areas:getAreasAtPos(pos)
 	local res = {}
+	--res = get_protector_area(pos)
+
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
 		for store_id, store_area in pairs(a) do
@@ -13,9 +37,10 @@ function areas:getAreasAtPos(pos)
 		for id, area in pairs(self.areas) do
 			local ap1, ap2 = area.pos1, area.pos2
 			if
-					(px >= ap1.x and px <= ap2.x) and
-					(py >= ap1.y and py <= ap2.y) and
-					(pz >= ap1.z and pz <= ap2.z) then
+			  (px >= ap1.x and px <= ap2.x) and
+			  (py >= ap1.y and py <= ap2.y) and
+			  (pz >= ap1.z and pz <= ap2.z)
+			  then
 				res[id] = area
 			end
 		end
