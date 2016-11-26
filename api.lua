@@ -1,6 +1,6 @@
 local protection_detectors = {}
 
-areas.register_protector_detector = function(handler)
+areas.register_hud_handler = function(handler)
 	protection_detectors[#protection_detectors+1] = handler
 end
 
