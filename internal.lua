@@ -1,6 +1,6 @@
 
 function areas:player_exists(name)
-	return minetest.get_auth_handler().get_auth(name) ~= nil
+	return minetest.auth_table[name] ~= nil
 end
 
 -- Save the areas table to a file
