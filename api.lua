@@ -1,9 +1,11 @@
 local protection_detectors = {}
 
+-- Other protection mods should be able to display their protection in the hud
 areas.register_hud_handler = function(handler)
 	protection_detectors[#protection_detectors+1] = handler
 end
 
+-- Generalized call to registered handlers to add their proeciton labels to the areas list
 local detect_extra_protection = function(pos,res)
 	if #protection_detectors <= 0 then
 		return res
