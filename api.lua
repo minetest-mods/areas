@@ -1,30 +1,25 @@
+local protection_detectors = {}
 
-local get_protector_area = function(pos)
-	-- Add protector to the hud
-	local res = {}
-	local radius = (tonumber(minetest.setting_get("protector_radius")) or 5)
-	local protectors = minetest.find_nodes_in_area(
-		{x=pos.x -radius , y=pos.y -radius , z=pos.z -radius},
-		{x=pos.x +radius , y=pos.y +radius , z=pos.z +radius},
-		{"protector:protect","protector:protect2"}
-	)
-	for _,npos in pairs(protectors) do
-		local node = minetest.get_node(npos)
-		local meta = minetest.get_meta(npos)
-		local nodeowner = meta:get_string("owner")
-		if minetest.is_protected(pos,nodeowner) then
-			res["protector"] = {name="("..node.name..")",owner=nodeowner}
-			break
-		end
+areas.register_protector_detector = function(handler)
+	protection_detectors[#protection_detectors+1] = handler
+end
+
+local detect_extra_protection = function(pos,res)
+	if #protection_detectors <= 0 then
+		return res
+	end
+
+	for idx=1,#protection_detectors do
+		local func = protection_detectors[idx]
+		res = func(pos,res)
 	end
 	return res
 end
--- //
 
 --- Returns a list of areas that include the provided position.
 function areas:getAreasAtPos(pos)
 	local res = {}
-	--res = get_protector_area(pos)
+	res = detect_extra_protection(pos,res)
 
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
