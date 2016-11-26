@@ -8,7 +8,7 @@ minetest.register_globalstep(function(dtime)
 		local pos = vector.round(player:getpos())
 		local areaStrings = {}
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			table.insert(areaStrings, ("%s [%u] (%s%s)")
+			table.insert(areaStrings, ("%s [%s] (%s%s)")
 					:format(area.name, id, area.owner,
 					area.open and ":open" or ""))
 		end
