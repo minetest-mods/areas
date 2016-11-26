@@ -18,10 +18,15 @@ local detect_extra_protection = function(pos,area_list)
 	return area_list
 end
 
+function areas:getRegisteredProtections(pos)
+	local res = {}
+	res = detect_extra_protection(pos,res)
+	return res
+end
+
 --- Returns a list of areas that include the provided position.
 function areas:getAreasAtPos(pos)
 	local res = {}
-	res = detect_extra_protection(pos,res)
 
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
