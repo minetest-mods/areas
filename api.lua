@@ -1,7 +1,23 @@
+local hudHandlers = {}
+
+--- Adds a function as a HUD handler, it will be able to add items to the Areas HUD element.
+function areas:registerHudHandler(handler)
+	table.insert(hudHandlers, handler)
+end
+
+
+function areas:getExternalHudEntries(pos)
+	local areas = {}
+	for _, func in pairs(hudHandlers) do
+		func(pos, areas)
+	end
+	return areas
+end
 
 --- Returns a list of areas that include the provided position.
 function areas:getAreasAtPos(pos)
 	local res = {}
+
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
 		for store_id, store_area in pairs(a) do
