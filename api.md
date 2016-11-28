@@ -9,11 +9,11 @@ display your protection's existence.
 
 Registering a handler:
 
-* `areas.register_hud_handler(handler_name) --> nil`
+* `areas.registerHudHandler(handler) --> nil`
 
 Handler specification:
 
-* `handler_name(pos,area_list) --> new_area_list`
+* `handler(pos,area_list) --> new_area_list`
 	* `pos` - the position at which to check for protection coverage by your mod
 	* `area_list` - the current list of protected areas
 	* `new_area_list` - the list of protected areas, updated with your entries
