@@ -1,7 +1,7 @@
 local protection_detectors = {}
 
 -- Other protection mods should be able to display their protection in the hud
-areas.register_hud_handler = function(handler)
+areas.registerHudHandler = function(handler)
 	protection_detectors[#protection_detectors + 1] = handler
 end
 
@@ -20,7 +20,7 @@ end
 
 function areas:getRegisteredProtections(pos)
 	local res = {}
-	res = detect_extra_protection(pos,res)
+	res = detect_extra_protection(pos, res)
 	return res
 end
 
@@ -39,10 +39,9 @@ function areas:getAreasAtPos(pos)
 		for id, area in pairs(self.areas) do
 			local ap1, ap2 = area.pos1, area.pos2
 			if
-			  (px >= ap1.x and px <= ap2.x) and
-			  (py >= ap1.y and py <= ap2.y) and
-			  (pz >= ap1.z and pz <= ap2.z)
-			  then
+				(px >= ap1.x and px <= ap2.x) and
+				(py >= ap1.y and py <= ap2.y) and
+				(pz >= ap1.z and pz <= ap2.z) then
 				res[id] = area
 			end
 		end
