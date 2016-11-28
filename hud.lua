@@ -9,7 +9,7 @@ minetest.register_globalstep(function(dtime)
 		local areaStrings = {}
 
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			table.insert(areaStrings, ("%s [%i] (%s%s)")
+			table.insert(areaStrings, ("%s [%u] (%s%s)")
 					:format(area.name, id, area.owner,
 					area.open and ":open" or ""))
 		end
