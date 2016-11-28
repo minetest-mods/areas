@@ -6,7 +6,7 @@ areas.registerHudHandler = function(handler)
 end
 
 -- Generalized call to registered handlers to add their proeciton labels to the areas list
-local detect_extra_protection = function(pos,area_list)
+local detect_extra_protection = function(pos, area_list)
 	if #protection_detectors <= 0 then
 		return area_list
 	end
