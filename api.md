@@ -3,7 +3,7 @@
 Adding your protections to the HUD
 ----------------------------------
 
-If you are providing an extra protection mod to work in cunjunction with the
+If you are providing an extra protection mod to work in conjunction with the
 HUD feature of `areas`, you can register a callback to add your mod's code to
 display your protection's existence.
 
