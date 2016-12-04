@@ -7,11 +7,24 @@ minetest.register_globalstep(function(dtime)
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
 		local areaStrings = {}
+
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
 			table.insert(areaStrings, ("%s [%u] (%s%s)")
 					:format(area.name, id, area.owner,
 					area.open and ":open" or ""))
 		end
+
+		for id, area in pairs(areas:getRegisteredProtections(pos)) do
+			table.insert(
+				areaStrings, ("%s [%s] (%s)")
+				:format(
+					area.name or "",
+					id ,
+					area.owner
+				)
+			)
+		end
+
 		local areaString = "Areas:"
 		if #areaStrings > 0 then
 			areaString = areaString.."\n"..
