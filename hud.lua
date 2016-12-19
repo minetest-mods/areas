@@ -14,15 +14,12 @@ minetest.register_globalstep(function(dtime)
 					area.open and ":open" or ""))
 		end
 
-		for id, area in pairs(areas:getRegisteredProtections(pos)) do
-			table.insert(
-				areaStrings, ("%s [%s] (%s)")
-				:format(
-					area.name or "",
-					id ,
-					area.owner
-				)
-			)
+		for i, area in pairs(areas:getExternalHudEntries(pos)) do
+			local str = ""
+			if area.name then str = area.name .. " " end
+			if area.id then str = str.."["..area.id.."] " end
+			if area.owner then str = str.."("..area.owner..")" end
+			table.insert(areaStrings, str)
 		end
 
 		local areaString = "Areas:"

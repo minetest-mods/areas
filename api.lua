@@ -1,22 +1,17 @@
-local protection_detectors = {}
+local hudHandlers = {}
 
--- Other protection mods should be able to display their protection in the hud
-areas.registerHudHandler = function(handler)
-	protection_detectors[#protection_detectors + 1] = handler
+--- Adds a function as a HUD handler, it will be able to add items to the Areas HUD element.
+function areas:registerHudHandler(handler)
+	table.insert(hudHandlers, handler)
 end
 
--- Generalized call to registered handlers to add their proeciton labels to the areas list
-function areas:getRegisteredProtections(pos)
-	local area_list = {}
-	if #protection_detectors <= 0 then
-		return area_list
-	end
 
-	for idx=1, #protection_detectors do
-		local func = protection_detectors[idx]
-		area_list = func(pos, area_list)
+function areas:getExternalHudEntries(pos)
+	local areas = {}
+	for _, func in pairs(hudHandlers) do
+		func(pos, areas)
 	end
-	return area_list
+	return areas
 end
 
 --- Returns a list of areas that include the provided position.
