@@ -6,22 +6,17 @@ areas.registerHudHandler = function(handler)
 end
 
 -- Generalized call to registered handlers to add their proeciton labels to the areas list
-local detect_extra_protection = function(pos, area_list)
+function areas:getRegisteredProtections(pos)
+	local area_list = {}
 	if #protection_detectors <= 0 then
 		return area_list
 	end
 
-	for idx=1,#protection_detectors do
+	for idx=1, #protection_detectors do
 		local func = protection_detectors[idx]
-		area_list = func(pos,area_list)
+		area_list = func(pos, area_list)
 	end
 	return area_list
-end
-
-function areas:getRegisteredProtections(pos)
-	local res = {}
-	res = detect_extra_protection(pos, res)
-	return res
 end
 
 --- Returns a list of areas that include the provided position.
