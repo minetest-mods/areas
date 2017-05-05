@@ -7,7 +7,7 @@ Configuration
 
 If you wish to specify configuration options, such as whether players are
 allowed to protect their own areas with the `protect` command (disabled by
-default), you should check config.lua and set the appropriate settings in your
+default), you should check settings.lua and set the appropriate settings in your
 server's configuration file (probably `minetest.conf`).
 
 
