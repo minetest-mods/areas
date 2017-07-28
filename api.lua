@@ -18,10 +18,9 @@ end
 function areas:getAreasAtPos(pos)
 	local res = {}
 
-	if math.abs(pos.x) > 2147483 or math.abs(pos.y) > 2147483 or
-			math.abs(pos.z) > 2147483 then
-		return res
-	end
+	pos = vector.apply(pos, function(p)
+		return math.max(math.min(p, 2147483), -2147483)
+	end)
 
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
