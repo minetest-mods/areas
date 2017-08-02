@@ -18,10 +18,6 @@ end
 function areas:getAreasAtPos(pos)
 	local res = {}
 
-	pos = vector.apply(pos, function(p)
-		return math.max(math.min(p, 2147483), -2147483)
-	end)
-
 	if self.store then
 		local a = self.store:get_areas_for_pos(pos, false, true)
 		for store_id, store_area in pairs(a) do
