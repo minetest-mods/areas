@@ -68,6 +68,41 @@ minetest.register_chatcommand("set_owner", {
 	end
 })
 
+minetest.register_chatcommand("set_group_owner", {
+	params = "<GroupName> <AreaName>",
+	description = "Protect an area beetween two positions and give"
+		.." a group access to it without setting the parent of the"
+		.." area to any existing area",
+	privs = areas.adminPrivs,
+	func = function(name, param)
+		local groupName, areaName = param:match('^(%S+)%s(.+)$')
+
+		if not groupName then
+			return false, "Incorrect usage, see /help set_owner."
+		end
+
+		local pos1, pos2 = areas:getPos(name)
+		if not (pos1 and pos2) then
+			return false, "You need to select an area first."
+		end
+
+		if not usergroups:group_exists(groupName) then
+			return false, "The group \""
+					..groupName.."\" does not exist."
+		end
+
+		minetest.log("action", name.." runs /set_owner. Group = "..groupName..
+				" AreaName = "..areaName..
+				" StartPos = "..minetest.pos_to_string(pos1)..
+				" EndPos = "  ..minetest.pos_to_string(pos2))
+
+		local id = areas:add_with_group(groupName, areaName, pos1, pos2, nil)
+		areas:save()
+
+		return true, "Area protected. ID: "..id
+	end
+})
+
 
 minetest.register_chatcommand("add_owner", {
 	params = "<ParentID> <Player> <AreaName>",
