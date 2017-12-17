@@ -74,7 +74,7 @@ function areas:canInteract(pos, name)
 	end
 	local owned = false
 	for _, area in pairs(self:getAreasAtPos(pos)) do
-		if area.owner == name or area.open then
+		if area.owner == name or area.open or usergroups:user_is_in_group(name, area.group) then
 			return true
 		else
 			owned = true
