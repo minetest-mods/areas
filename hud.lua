@@ -3,6 +3,18 @@
 areas.hud = {}
 
 minetest.register_globalstep(function(dtime)
+  function format_owner(area)
+    if area.owner then
+      return area.owner
+    end
+
+    if area.group then
+      return area.group
+    end
+
+    return ""
+  end
+
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
@@ -10,15 +22,16 @@ minetest.register_globalstep(function(dtime)
 
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
 			table.insert(areaStrings, ("%s [%u] (%s%s)")
-					:format(area.name, id, area.owner,
+					:format(area.name, id, format_owner(area),
 					area.open and ":open" or ""))
 		end
 
 		for i, area in pairs(areas:getExternalHudEntries(pos)) do
 			local str = ""
+      local formattedOwner = format_owner(area)
 			if area.name then str = area.name .. " " end
 			if area.id then str = str.."["..area.id.."] " end
-			if area.owner then str = str.."("..area.owner..")" end
+			if formattedOwner then str = str.."("..formattedOwner..")" end
 			table.insert(areaStrings, str)
 		end
 
