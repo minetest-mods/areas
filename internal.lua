@@ -96,6 +96,27 @@ function areas:add(owner, name, pos1, pos2, parent)
 	return id
 end
 
+--- Add a area.
+-- @return The new area's ID.
+function areas:add_with_group(group, name, pos1, pos2, parent)
+	local id = findFirstUnusedIndex(self.areas)
+	self.areas[id] = {
+		name = name,
+		pos1 = pos1,
+		pos2 = pos2,
+		group = group,
+		parent = parent
+	}
+	-- Add to AreaStore
+	if self.store then
+		local sid = self.store:insert_area(pos1, pos2, tostring(id))
+		if self:checkAreaStoreId(sid) then
+			self.store_ids[id] = sid
+		end
+	end
+	return id
+end
+
 --- Remove a area, and optionally it's children recursively.
 -- If a area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
