@@ -87,9 +87,22 @@ end
 function areas:getNodeOwners(pos)
 	local owners = {}
 	for _, area in pairs(self:getAreasAtPos(pos)) do
-		table.insert(owners, area.owner)
+    if area.owner and (area.owner ~= "") then
+      table.insert(owners, area.owner)
+    end
 	end
 	return owners
+end
+
+-- Returns a table (list) of all groups that own an area
+function areas:getNodeOwnerGroups(pos)
+  local ownerGroups = {}
+  for _, area in pairs(self:getAreasAtPos(pos)) do
+    if area.group then
+      table.insert(ownerGroups, area.group)
+    end
+  end
+  return ownerGroups
 end
 
 --- Checks if the area intersects with an area that the player can't interact in.
