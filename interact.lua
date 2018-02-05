@@ -1,7 +1,10 @@
 
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
+	local player = minetest.get_player_by_name(name)
+	local playerpos = player:getpos()
 	if not areas:canInteract(pos, name) then
+		player:setpos(playerpos)
 		return true
 	end
 	return old_is_protected(pos, name)
