@@ -20,4 +20,4 @@ msgstr ""
 
 #: init.lua
 msgid "@1 is protected by @2"
-msgstr "@1 est protégé par @2"
+msgstr "@1 est protÃ©gÃ© par @2"
