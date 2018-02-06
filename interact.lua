@@ -17,7 +17,6 @@ minetest.register_on_protection_violation(function(pos, name)
 				minetest.pos_to_string(pos),
 				table.concat(owners, ", ")))
 		minetest.after(1,anti_lag,{player=player,playerpos=playerpos})
-		--player:setpos(playerpos)
 	end
 end)
 
