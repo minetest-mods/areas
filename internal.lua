@@ -1,21 +1,32 @@
+local S = areas.intllib
+
+-- Mega_builder privilege
+minetest.register_privilege("megabuilder",S("Can protect an infinite amount of areas."))
 
 function areas:player_exists(name)
 	return minetest.get_auth_handler().get_auth(name) ~= nil
+end
+
+local safe_file_write = minetest.safe_file_write
+if safe_file_write == nil then
+	function safe_file_write(path, content)
+		local file, err = io.open(path, "w")
+		if err then
+			return err
+		end
+		file:write(content)
+		file:close()
+	end
 end
 
 -- Save the areas table to a file
 function areas:save()
 	local datastr = minetest.serialize(self.areas)
 	if not datastr then
-		minetest.log("error", "[areas] Failed to serialize area data!")
+		minetest.log("error", S("[areas] Failed to serialize area data!"))
 		return
 	end
-	local file, err = io.open(self.config.filename, "w")
-	if err then
-		return err
-	end
-	file:write(datastr)
-	file:close()
+	return safe_file_write(self.config.filename, datastr)
 end
 
 -- Load the areas table from the save file
@@ -39,8 +50,8 @@ end
 -- @return Whether the ID was valid.
 function areas:checkAreaStoreId(sid)
 	if not sid then
-		minetest.log("error", "AreaStore failed to find an ID for an "
-			.."area!  Falling back to iterative area checking.")
+		minetest.log("error", S("AreaStore failed to find an ID for an "
+			.."area!  Falling back to iterative area checking."))
 		self.store = nil
 		self.store_ids = nil
 	end
@@ -191,40 +202,45 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 	-- and if the area is too big.
 	if not self.config.self_protection or
 			not privs[areas.config.self_protection_privilege] then
-		return false, "Self protection is disabled or you do not have"
-				.." the necessary privilege."
+		return false, S("Self protection is disabled or you do not have"
+				.." the necessary privilege.")
 	end
 
-	local max_size = privs.areas_high_limit and
-			self.config.self_protection_max_size_high or
-			self.config.self_protection_max_size
-	if
-			(pos2.x - pos1.x) > max_size.x or
-			(pos2.y - pos1.y) > max_size.y or
-			(pos2.z - pos1.z) > max_size.z then
-		return false, "Area is too big."
-	end
-
-	-- Check number of areas the user has and make sure it not above the max
-	local count = 0
-	for _, area in pairs(self.areas) do
-		if area.owner == name then
-			count = count + 1
+	-- MFF: megabuilders skip checks on size and number of areas.
+	if not privs["megabuilder"] then
+		-- Check size
+		local max_size = privs.areas_high_limit and
+				self.config.self_protection_max_size_high or
+				self.config.self_protection_max_size
+		if
+				(pos2.x - pos1.x) > max_size.x or
+				(pos2.y - pos1.y) > max_size.y or
+				(pos2.z - pos1.z) > max_size.z then
+			return false, S("Area is too big.")
+		end
+		
+		-- Check number of areas the user has and make sure it not above the max
+		local count = 0
+		for _, area in pairs(self.areas) do
+			if area.owner == name then
+				count = count + 1
+			end
+		end
+		local max_areas = privs.areas_high_limit and
+				self.config.self_protection_max_areas_high or
+				self.config.self_protection_max_areas
+		if count >= max_areas then
+			return false, S("You have reached the maximum amount of"
+					.." areas that you are allowed to protect.")
 		end
 	end
-	local max_areas = privs.areas_high_limit and
-			self.config.self_protection_max_areas_high or
-			self.config.self_protection_max_areas
-	if count >= max_areas then
-		return false, "You have reached the maximum amount of"
-				.." areas that you are allowed to  protect."
-	end
+end
 
 	-- Check intersecting areas
-	local can, id = self:canInteractInArea(pos1, pos2, name)
+	local can, id = self:canMakeArea(pos1, pos2, name)  --MFF crabman(25/02/2016) fix areas in areas
 	if not can then
 		local area = self.areas[id]
-		return false, ("The area intersects with %s [%u] (%s).")
+		return false, (S("The area intersects with %s [%u] (%s)."))
 				:format(area.name, id, area.owner)
 	end
 

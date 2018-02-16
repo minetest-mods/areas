@@ -1,0 +1,496 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-02 14:48+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: chatcommands.lua
+msgid "Protect your own area"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help protect."
+msgstr ""
+
+#: chatcommands.lua
+msgid "You need to select an area first."
+msgstr ""
+
+#: chatcommands.lua
+msgid "/protect invoked, Owner ="
+msgstr ""
+
+#: chatcommands.lua
+msgid "You can't protect that area: "
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area protected. ID: "
+msgstr ""
+
+#: chatcommands.lua
+msgid ""
+"Protect an area beetween two positions and give a player access to it "
+"without setting the parent of the area to any existing area"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Incorrect usage, see /help set_owner."
+msgstr ""
+
+#: chatcommands.lua
+msgid "The player \"@1\" does not exist."
+msgstr ""
+
+#: chatcommands.lua
+msgid " runs /set_owner. Owner = "
+msgstr ""
+
+#: chatcommands.lua
+msgid ""
+"You have been granted control over area #@1. Type /list_areas to show your "
+"areas."
+msgstr ""
+
+#: chatcommands.lua
+msgid ""
+"Give a player access to a sub-area beetween two positions that have already "
+"been protected, Use set_owner if you don't want the parent to be set."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Incorrect usage, see /help add_owner"
+msgstr ""
+
+#: chatcommands.lua
+msgid " runs /add_owner. Owner = "
+msgstr ""
+
+#: chatcommands.lua
+msgid "You can't protect that area."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Rename a area that you own"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help rename_area."
+msgstr ""
+
+#: chatcommands.lua
+msgid "That area doesn't exist."
+msgstr ""
+
+#: chatcommands.lua
+msgid "You don't own that area."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area renamed."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Find areas using a Lua regular expression"
+msgstr ""
+
+#: chatcommands.lua
+msgid "A regular expression is required."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid regular expression."
+msgstr ""
+
+#: chatcommands.lua
+msgid "No matches found."
+msgstr ""
+
+#: chatcommands.lua
+msgid "List your areas, or all areas if you are an admin."
+msgstr ""
+
+#: chatcommands.lua
+msgid "No visible areas."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Recursively remove areas using an id"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help recursive_remove_areas"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area @1 does not exist or is not owned by you."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Removed area @1 and it's sub areas."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Remove an area using an id"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help remove_area"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Removed area @1"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Change the owner of an area using it's ID"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help change_owner."
+msgstr ""
+
+#: chatcommands.lua
+msgid "@1 has given you control over the area @2 (ID @3)."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Owner changed."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Toggle an area open (anyone can interact) or closed"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help area_open."
+msgstr ""
+
+#: chatcommands.lua
+msgid "closed"
+msgstr ""
+
+#: chatcommands.lua
+msgid "opened"
+msgstr ""
+
+#. Translators: @1 is one of the previous 'opened' or 'closed'
+#: chatcommands.lua
+msgid "Area @1."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Toggle an area open (anyone can interact farming) or closed"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help area_openfarming."
+msgstr ""
+
+#. Translators: @1 is one of the previous 'opened' or 'closed'
+#: chatcommands.lua
+msgid "Area @1 to farming."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Move (or resize) an area to the current positions."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help move_area."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area does not exist."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area successfully moved."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Get information about area configuration and usage."
+msgstr ""
+
+#: chatcommands.lua
+msgid "disabled"
+msgstr ""
+
+#: chatcommands.lua
+msgid "enabled"
+msgstr ""
+
+#. Translators: @1 is one of the previous 'enabled' or 'disabled'
+#: chatcommands.lua
+msgid "Self protection is @1 "
+msgstr ""
+
+#: chatcommands.lua
+msgid "and you"
+msgstr ""
+
+#: chatcommands.lua
+msgid "but you don't"
+msgstr ""
+
+#. Translators: @1 is one of the previous 'and you' or 'but you don't'
+#: chatcommands.lua
+msgid " @1 have the neccessary privilege (@2)."
+msgstr ""
+
+#: chatcommands.lua
+msgid "You are an area administrator (\"areas\" privilege)."
+msgstr ""
+
+#: chatcommands.lua
+msgid ""
+"You have extended area protection limits (\"areas_high_limit\" privilege)."
+msgstr ""
+
+#. Translators: need to use NS gettext to be more precise
+#: chatcommands.lua
+msgid "You have @1 area@2"
+msgstr ""
+
+#: chatcommands.lua
+msgid " and have no area protection limits."
+msgstr ""
+
+#: chatcommands.lua
+msgid ", out of a maximum of @1."
+msgstr ""
+
+#: chatcommands.lua
+#, lua-format
+msgid "%s spanning up to %dx%dx%d."
+msgstr ""
+
+#: chatcommands.lua
+#, lua-format
+msgid "Players with the %q privilege can protect up to %d areas"
+msgstr ""
+
+#: chatcommands.lua
+msgid "You can protect areas"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Define special spawn for area"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help area_addspawn."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Error, Param id must be int."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Error, there is not such player"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Error, there is not pos."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Area @1 does not exist."
+msgstr ""
+
+#: chatcommands.lua
+msgid "spawn of area @1 defined."
+msgstr ""
+
+#: chatcommands.lua
+msgid "Delete special spawn of area"
+msgstr ""
+
+#: chatcommands.lua
+msgid "Invalid usage, see /help area_delspawn."
+msgstr ""
+
+#: chatcommands.lua
+msgid "spawn of area @1 deleted."
+msgstr ""
+
+#: hud.lua
+msgid "No area(s)"
+msgstr ""
+
+#. Translators: need to use NS gettext to be more precise
+#: hud.lua
+#, lua-format
+msgid ""
+"%s\n"
+"Owner: %s\n"
+"%u area"
+msgstr ""
+
+#: init.lua
+msgid "Can administer areas."
+msgstr ""
+
+#: init.lua
+msgid "Can can more, bigger areas."
+msgstr ""
+
+#: init.lua
+msgid "Can protect areas."
+msgstr ""
+
+#: init.lua
+msgid "[MOD]areas loaded in @1s."
+msgstr ""
+
+#: interact.lua
+#, lua-format
+msgid "%s is protected by %s."
+msgstr ""
+
+#: internal.lua
+msgid "Self protection is disabled or you do not have the necessary privilege."
+msgstr ""
+
+#: internal.lua
+msgid "Area is too big."
+msgstr ""
+
+#: internal.lua
+msgid ""
+"You have reached the maximum amount of areas that you are allowed to protect."
+msgstr ""
+
+#: internal.lua
+#, lua-format
+msgid "The area intersects with %s [%u] (%s)."
+msgstr ""
+
+#: legacy.lua
+msgid "Loads, converts, and saves the areas from a legacy save file."
+msgstr ""
+
+#: legacy.lua
+msgid "Converting areas..."
+msgstr ""
+
+#: legacy.lua
+msgid "Error loading legacy file: "
+msgstr ""
+
+#: legacy.lua
+msgid "Invalid version number. (0 allowed)"
+msgstr ""
+
+#: legacy.lua
+msgid "Legacy file loaded."
+msgstr ""
+
+#: legacy.lua
+msgid "unnamed"
+msgstr ""
+
+#: legacy.lua
+msgid "Table format updated."
+msgstr ""
+
+#: legacy.lua
+msgid "Converted areas saved. Done."
+msgstr ""
+
+#: pos.lua
+msgid "Select a area by id."
+msgstr ""
+
+#: pos.lua
+msgid "Invalid usage, see /help select_area."
+msgstr ""
+
+#: pos.lua
+msgid "The area @1 does not exist."
+msgstr ""
+
+#: pos.lua
+msgid "Area @1 selected."
+msgstr ""
+
+#: pos.lua
+msgid ""
+"Set area protection region position 1 to your location or the one specified"
+msgstr ""
+
+#: pos.lua
+msgid "Unable to get position."
+msgstr ""
+
+#: pos.lua
+msgid "Invalid usage, see /help area_pos1."
+msgstr ""
+
+#: pos.lua
+msgid "Area position 1 set to "
+msgstr ""
+
+#: pos.lua
+msgid ""
+"Set area protection region position 2 to your location or the one specified"
+msgstr ""
+
+#: pos.lua
+msgid "Invalid usage, see /help area_pos2."
+msgstr ""
+
+#: pos.lua
+msgid "Area position 2 set to "
+msgstr ""
+
+#: pos.lua
+msgid ""
+"Set area protection region, position 1, or position 2 by punching nodes, or "
+"display the region"
+msgstr ""
+
+#: pos.lua
+msgid "Select positions by punching two nodes."
+msgstr ""
+
+#: pos.lua
+msgid "Select position 1 by punching a node."
+msgstr ""
+
+#: pos.lua
+msgid "Select position 2 by punching a node."
+msgstr ""
+
+#: pos.lua
+msgid "<not set>"
+msgstr ""
+
+#: pos.lua
+msgid "Unknown subcommand: "
+msgstr ""
+
+#: pos.lua
+msgid "Position 1 set to "
+msgstr ""
+
+#: pos.lua
+msgid "Position 2 set to "
+msgstr ""
+
+#: settings.lua
+msgid "Invalid setting type!"
+msgstr ""
