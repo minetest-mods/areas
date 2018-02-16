@@ -3,6 +3,18 @@ function areas:player_exists(name)
 	return minetest.get_auth_handler().get_auth(name) ~= nil
 end
 
+local safe_file_write = minetest.safe_file_write
+if safe_file_write == nil then
+	function safe_file_write(path, content)
+		local file, err = io.open(path, "w")
+		if err then
+			return err
+		end
+		file:write(content)
+		file:close()
+	end
+end
+
 -- Save the areas table to a file
 function areas:save()
 	local datastr = minetest.serialize(self.areas)
@@ -10,12 +22,7 @@ function areas:save()
 		minetest.log("error", "[areas] Failed to serialize area data!")
 		return
 	end
-	local file, err = io.open(self.config.filename, "w")
-	if err then
-		return err
-	end
-	file:write(datastr)
-	file:close()
+	return safe_file_write(self.config.filename, datastr)
 end
 
 -- Load the areas table from the save file
