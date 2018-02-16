@@ -4,6 +4,11 @@
 
 areas = {}
 
+-- Load support for intllib.
+local MP = minetest.get_modpath(minetest.get_current_modname())
+local S, NS = dofile(MP.."/intllib.lua")
+areas.intllib = S
+
 areas.adminPrivs = {areas=true}
 areas.startTime = os.clock()
 
@@ -20,20 +25,20 @@ dofile(areas.modpath.."/hud.lua")
 areas:load()
 
 minetest.register_privilege("areas", {
-	description = "Can administer areas."
+	description = S("Can administer areas.")
 })
 minetest.register_privilege("areas_high_limit", {
-	description = "Can can more, bigger areas."
+	description = S("Can can more, bigger areas.")
 })
 
 if not minetest.registered_privileges[areas.config.self_protection_privilege] then
 	minetest.register_privilege(areas.config.self_protection_privilege, {
-		description = "Can protect areas.",
+		description = S("Can protect areas."),
 	})
 end
 
 if minetest.settings:get_bool("log_mod") then
 	local diffTime = os.clock() - areas.startTime
-	minetest.log("action", "areas loaded in "..diffTime.."s.")
+	minetest.log("action", S("[MOD]areas loaded in @1s.", diffTime))
 end
 

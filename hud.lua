@@ -1,4 +1,5 @@
 -- This is inspired by the landrush mod by Bremaweb
+local S = areas.intllib
 
 areas.hud = {}
 
@@ -6,7 +7,7 @@ local function tick()
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
-		local area_text = "No area(s)\n\n"
+		local area_text = S("No area(s)").."\n\n"
 		local area_owner_name = ""
 		local mod_owner = 0
 		local mod_open = 0
@@ -47,7 +48,8 @@ local function tick()
 			if nb_areas > 1 then
 				plural = "s"
 			end
-			area_text = ("%s\nOwner: %s\n%u area" .. plural):format(area_name, area_owner_name, nb_areas)
+			-- Translators: need to use NS gettext to be more precise
+			area_text = (S("%s\nOwner: %s\n%u area") .. plural):format(area_name, area_owner_name, nb_areas)
 			icon = ("areas_%u_%u_%u.png"):format(mod_owner, mod_open, mod_farming)
 		end
 		if not areas.hud[name] then
