@@ -88,7 +88,7 @@ function areas:add(owner, name, pos1, pos2, parent)
 	}
 
 	for i=1, #areas.registered_on_adds do
-		areas.registered_on_adds[i](owner, name, pos1, pos2, parent)
+		areas.registered_on_adds[i](id, self.areas[id])
 	end
 
 	-- Add to AreaStore
