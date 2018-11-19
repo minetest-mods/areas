@@ -1,5 +1,23 @@
 local hudHandlers = {}
 
+
+areas.registered_on_adds = {}
+areas.registered_on_removes = {}
+areas.registered_on_moves = {}
+
+function areas:registerOnAdd(func)
+	table.insert(areas.registered_on_adds, func)
+end
+
+function areas:registerOnRemove(func)
+	table.insert(areas.registered_on_removes, func)
+end
+
+function areas:registerOnMove(func)
+	table.insert(areas.registered_on_moves, func)
+end
+
+
 --- Adds a function as a HUD handler, it will be able to add items to the Areas HUD element.
 function areas:registerHudHandler(handler)
 	table.insert(hudHandlers, handler)
@@ -141,4 +159,3 @@ function areas:canInteractInArea(pos1, pos2, name, allow_open)
 	-- intersecting areas and they are all owned by the player.
 	return true
 end
-

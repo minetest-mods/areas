@@ -86,6 +86,11 @@ function areas:add(owner, name, pos1, pos2, parent)
 		owner = owner,
 		parent = parent
 	}
+
+	for i=1, #areas.registered_on_adds do
+		areas.registered_on_adds[i](owner, name, pos1, pos2, parent)
+	end
+
 	-- Add to AreaStore
 	if self.store then
 		local sid = self.store:insert_area(pos1, pos2, tostring(id))
@@ -118,6 +123,10 @@ function areas:remove(id, recurse)
 		end
 	end
 
+	for i=1, #areas.registered_on_removes do
+		areas.registered_on_removes[i](id)
+	end
+
 	-- Remove main entry
 	self.areas[id] = nil
 
@@ -132,6 +141,11 @@ end
 function areas:move(id, area, pos1, pos2)
 	area.pos1 = pos1
 	area.pos2 = pos2
+
+
+	for i=1, #areas.registered_on_moves do
+		areas.registered_on_moves[i](id, area, pos1, pos2)
+	end
 
 	if self.store then
 		self.store:remove_area(areas.store_ids[id])
@@ -282,4 +296,3 @@ function areas:isAreaOwner(id, name)
 	end
 	return false
 end
-
