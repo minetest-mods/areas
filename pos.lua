@@ -130,7 +130,11 @@ function areas:getPos(playerName)
 end
 
 local function posLimit(pos)
-	return math.max(math.min(p, 31000), -31000)
+	return {
+		x = math.max(math.min(pos.x, 31000), -31000)
+		y = math.max(math.min(pos.y, 31000), -31000)
+		z = math.max(math.min(pos.z, 31000), -31000)
+	}
 end
 
 function areas:setPos1(playerName, pos)
