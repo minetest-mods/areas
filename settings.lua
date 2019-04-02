@@ -40,3 +40,6 @@ setting("number",   "self_protection_max_areas_high", 32)
 
 -- legacy_table (owner_defs) compatibility.  Untested and has known issues.
 setting("boolean", "legacy_table", false)
+
+-- configure the refresh delay for the name displays in the HUD
+setting("number", "tick", 0.5)
