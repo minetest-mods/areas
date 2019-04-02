@@ -131,8 +131,8 @@ end
 
 local function posLimit(pos)
 	return {
-		x = math.max(math.min(pos.x, 31000), -31000)
-		y = math.max(math.min(pos.y, 31000), -31000)
+		x = math.max(math.min(pos.x, 31000), -31000),
+		y = math.max(math.min(pos.y, 31000), -31000),
 		z = math.max(math.min(pos.z, 31000), -31000)
 	}
 end
