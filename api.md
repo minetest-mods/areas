@@ -4,7 +4,10 @@ Areas mod API
 API list
 ---
 
- * `areas.registerHudHandler(handler)` - Registers a handler to add items to the Areas HUD.  See [HUD](#hud).
+ * `areas:registerHudHandler(handler)` - Registers a handler to add items to the Areas HUD.  See [HUD](#hud).
+ * `areas:registerOnAdd(func(id, area))`
+ * `areas:registerOnRemove(func(id))`
+ * `areas:registerOnMove(func(id, area, pos1, pos2))`
 
 
 HUD
