@@ -129,13 +129,17 @@ function areas:getPos(playerName)
 	return areas:sortPos(pos1, pos2)
 end
 
+local function posLimit(pos)
+	return math.max(math.min(p, 31000), -31000)
+end
+
 function areas:setPos1(playerName, pos)
-	areas.pos1[playerName] = pos
+	areas.pos1[playerName] = posLimit(pos)
 	areas.markPos1(playerName)
 end
 
 function areas:setPos2(playerName, pos)
-	areas.pos2[playerName] = pos
+	areas.pos2[playerName] = posLimit(pos)
 	areas.markPos2(playerName)
 end
 
