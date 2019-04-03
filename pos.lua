@@ -50,7 +50,7 @@ minetest.register_chatcommand("area_pos1", {
 		else
 			return false, "Invalid usage, see /help area_pos1."
 		end
-		pos = vector.round(pos)
+		pos = posLimit(vector.round(pos))
 		areas:setPos1(name, pos)
 		return true, "Area position 1 set to "
 				..minetest.pos_to_string(pos)
@@ -77,7 +77,7 @@ minetest.register_chatcommand("area_pos2", {
 		else
 			return false, "Invalid usage, see /help area_pos2."
 		end
-		pos = vector.round(pos)
+		pos = posLimit(vector.round(pos))
 		areas:setPos2(name, pos)
 		return true, "Area position 2 set to "
 				..minetest.pos_to_string(pos)
