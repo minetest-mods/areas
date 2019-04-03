@@ -11,11 +11,13 @@ areas.set_pos = {}
 areas.pos1 = {}
 areas.pos2 = {}
 
+local LIMIT = 30992 -- this is due to MAPBLOCK_SIZE=16!
+
 local function posLimit(pos)
 	return {
-		x = math.max(math.min(pos.x, 31000), -31000),
-		y = math.max(math.min(pos.y, 31000), -31000),
-		z = math.max(math.min(pos.z, 31000), -31000)
+		x = math.max(math.min(pos.x, LIMIT), -LIMIT),
+		y = math.max(math.min(pos.y, LIMIT), -LIMIT),
+		z = math.max(math.min(pos.z, LIMIT), -LIMIT)
 	}
 end
 
