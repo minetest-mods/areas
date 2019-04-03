@@ -10,7 +10,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 		minetest.chat_send_player(name, "Converting areas...")
 		local version = tonumber(param)
 		if version == 0 then
-			err = areas:node_ownership_load()
+			local err = areas:node_ownership_load()
 			if err then
 				minetest.chat_send_player(name, "Error loading legacy file: "..err)
 				return
@@ -48,6 +48,7 @@ minetest.register_chatcommand("legacy_load_areas", {
 
 function areas:node_ownership_load()
 	local filename = minetest.get_worldpath().."/owners.tbl"
+	local tables, err
 	tables, err = loadfile(filename)
 	if err then
 		return err

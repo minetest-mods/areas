@@ -11,6 +11,14 @@ areas.set_pos = {}
 areas.pos1 = {}
 areas.pos2 = {}
 
+local function posLimit(pos)
+	return {
+		x = math.max(math.min(pos.x, 31000), -31000),
+		y = math.max(math.min(pos.y, 31000), -31000),
+		z = math.max(math.min(pos.z, 31000), -31000)
+	}
+end
+
 minetest.register_chatcommand("select_area", {
 	params = "<ID>",
 	description = "Select a area by id.",
@@ -127,14 +135,6 @@ function areas:getPos(playerName)
 	-- references to the same position.
 	pos1, pos2 = vector.new(pos1), vector.new(pos2)
 	return areas:sortPos(pos1, pos2)
-end
-
-local function posLimit(pos)
-	return {
-		x = math.max(math.min(pos.x, 31000), -31000),
-		y = math.max(math.min(pos.y, 31000), -31000),
-		z = math.max(math.min(pos.z, 31000), -31000)
-	}
 end
 
 function areas:setPos1(playerName, pos)
