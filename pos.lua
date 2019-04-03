@@ -43,7 +43,7 @@ minetest.register_chatcommand("area_pos1", {
 		.." location or the one specified",
 	privs = {},
 	func = function(name, param)
-		local pos = nil
+		local pos
 		local found, _, x, y, z = param:find(
 				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
@@ -70,7 +70,7 @@ minetest.register_chatcommand("area_pos2", {
 	description = "Set area protection region position 2 to your"
 		.." location or the one specified",
 	func = function(name, param)
-		local pos = nil
+		local pos
 		local found, _, x, y, z = param:find(
 				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
