@@ -14,7 +14,7 @@ minetest.register_globalstep(function(dtime)
 
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
-		local pos = vector.round(player:getpos())
+		local pos = vector.round(player:get_pos())
 		pos = vector.apply(pos, function(p)
 			return math.max(math.min(p, 2147483), -2147483)
 		end)

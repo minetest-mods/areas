@@ -53,7 +53,7 @@ minetest.register_chatcommand("area_pos1", {
 		elseif param == "" then
 			local player = minetest.get_player_by_name(name)
 			if player then
-				pos = player:getpos()
+				pos = player:get_pos()
 			else
 				return false, "Unable to get position."
 			end
@@ -80,7 +80,7 @@ minetest.register_chatcommand("area_pos2", {
 		elseif param == "" then
 			local player = minetest.get_player_by_name(name)
 			if player then
-				pos = player:getpos()
+				pos = player:get_pos()
 			else
 				return false, "Unable to get position."
 			end
