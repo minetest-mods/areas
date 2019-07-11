@@ -1,21 +1,29 @@
-Areas mod for Minetest 0.4.8+
-=============================
+Areas mod for Minetest
+======================
+
+Dependencies
+------------
+
+Minetest 5.0.0+ is recommended, but 0.4.16+ should work as well.
 
 
 Configuration
 -------------
 
-If you wish to specify configuration options, such as whether players are
-allowed to protect their own areas with the `protect` command (disabled by
-default), you should check settings.lua and set the appropriate settings in your
-server's configuration file (probably `minetest.conf`).
+Open the tab `Settings -> All Settings -> Mods -> areas` to get a list of all
+possible settings.
+
+For server owners: Check `settingtypes.txt` and modify your `minetest.conf`
+according to the wanted setting changes.
+
 
 
 Tutorial
 --------
 
-To protect an area you must first set the corner positions of the area.
-In order to set the corner positions you can run:
+1) Specify the corner positions of the area you would like to protect.
+Use one of the following commands:
+
   * `/area_pos set` and punch the two corner nodes to set them.
   * `/area_pos set1/set2` and punch only the first or second corner node to
 	set them one at a time.
@@ -23,25 +31,25 @@ In order to set the corner positions you can run:
   * `/area_pos1/2 X Y Z` to set one of the positions to the specified
 	coordinates.
 
-Once you have set the border positions you can protect the area by running one
-of the following commands:
+2) Protect the selected area by running one of the following commands:
+
   * `/set_owner <OwnerName> <AreaName>` -- If you have the `areas` privilege.
   * `/protect <AreaName>` -- If you have the `areas` privilege or the server
 	administrator has enabled area self-protection.
 
-The area name is used only for informational purposes (so that you know what
-an area is for).  It is not used for any other purpose.
+The area name is used only for informational purposes and has no functional
+importance.
+
 For example: `/set_owner SomePlayer Mese city`
 
-Now that you own an area you may want to add sub-owners to it. You can do this
-with the `add_owner` command.  Anyone with an area can use the `add_owner`
-command on their areas.  Before using the `add_owner` command you have to
-select the corners of the sub-area as you did for `set_owner`. If your markers
-are still around your original area and you want to grant access to your
-entire area you will not have to re-set them. You can also use `select_area` to
-place the markers at the corners of an existing area if you've reset your
+3) You now own an area. You may now add sub-owners to it if you want to (see command `/add_owner`). Before using the `/add_owner` command you have to
+select the corners of the sub-area as you did in step 1.
+
+If your markers are still around your original area and you want to grant
+access to your entire area you will not have to re-set them. Use `/select_area` to place the markers at the corners of an existing area if you've reset your
 markers and want to grant access to a full area.
-The `add_owner` command expects three arguments:
+
+The `/add_owner` command expects three arguments:
   1. The ID number of the parent area (the area that you want to add a
 	sub-area to).
   2. The name of the player that will own the sub-area.

@@ -1,0 +1,38 @@
+# This file is parsed in "settings.lua". Check regex first.
+
+# Static paths do not work well with settings
+#areas.filename (Configuration file path) string (world_path)/areas.dat
+
+# Allow players with a privilege create their own areas using /protect
+# within the specified size and amount limits.
+areas.self_protection (Self protection) bool false
+
+# Self protection: Privilege required to protect an area
+areas.self_protection_privilege (Self protection: Required privs) string interact
+
+# Refresh delay for the name displays in the HUD in seconds
+areas.tick (HUD update delay) float 0.5 0 100
+
+# Enable the legacy owner_defs metatable mode. Untested and possibly unstable
+areas.legacy_table (Legacy owner_defs metatable) bool false
+
+[Self protection (normal)]
+
+# Self protection (normal): Maximal size of the protectable area
+# Only enter positive whole numbers for the coordinate values or you'll mess up stuff.
+areas.self_protection_max_size (Maximal area size) v3f (64, 128, 64)
+
+# Self protection (normal): Maximal amount of protected areas per player
+areas.self_protection_max_areas (Maximal area count) int 4
+
+[Self protection (high)]
+
+# Self protection (normal): Maximal size of the protectable area
+# This setting applies for plyaers with the privilege 'areas_high_limit'
+areas.self_protection_max_size_high (Maximal area size) v3f (512, 512, 512)
+
+# Self protection (normal): Maximal amount of protected areas per player
+# Only enter positive whole numbers for the coordinate values or you'll mess up stuff.
+# This setting applies for plyaers with the privilege 'areas_high_limit'
+areas.self_protection_max_areas_high (Maximal area count) float 32
+

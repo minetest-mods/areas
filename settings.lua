@@ -2,44 +2,45 @@ local world_path = minetest.get_worldpath()
 
 areas.config = {}
 
-local function setting(tp, name, default)
-	local full_name = "areas."..name
+local function setting(name, tp, default)
+	local full_name = "areas." .. name
 	local value
-	if tp == "boolean" then
+	if tp == "bool" then
 		value = minetest.settings:get_bool(full_name)
+		default = value == nil and minetest.is_yes(default)
 	elseif tp == "string" then
 		value = minetest.settings:get(full_name)
-	elseif tp == "position" then
+	elseif tp == "v3f" then
 		value = minetest.setting_get_pos(full_name)
-	elseif tp == "number" then
+		default = value == nil and minetest.string_to_pos(default)
+	elseif tp == "float" or tp == "int" then
 		value = tonumber(minetest.settings:get(full_name))
+		local v, other = default:match("^(%S+) (.+)")
+		default = value == nil and tonumber(other and v or default)
 	else
-		error("Invalid setting type!")
+		error("Cannot parse setting type " .. tp)
 	end
+
 	if value == nil then
 		value = default
+		assert(default ~= nil, "Cannot parse default for " .. full_name)
 	end
+	--print("add", name, default, value)
 	areas.config[name] = value
 end
+
+local file = io.open(areas.modpath .. "/settingtypes.txt", "r")
+for line in file:lines() do
+	local name, tp, value = line:match("^areas%.(%S+) %(.*%) (%S+) (.*)")
+	if value then
+		setting(name, tp, value)
+	end
+end
+file:close()
 
 --------------
 -- Settings --
 --------------
 
-setting("string", "filename", world_path.."/areas.dat")
+setting("filename", "string", world_path.."/areas.dat")
 
--- Allow players with a privilege create their own areas
--- within the maximum size and number.
-setting("boolean",  "self_protection", false)
-setting("string",   "self_protection_privilege", "interact")
-setting("position", "self_protection_max_size",      {x=64,  y=128, z=64})
-setting("number",   "self_protection_max_areas",      4)
--- For players with the areas_high_limit privilege.
-setting("position", "self_protection_max_size_high", {x=512, y=512, z=512})
-setting("number",   "self_protection_max_areas_high", 32)
-
--- legacy_table (owner_defs) compatibility.  Untested and has known issues.
-setting("boolean", "legacy_table", false)
-
--- configure the refresh delay for the name displays in the HUD
-setting("number", "tick", 0.5)
