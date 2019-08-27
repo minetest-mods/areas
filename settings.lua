@@ -45,4 +45,4 @@ file:close()
 setting("filename", "string", world_path.."/areas.dat")
 
 -- configure the refresh delay for the name displays in the HUD
-setting("number", "tick", 0.5)
+setting("tick", "float", 0.5)
