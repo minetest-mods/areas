@@ -286,7 +286,7 @@ minetest.register_chatcommand("area_open", {
 })
 
 
-if factions then
+if factions_avail then
 	minetest.register_chatcommand("area_faction_open", {
 		params = "<ID>",
 		description = "Toggle an area open (anyone can interact) or closed to your faction",

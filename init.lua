@@ -2,6 +2,8 @@
 -- Based on node_ownership
 -- License: LGPLv2+
 
+factions_avail = minetest.global_exists("factions")
+
 areas = {}
 
 areas.adminPrivs = {areas=true}
