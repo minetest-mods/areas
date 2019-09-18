@@ -289,7 +289,7 @@ minetest.register_chatcommand("area_open", {
 if areas.factions_available then
 	minetest.register_chatcommand("area_faction_open", {
 		params = "<ID>",
-		description = "Toggle an area open (anyone can interact) or closed to your faction",
+		description = "Toggle an area open/closed for members in your faction."
 		func = function(name, param)
 			local id = tonumber(param)
 			if not id then
