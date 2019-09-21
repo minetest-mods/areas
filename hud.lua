@@ -21,9 +21,13 @@ minetest.register_globalstep(function(dtime)
 		local areaStrings = {}
 
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			table.insert(areaStrings, ("%s [%u] (%s%s)")
+			local faction_info = area.faction_open and areas.factions_available and
+					factions.get_player_faction(area.owner)
+			area.faction_open = faction_info
+			table.insert(areaStrings, ("%s [%u] (%s%s%s)")
 					:format(area.name, id, area.owner,
-					area.open and ":open" or ""))
+					area.open and ":open" or "",
+					faction_info and ":"..faction_info or ""))
 		end
 
 		for i, area in pairs(areas:getExternalHudEntries(pos)) do

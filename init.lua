@@ -4,6 +4,8 @@
 
 areas = {}
 
+areas.factions_available = minetest.global_exists("factions")
+
 areas.adminPrivs = {areas=true}
 areas.startTime = os.clock()
 

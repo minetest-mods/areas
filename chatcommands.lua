@@ -286,6 +286,30 @@ minetest.register_chatcommand("area_open", {
 })
 
 
+if areas.factions_available then
+	minetest.register_chatcommand("area_faction_open", {
+		params = "<ID>",
+		description = "Toggle an area open/closed for members in your faction.",
+		func = function(name, param)
+			local id = tonumber(param)
+			if not id then
+				return false, "Invalid usage, see /help area_faction_open."
+			end
+			
+			if not areas:isAreaOwner(id, name) then
+				return false, "Area "..id.." does not exist"
+						.." or is not owned by you."
+			end
+			local open = not areas.areas[id].faction_open
+			-- Save false as nil to avoid inflating the DB.
+			areas.areas[id].faction_open = open or nil
+			areas:save()
+			return true, ("Area %s for faction members."):format(open and "opened" or "closed")
+		end
+	})
+end
+
+
 minetest.register_chatcommand("move_area", {
 	params = "<ID>",
 	description = "Move (or resize) an area to the current positions.",
