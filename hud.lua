@@ -1,5 +1,5 @@
 -- This is inspired by the landrush mod by Bremaweb
-
+local S = minetest.get_translator("areas")
 areas.hud = {}
 areas.hud.refresh = 0
 
@@ -26,7 +26,7 @@ minetest.register_globalstep(function(dtime)
 			area.faction_open = faction_info
 			table.insert(areaStrings, ("%s [%u] (%s%s%s)")
 					:format(area.name, id, area.owner,
-					area.open and ":open" or "",
+					area.open and S(":open") or "",
 					faction_info and ":"..faction_info or ""))
 		end
 
@@ -38,7 +38,7 @@ minetest.register_globalstep(function(dtime)
 			table.insert(areaStrings, str)
 		end
 
-		local areaString = "Areas:"
+		local areaString = S("Areas:")
 		if #areaStrings > 0 then
 			areaString = areaString.."\n"..
 				table.concat(areaStrings, "\n")
