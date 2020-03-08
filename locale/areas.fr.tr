@@ -1,0 +1,137 @@
+# textdomain: areas
+
+
+### chatcommands.lua ###
+
+<AreaName>=<NomZone>
+<NewOwner>=<NouveauPropriétaire>
+<ParentID>=<IDZonePrincipale>
+<PlayerName>=<NomJoueur>
+<newName>=<NouveauNom>
+<regexp>=<regexp>
+@1 has given you control over the area "@2" (ID @3).=@1 vous a donné le contrôle de la zone "@2" (ID @3).
+@1 spanning up to @2x@3x@4.=@1 s’étendant jusqu’à @2x@3x@4.
+A regular expression is required.=Une expression régulière est requise.
+Area @1 does not exist or is not owned by you.=La zone @1 n’existe pas ou ne vous appartient pas.
+Area closed for faction members.=Zone fermée aux membres de la faction.
+Area closed.=Zone fermée.
+Area does not exist.=La zone n’existe pas.
+Area opened for faction members.=Zone ouverte aux membres de la faction.
+Area opened.=Zone ouverte.
+Area protected. ID: @1=Zone protégée. ID : @1
+Area renamed.=Zone renommée.
+Area successfully moved.=Zone déplacée avec succès.
+Change the owner of an area using it's ID=Change le propriétaire d’une zone en utilisant son ID.
+Find areas using a Lua regular expression=Trouve les zones en utilisant une expression régulière Lua.
+Get information about area configuration and usage.=Obtient des informations sur la configuration des zones et l’utilisation des zones.
+
+Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Donne au joueur accès aux sous-zones entre deux positions qui ont déjà été protégées ; utilisez set_owner si vous ne voulez pas que la zone pricipale soit définie.
+
+Invalid regular expression.=Expression régulière invalide.
+List your areas, or all areas if you are an admin.=Liste vos zones, ou toutes les zones si vous êtes administrateur.
+Move (or resize) an area to the current positions.=Déplace (ou redimensionne) une zone aux positions actuelles.
+No matches found.=Aucun résultat.
+No visible areas.=Pas de zone visible.
+Owner changed.=Propriétaire changé.
+Players with the "@1" privilege can protect up to @2 areas=Les joueurs avec le privilège "@1" peuvent protéger jusqu’à @2 zones
+
+Protect an area beetween two positions and give a player access to it without setting the parent of the area to any existing area=Protège une zone entre deux positions et donne à un joueur accès à cette zone sans définir la zone principale de cette zone ni aucune zone existante.
+
+Protect your own area=Protège votre zone.
+Recursively remove areas using an id=Supprime les zones récursivement en utilisant un ID.
+Remove an area using an id=Supprime une zone en utilisant son ID.
+Removed area @1=Zone @1 supprimée.
+Removed area @1 and it's sub areas.=Zone @1 et ses sous-zones supprimées.
+Rename a area that you own=Renomme une zone qui vous appartient.
+
+Self protection is disabled and you have the necessary privilege ("@1").=L’autoprotection est désactivée et vous avez le privilège nécessaire ("@1").
+
+Self protection is disabled but you don't have the necessary privilege ("@1").=L’autoprotection est désactivée mais vous n’avez pas le privilège nécessaire ("@1").
+
+Self protection is disabled.=L’autoprotection est désactivée.
+
+Self protection is enabled and you have the necessary privilege ("@1").=L’autoprotection est activée et vous avez le privilège nécessaire ("@1").
+
+Self protection is enabled but you don't have the necessary privilege ("@1").=L’autoprotection est activée mais vous n’avez pas le privilège nécessaire ("@1").
+
+Self protection is enabled.=L’autoprotection est activée.
+That area doesn't exist.=La zone n’existe pas.
+The player "@1" does not exist.=Le joueur "@1" n’existe pas.
+Toggle an area open (anyone can interact) or closed=Bascule entre zone ouverte (tout le monde peut intéragir) ou fermée.
+Toggle an area open/closed for members in your faction.=Bascule entre zone ouverte/fermée pour les membres de votre faction.
+You are an area administrator ("areas" privilege).=Vous êtes un administrateur de zone (privilège "areas").
+You can protect areas=Vous pouvez protéger des zones.
+You can't protect that area.=Vous ne pouvez pas protéger cette zone.
+You can't protect that area: @1=Vous ne pouvez pas protéger cette zone : @1.
+You don't own that area.=Vous ne possédez pas cette zone.
+You have @1 area and have no area protection limits.=Vous avez @1 zone et n’avez pas de limite de protection de zones.
+You have @1 area, out of a maximum of @2.=Vous avez @1 zone sur un maximum de @2.
+You have @1 area.=Vous avez @1 zone.
+You have @1 areas and have no area protection limits.=Vous avez @1 zones et n’avez pas de limite de protection de zones.
+You have @1 areas, out of a maximum of @2.=Vous avez @1 zones sur un maximum de @2.
+You have @1 areas.=Vous avez @1 zones.
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=Vous avez reçu l’autorisation de contrôler la zone #@1.
+
+You have extended area protection limits ("areas_high_limit" privilege).=Votre limite de protection de zones est étendue (privilège "areas_high_limit").
+
+You need to select an area first.=Vous devez sélectionner une zone d’abord.
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=<ID>
+Invalid usage, see /help @1.=Utilisation incorrecte, voir /help @1.
+
+### hud.lua ###
+
+:open= : ouverte
+Areas:=Zones :
+
+### interact.lua ###
+
+@1 is protected by @2.=@1 est protégée par @2.
+
+### internal.lua ###
+
+Area is too big.=La zone est trop grande.
+
+Self protection is disabled or you do not have the necessary privilege.=L’autoprotection est désactivée ou vous n’avez pas le privilège nécessaire.
+
+The area intersects with @1 [@2] (@3).=La zone a une intersection avec @1  [@2] (@3).
+
+You have reached the maximum amount of areas that you are allowed to protect.=Vous avez atteint le nombre maximum de zones que vous êtes autorisé à protéger.
+
+
+### legacy.lua ###
+
+<version>=<version>
+Converted areas saved. Done.=Zones converties sauvegardées. Fait.
+Converting areas…=Conversion des zones…
+Error loading legacy file: @1=Erreur lors du chargement du fichier : @1
+Invalid version number. (0 allowed)=Numéro de version invalide. (0 autorisé)
+Legacy file loaded.=Fichier obsolète chargé.
+
+Loads, converts, and saves the areas from a legacy save file.=Charge, fait la conversion et sauvegarde les zones depuis un fichier de sauvegarde obsolète.
+
+Table format updated.=Format de tableau mis à jour.
+unnamed=Non nommé
+
+### pos.lua ###
+
+<not set>=<no définie>
+Area @1 selected.=Zone @1 sélectionnée.
+Area position @1 set to @2=Position @1 de la zone définie à @2.
+Position @1 set to @2=Position @1 définie à @2.
+Position @1: =Position @1 :
+Select a area by id.=Sélectionnez une zone par son ID.
+Select position @1 by punching a node.=Sélectionnez une position en frappant un bloc.
+Select positions by punching two nodes.=Sélectionnez une position en frappant deux blocs.
+
+Set area protection region position @1 to your location or the one specified=Définit la position @1 de la région de protection de zone à votre position ou à celle spécifiée.
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=Définit la région de protection de zone, la position 1, ou la position 2 en frappant des blocs, ou en affichant la région.
+
+The area @1 does not exist.=La zone @1 n’existe pas.
+Unable to get position.=Impossible d’obtenir la position.
+Unknown subcommand: @1=Sous-commande inconnue : @1
