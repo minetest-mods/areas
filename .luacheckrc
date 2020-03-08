@@ -9,7 +9,6 @@ read_globals = {
 	"VoxelManip", "VoxelArea",
 	"PseudoRandom", "ItemStack",
 	"AreaStore",
-	"intllib",
 	"default",
 	table = { fields = { "copy", "getn" } }
 }

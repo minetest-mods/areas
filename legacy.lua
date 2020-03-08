@@ -1,25 +1,26 @@
 -- This file contains functions to convert from
 -- the old areas format and other compatability code.
+local S = minetest.get_translator("areas")
 
 minetest.register_chatcommand("legacy_load_areas", {
-	params = "<version>",
-	description = "Loads, converts, and saves the areas from"
-		.." a legacy save file.",
+	params = S("<version>"),
+	description = S("Loads, converts, and saves the areas from"
+		.." a legacy save file."),
 	privs = {areas=true, server=true},
 	func = function(name, param)
-		minetest.chat_send_player(name, "Converting areas...")
+		minetest.chat_send_player(name, S("Converting areas…"))
 		local version = tonumber(param)
 		if version == 0 then
 			local err = areas:node_ownership_load()
 			if err then
-				minetest.chat_send_player(name, "Error loading legacy file: "..err)
+				minetest.chat_send_player(name, S("Error loading legacy file: @1", err))
 				return
 			end
 		else
-			minetest.chat_send_player(name, "Invalid version number. (0 allowed)")
+			minetest.chat_send_player(name, S("Invalid version number. (0 allowed)"))
 			return
 		end
-		minetest.chat_send_player(name, "Legacy file loaded.")
+		minetest.chat_send_player(name, S("Legacy file loaded."))
 
 		for k, area in pairs(areas.areas) do
 			-- New position format
@@ -34,15 +35,15 @@ minetest.register_chatcommand("legacy_load_areas", {
 			areas:sortPos(area.pos1, area.pos2)
 
 			-- Add name
-			area.name = "unnamed"
+			area.name = S("unnamed")
 
 			-- Remove ID
 			area.id = nil
 		end
-		minetest.chat_send_player(name, "Table format updated.")
+		minetest.chat_send_player(name, S("Table format updated."))
 
 		areas:save()
-		minetest.chat_send_player(name, "Converted areas saved. Done.")
+		minetest.chat_send_player(name, S("Converted areas saved. Done."))
 	end
 })
 
@@ -130,7 +131,7 @@ if areas.config.legacy_table then
 					{x=a.x2, y=a.y2, z=a.z2}
 			a.x1, a.y1, a.z1, a.x2, a.y2, a.z2 =
 				nil, nil, nil, nil, nil, nil
-			a.name = a.name or "unnamed"
+			a.name = a.name or S("unnamed")
 			a.id = nil
 			return rawset(areas.areas, key, a)
 		end
