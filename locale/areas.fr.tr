@@ -8,7 +8,6 @@
 <ParentID>=<IDZonePrincipale>
 <PlayerName>=<NomJoueur>
 <newName>=<NouveauNom>
-<regexp>=<regexp>
 @1 has given you control over the area "@2" (ID @3).=@1 vous a donné le contrôle de la zone "@2" (ID @3).
 @1 spanning up to @2x@3x@4.=@1 s’étendant jusqu’à @2x@3x@4.
 A regular expression is required.=Une expression régulière est requise.
@@ -21,13 +20,15 @@ Area opened.=Zone ouverte.
 Area protected. ID: @1=Zone protégée. ID : @1
 Area renamed.=Zone renommée.
 Area successfully moved.=Zone déplacée avec succès.
-Change the owner of an area using it's ID=Change le propriétaire d’une zone en utilisant son ID.
+Change the owner of an area using its ID=Change le propriétaire d’une zone en utilisant son ID.
 Find areas using a Lua regular expression=Trouve les zones en utilisant une expression régulière Lua.
 Get information about area configuration and usage.=Obtient des informations sur la configuration des zones et l’utilisation des zones.
 
 Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Donne au joueur accès aux sous-zones entre deux positions qui ont déjà été protégées ; utilisez set_owner si vous ne voulez pas que la zone pricipale soit définie.
 
 Invalid regular expression.=Expression régulière invalide.
+Limit: @1 areas=Limite: @1 zones.
+Limit: no area count limit=Limite: pas de limite de nombre de zones.
 List your areas, or all areas if you are an admin.=Liste vos zones, ou toutes les zones si vous êtes administrateur.
 Move (or resize) an area to the current positions.=Déplace (ou redimensionne) une zone aux positions actuelles.
 No matches found.=Aucun résultat.
@@ -35,25 +36,15 @@ No visible areas.=Pas de zone visible.
 Owner changed.=Propriétaire changé.
 Players with the "@1" privilege can protect up to @2 areas=Les joueurs avec le privilège "@1" peuvent protéger jusqu’à @2 zones
 
-Protect an area beetween two positions and give a player access to it without setting the parent of the area to any existing area=Protège une zone entre deux positions et donne à un joueur accès à cette zone sans définir la zone principale de cette zone ni aucune zone existante.
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Protège une zone entre deux positions et donne à un joueur accès à cette zone sans définir la zone principale de cette zone ni aucune zone existante.
 
 Protect your own area=Protège votre zone.
-Recursively remove areas using an id=Supprime les zones récursivement en utilisant un ID.
-Remove an area using an id=Supprime une zone en utilisant son ID.
+Recursively remove areas using an ID=Supprime les zones récursivement en utilisant un ID.
+Remove an area using an ID=Supprime une zone en utilisant son ID.
 Removed area @1=Zone @1 supprimée.
 Removed area @1 and it's sub areas.=Zone @1 et ses sous-zones supprimées.
-Rename a area that you own=Renomme une zone qui vous appartient.
-
-Self protection is disabled and you have the necessary privilege ("@1").=L’autoprotection est désactivée et vous avez le privilège nécessaire ("@1").
-
-Self protection is disabled but you don't have the necessary privilege ("@1").=L’autoprotection est désactivée mais vous n’avez pas le privilège nécessaire ("@1").
-
+Rename an area that you own=Renomme une zone qui vous appartient.
 Self protection is disabled.=L’autoprotection est désactivée.
-
-Self protection is enabled and you have the necessary privilege ("@1").=L’autoprotection est activée et vous avez le privilège nécessaire ("@1").
-
-Self protection is enabled but you don't have the necessary privilege ("@1").=L’autoprotection est activée mais vous n’avez pas le privilège nécessaire ("@1").
-
 Self protection is enabled.=L’autoprotection est activée.
 That area doesn't exist.=La zone n’existe pas.
 The player "@1" does not exist.=Le joueur "@1" n’existe pas.
@@ -63,18 +54,15 @@ You are an area administrator ("areas" privilege).=Vous êtes un administrateur 
 You can protect areas=Vous pouvez protéger des zones.
 You can't protect that area.=Vous ne pouvez pas protéger cette zone.
 You can't protect that area: @1=Vous ne pouvez pas protéger cette zone : @1.
+You don't have the necessary privilege ("@1").=Vous n’avez pas le privilège nécessaire ("@1").
 You don't own that area.=Vous ne possédez pas cette zone.
-You have @1 area and have no area protection limits.=Vous avez @1 zone et n’avez pas de limite de protection de zones.
-You have @1 area, out of a maximum of @2.=Vous avez @1 zone sur un maximum de @2.
-You have @1 area.=Vous avez @1 zone.
-You have @1 areas and have no area protection limits.=Vous avez @1 zones et n’avez pas de limite de protection de zones.
-You have @1 areas, out of a maximum of @2.=Vous avez @1 zones sur un maximum de @2.
 You have @1 areas.=Vous avez @1 zones.
 
 You have been granted control over area #@1. Type /list_areas to show your areas.=Vous avez reçu l’autorisation de contrôler la zone #@1.
 
 You have extended area protection limits ("areas_high_limit" privilege).=Votre limite de protection de zones est étendue (privilège "areas_high_limit").
 
+You have the necessary privilege ("@1").=Vous avez le privilège nécessaire ("@1").
 You need to select an area first.=Vous devez sélectionner une zone d’abord.
 
 ### chatcommands.lua ###
@@ -124,7 +112,7 @@ Area @1 selected.=Zone @1 sélectionnée.
 Area position @1 set to @2=Position @1 de la zone définie à @2.
 Position @1 set to @2=Position @1 définie à @2.
 Position @1: =Position @1 :
-Select a area by id.=Sélectionnez une zone par son ID.
+Select an area by ID.=Sélectionnez une zone par son ID.
 Select position @1 by punching a node.=Sélectionnez une position en frappant un bloc.
 Select positions by punching two nodes.=Sélectionnez une position en frappant deux blocs.
 

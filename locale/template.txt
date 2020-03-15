@@ -8,7 +8,6 @@
 <ParentID>=
 <PlayerName>=
 <newName>=
-<regexp>=
 @1 has given you control over the area "@2" (ID @3).=
 @1 spanning up to @2x@3x@4.=
 A regular expression is required.=
@@ -21,13 +20,15 @@ Area opened.=
 Area protected. ID: @1=
 Area renamed.=
 Area successfully moved.=
-Change the owner of an area using it's ID=
+Change the owner of an area using its ID=
 Find areas using a Lua regular expression=
 Get information about area configuration and usage.=
 
 Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.=
 
 Invalid regular expression.=
+Limit: @1 areas=
+Limit: no area count limit=
 List your areas, or all areas if you are an admin.=
 Move (or resize) an area to the current positions.=
 No matches found.=
@@ -35,25 +36,15 @@ No visible areas.=
 Owner changed.=
 Players with the "@1" privilege can protect up to @2 areas=
 
-Protect an area beetween two positions and give a player access to it without setting the parent of the area to any existing area=
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=
 
 Protect your own area=
-Recursively remove areas using an id=
-Remove an area using an id=
+Recursively remove areas using an ID=
+Remove an area using an ID=
 Removed area @1=
 Removed area @1 and it's sub areas.=
-Rename a area that you own=
-
-Self protection is disabled and you have the necessary privilege ("@1").=
-
-Self protection is disabled but you don't have the necessary privilege ("@1").=
-
+Rename an area that you own=
 Self protection is disabled.=
-
-Self protection is enabled and you have the necessary privilege ("@1").=
-
-Self protection is enabled but you don't have the necessary privilege ("@1").=
-
 Self protection is enabled.=
 That area doesn't exist.=
 The player "@1" does not exist.=
@@ -63,18 +54,15 @@ You are an area administrator ("areas" privilege).=
 You can protect areas=
 You can't protect that area.=
 You can't protect that area: @1=
+You don't have the necessary privilege ("@1").=
 You don't own that area.=
-You have @1 area and have no area protection limits.=
-You have @1 area, out of a maximum of @2.=
-You have @1 area.=
-You have @1 areas and have no area protection limits.=
-You have @1 areas, out of a maximum of @2.=
 You have @1 areas.=
 
 You have been granted control over area #@1. Type /list_areas to show your areas.=
 
 You have extended area protection limits ("areas_high_limit" privilege).=
 
+You have the necessary privilege ("@1").=
 You need to select an area first.=
 
 ### chatcommands.lua ###
@@ -124,7 +112,7 @@ Area @1 selected.=
 Area position @1 set to @2=
 Position @1 set to @2=
 Position @1: =
-Select a area by id.=
+Select an area by ID.=
 Select position @1 by punching a node.=
 Select positions by punching two nodes.=
 
