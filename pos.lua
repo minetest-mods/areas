@@ -23,7 +23,7 @@ end
 
 minetest.register_chatcommand("select_area", {
 	params = S("<ID>"),
-	description = S("Select a area by id."),
+	description = S("Select an area by ID."),
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then

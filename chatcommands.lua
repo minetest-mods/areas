@@ -33,7 +33,7 @@ minetest.register_chatcommand("protect", {
 
 minetest.register_chatcommand("set_owner", {
 	params = S("<PlayerName>").." "..S("<AreaName>"),
-	description = S("Protect an area beetween two positions and give"
+	description = S("Protect an area between two positions and give"
 		.." a player access to it without setting the parent of the"
 		.." area to any existing area"),
 	privs = areas.adminPrivs,
@@ -117,7 +117,7 @@ minetest.register_chatcommand("add_owner", {
 
 minetest.register_chatcommand("rename_area", {
 	params = S("<ID>").." "..S("<newName>"),
-	description = S("Rename a area that you own"),
+	description = S("Rename an area that you own"),
 	func = function(name, param)
 		local id, newName = param:match("^(%d+)%s(.+)$")
 		if not id then
@@ -141,7 +141,7 @@ minetest.register_chatcommand("rename_area", {
 
 
 minetest.register_chatcommand("find_areas", {
-	params = S("<regexp>"),
+	params = "<regexp>",
 	description = S("Find areas using a Lua regular expression"),
 	privs = areas.adminPrivs,
 	func = function(name, param)
@@ -193,7 +193,7 @@ minetest.register_chatcommand("list_areas", {
 
 minetest.register_chatcommand("recursive_remove_areas", {
 	params = S("<ID>"),
-	description = S("Recursively remove areas using an id"),
+	description = S("Recursively remove areas using an ID"),
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then
@@ -215,7 +215,7 @@ minetest.register_chatcommand("recursive_remove_areas", {
 
 minetest.register_chatcommand("remove_area", {
 	params = S("<ID>"),
-	description = S("Remove an area using an id"),
+	description = S("Remove an area using an ID"),
 	func = function(name, param)
 		local id = tonumber(param)
 		if not id then
@@ -236,7 +236,7 @@ minetest.register_chatcommand("remove_area", {
 
 minetest.register_chatcommand("change_owner", {
 	params = S("<ID>").." "..S("<NewOwner>"),
-	description = S("Change the owner of an area using it's ID"),
+	description = S("Change the owner of an area using its ID"),
 	func = function(name, param)
 		local id, newOwner = param:match("^(%d+)%s(%S+)$")
 		if not id then
@@ -361,27 +361,15 @@ minetest.register_chatcommand("area_info", {
 		local max_size = has_high_limit and
 			size_limit_high or size_limit
 
-		-- Privilege information
-		local self_prot_line = (self_prot and prot_priv) and
-			(has_prot_priv and
-				(self_prot and
-				S("Self protection is enabled and you have the "..
-					"necessary privilege (\"@1\").", prot_priv) or
-				S("Self protection is disabled and you have the "..
-					"necessary privilege (\"@1\").", prot_priv)
-				) or
-				(self_prot and
-				S("Self protection is enabled but you don't have the "..
-					"necessary privilege (\"@1\").", prot_priv) or
-				S("Self protection is disabled but you don't have the "..
-					"necessary privilege (\"@1\").", prot_priv)
-				)
-			) or
-			(self_prot and
-				S("Self protection is enabled.") or
-				S("Self protection is disabled.")
-			)
+		-- Self protection information
+		local self_prot_line = self_prot and S("Self protection is enabled.") or
+					S("Self protection is disabled.")
 		table.insert(lines, self_prot_line)
+		-- Privilege information
+		local priv_line = has_prot_priv and
+					S("You have the necessary privilege (\"@1\").", prot_priv) or
+					S("You don't have the necessary privilege (\"@1\").", prot_priv)
+		table.insert(lines, priv_line)
 		if privs.areas then
 			table.insert(lines, S("You are an area"..
 				" administrator (\"areas\" privilege)."))
@@ -398,25 +386,13 @@ minetest.register_chatcommand("area_info", {
 				area_num = area_num + 1
 			end
 		end
-		local count_line = privs.areas and 
-			((area_num <= 1) and
-			S("You have @1 area and have no area "..
-				"protection limits.", area_num) or
-			S("You have @1 areas and have no area "..
-				"protection limits.", area_num)
-			) or
-			(can_prot and (
-				(area_num <= 1) and
-				S("You have @1 area, out of a "..
-					"maximum of @2.", area_num, max_count) or
-				S("You have @1 areas, out of a "..
-					"maximum of @2.", area_num, max_count)
-			) or
-				(area_num <= 1) and
-				S("You have @1 area.", area_num) or
-				S("You have @1 areas.", area_num)
-			)
-		table.insert(lines, count_line)
+		table.insert(lines, S("You have @1 areas.", area_num)) 
+
+		-- Area limit
+		local area_limit_line = privs.areas and
+			S("Limit: no area count limit") or
+			S("Limit: @1 areas", max_count)
+		table.insert(lines, area_limit_line)
 
 		-- Area size limits
 		local function size_info(str, size)
