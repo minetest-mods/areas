@@ -417,3 +417,28 @@ minetest.register_chatcommand("area_info", {
 		return true, table.concat(lines, "\n")
 	end,
 })
+
+
+minetest.register_chatcommand("areas_cleanup", {
+	description = S("Removes all ownerless areas"),
+	privs = areas.adminPrivs,
+	func = function()
+		local total, count = 0, 0
+
+		local aareas = areas.areas
+		for id, _ in pairs(aareas) do
+			local owner = aareas[id].owner
+
+			if not areas:player_exists(owner) then
+				areas:remove(id)
+				count = count + 1
+			end
+
+			total = total + 1
+		end
+		areas:save()
+
+		return true, "Total areas: " .. total .. ", Removed " ..
+			count .. " areas. New count: " .. (total - count)
+	end
+})
