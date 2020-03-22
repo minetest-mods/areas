@@ -48,7 +48,7 @@ end
 function areas:checkAreaStoreId(sid)
 	if not sid then
 		minetest.log("error", "AreaStore failed to find an ID for an "
-			.."area!  Falling back to iterative area checking.")
+			.."area! Falling back to iterative area checking.")
 		self.store = nil
 		self.store_ids = nil
 	end
@@ -149,7 +149,6 @@ end
 function areas:move(id, area, pos1, pos2)
 	area.pos1 = pos1
 	area.pos2 = pos2
-
 
 	for i=1, #areas.registered_on_moves do
 		areas.registered_on_moves[i](id, area, pos1, pos2)

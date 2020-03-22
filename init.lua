@@ -25,7 +25,7 @@ minetest.register_privilege("areas", {
 	description = "Can administer areas."
 })
 minetest.register_privilege("areas_high_limit", {
-	description = "Can can more, bigger areas."
+	description = "Can protect more, bigger areas."
 })
 
 if not minetest.registered_privileges[areas.config.self_protection_privilege] then
@@ -38,4 +38,3 @@ if minetest.settings:get_bool("log_mods") then
 	local diffTime = os.clock() - areas.startTime
 	minetest.log("action", "areas loaded in "..diffTime.."s.")
 end
-

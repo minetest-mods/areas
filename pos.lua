@@ -1,4 +1,5 @@
 local S = minetest.get_translator("areas")
+
 -- I could depend on WorldEdit for this, but you need to have the 'worldedit'
 -- permission to use those commands and you don't have
 -- /area_pos{1,2} [X Y Z|X,Y,Z].
@@ -262,4 +263,3 @@ minetest.register_entity("areas:pos2", {
 		areas.marker2[name] = nil
 	end,
 })
-
