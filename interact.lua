@@ -17,4 +17,3 @@ minetest.register_on_protection_violation(function(pos, name)
 				table.concat(owners, ", ")))
 	end
 end)
-

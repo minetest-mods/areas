@@ -109,4 +109,3 @@ Copyright (C) 2013 ShadowNinja
 
 Licensed under the GNU LGPL version 2.1 or later.
 See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
-

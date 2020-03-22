@@ -43,4 +43,3 @@ file:close()
 --------------
 
 setting("filename", "string", world_path.."/areas.dat")
-

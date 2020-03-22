@@ -137,4 +137,3 @@ if areas.config.legacy_table then
 		end
 	})
 end
-
