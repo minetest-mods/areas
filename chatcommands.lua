@@ -294,7 +294,7 @@ if areas.factions_available then
 			if not id then
 				return false, S("Invalid usage, see /help @1.", "area_faction_open")
 			end
-			
+
 			if not areas:isAreaOwner(id, name) then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
@@ -386,7 +386,7 @@ minetest.register_chatcommand("area_info", {
 				area_num = area_num + 1
 			end
 		end
-		table.insert(lines, S("You have @1 areas.", area_num)) 
+		table.insert(lines, S("You have @1 areas.", area_num))
 
 		-- Area limit
 		local area_limit_line = privs.areas and
