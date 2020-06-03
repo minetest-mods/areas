@@ -16,12 +16,7 @@ read_globals = {
 globals = {
 	"minetest",
 	-- mod namespace
-	"areas",
-	-- legacy
-	"IsPlayerNodeOwner",
-	"GetNodeOwnerName",
-	"HasOwner",
-	"owner_defs"
+	"areas"
 }
 
 files["legacy.lua"] = {
