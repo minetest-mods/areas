@@ -101,6 +101,9 @@ Commands
 
   * `/area_pos2 [X,Y,Z|X Y Z]` -- Sets area position two to your position or
 	the one supplied.
+	
+  * `/areas_cleanup` -- Removes all ownerless areas.
+	Useful for cleaning after user deletion, for example using /remove_player.
 
 License
 -------
@@ -109,4 +112,3 @@ Copyright (C) 2013 ShadowNinja
 
 Licensed under the GNU LGPL version 2.1 or later.
 See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt
-

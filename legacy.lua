@@ -106,5 +106,3 @@ function areas.hasOwner(pos)
 	end
 	return false
 end
-
-

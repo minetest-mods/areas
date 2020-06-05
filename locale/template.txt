@@ -65,6 +65,8 @@ You have extended area protection limits ("areas_high_limit" privilege).=
 You have the necessary privilege ("@1").=
 You need to select an area first.=
 
+Removes all ownerless areas.=
+
 ### chatcommands.lua ###
 ### pos.lua ###
 

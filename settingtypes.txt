@@ -35,4 +35,3 @@ areas.self_protection_max_size_high (Maximal area size) v3f (512, 512, 512)
 # Only enter positive whole numbers for the coordinate values or you'll mess up stuff.
 # This setting applies for plyaers with the privilege 'areas_high_limit'
 areas.self_protection_max_areas_high (Maximal area count) float 32
-
