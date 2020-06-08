@@ -1,5 +1,4 @@
 unused_args = false
-allow_defined_top = true
 
 read_globals = {
 	"DIR_DELIM",
@@ -10,9 +9,16 @@ read_globals = {
 	"PseudoRandom", "ItemStack",
 	"AreaStore",
 	"default",
+	"factions",
 	table = { fields = { "copy", "getn" } }
 }
 
 globals = {
-	"minetest"
+	"minetest",
+	-- mod namespace
+	"areas"
+}
+
+files["legacy.lua"] = {
+	ignore = {"512"}
 }
