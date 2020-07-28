@@ -286,10 +286,11 @@ minetest.register_chatcommand("area_open", {
 
 if areas.factions_available then
 	minetest.register_chatcommand("area_faction_open", {
-		params = S("<ID>"),
+		params = S("<ID> [faction_name]"),
 		description = S("Toggle an area open/closed for members in your faction."),
-		func = function(name, param)
-			local id = tonumber(param)
+		func = function(name, params)
+			local found, _, id, faction_name = params:find("(%d+)%s-(%S-)$")
+			local id = tonumber(id)
 			if not id then
 				return false, S("Invalid usage, see /help @1.", "area_faction_open")
 			end
@@ -298,12 +299,40 @@ if areas.factions_available then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
 			end
-			local open = not areas.areas[id].faction_open
-			-- Save false as nil to avoid inflating the DB.
-			areas.areas[id].faction_open = open or nil
-			areas:save()
-			return true, open and S("Area opened for faction members.")
-				or S("Area closed for faction members.")
+			if factions.version == nil or factions.version < 2 then
+				local open = not areas.areas[id].faction_open
+				-- Save false as nil to avoid inflating the DB.
+				areas.areas[id].faction_open = open or nil
+				areas:save()
+				return true, open and S("Area opened for faction members.")
+					or S("Area closed for faction members.")
+			else
+				local fnames = areas.areas[id].factions_names
+				if fnames == nil then
+					fnames = {}
+				end
+				local removed = false
+				for i, fac_name in ipairs(fnames) do
+					if fname == fac_name then
+						removed = true
+						table.remove(fnames,i)
+					end
+				end
+				if not removed then
+					table.insert(fnames,fname)
+				end
+				local open = true
+				if #fnames == 0 then
+					open = false
+					fnames = nil
+				end
+				areas.areas[id].factions_names = fnames
+				-- Save false as nil to avoid inflating the DB.
+				areas.areas[id].faction_open = open or nil
+				areas:save()
+				return true, not removed and S("Area opened for faction members.")
+					or S("Area closed for faction members.")
+			end
 		end
 	})
 end
