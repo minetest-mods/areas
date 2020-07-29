@@ -288,13 +288,17 @@ if areas.factions_available then
 	minetest.register_chatcommand("area_faction_open", {
 		params = S("<ID> [faction_name]"),
 		description = S("Toggle an area open/closed for members in your faction."),
-		func = function(name, params)
-			local found, _, id, faction_name = params:find("(%d+)%s-(%S-)$")
-			local id = tonumber(id)
+		func = function(name, param)
+			local params = {}
+			for p in string.gmatch(param, "[^%s]+") do
+				table.insert(params, p)
+			end
+			local id = tonumber(params[1])
+
 			if not id then
 				return false, S("Invalid usage, see /help @1.", "area_faction_open")
 			end
-
+			
 			if not areas:isAreaOwner(id, name) then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
@@ -307,6 +311,10 @@ if areas.factions_available then
 				return true, open and S("Area opened for faction members.")
 					or S("Area closed for faction members.")
 			else
+				local faction_name = params[2]
+				if not factions.get_owner(faction_name) then
+					return false, S("Faction doesn't exists")
+				end
 				local fnames = areas.areas[id].factions_names
 				if fnames == nil then
 					fnames = {}
