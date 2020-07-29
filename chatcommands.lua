@@ -322,10 +322,14 @@ if areas.factions_available then
 					table.insert(fnames,fname)
 				end
 				local open = true
+				local accessibility = ""
 				if #fnames == 0 then
 					open = false
 					fnames = nil
+				else
+					accessibility = " It is open for members of : "..table.concat(fnames,", ")
 				end
+
 				areas.areas[id].factions_names = fnames
 				-- Save false as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = open or nil
