@@ -34,7 +34,6 @@ function areas:load()
 		return err
 	end
 	local data = file:read("*a")
-	local err
 	if data:sub(1, 1) == "[" then
 		self.areas, err = minetest.parse_json(data)
 	else
