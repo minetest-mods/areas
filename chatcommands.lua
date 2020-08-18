@@ -315,7 +315,7 @@ if areas.factions_available then
 				if not factions.get_owner(faction_name) then
 					return false, S("Faction doesn't exists")
 				end
-				local fnames = areas.areas[id].faction_openf
+				local fnames = areas.areas[id].faction_open
 				if fnames == nil then
 					fnames = {}
 				end
@@ -335,7 +335,7 @@ if areas.factions_available then
 				-- Save false as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = fnames
 				areas:save()
-				return true, fnames and S("Area is open for members of @1",table.concat(fnames,", "))
+				return true, fnames and S("Area is open for members of: @1",table.concat(fnames,", "))
 					or S("Area closed for faction members.")
 			end
 		end

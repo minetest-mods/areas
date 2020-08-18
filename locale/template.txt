@@ -12,10 +12,12 @@
 @1 spanning up to @2x@3x@4.=
 A regular expression is required.=
 Area @1 does not exist or is not owned by you.=
+Faction doesn't exists=
 Area closed for faction members.=
 Area closed.=
 Area does not exist.=
 Area opened for faction members.=
+Area is open for members of: @1=
 Area opened.=
 Area protected. ID: @1=
 Area renamed.=
