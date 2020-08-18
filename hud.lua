@@ -25,25 +25,24 @@ minetest.register_globalstep(function(dtime)
 				if factions.version == nil or factions.version < 2 then
 					faction_info = factions.get_player_faction(area.owner)
 				else
-					for i, fac_name in ipairs(area.factions_names) do
+					for i, fac_name in ipairs(area.faction_open) do
 						if not factions.get_owner(fac_name) then
-							table.remove(area.factions_names, i)
+							table.remove(area.faction_open, i)
 						end
 					end
-					if #area.factions_names == 0 then
-						area.factions_names = nil
+					if #area.faction_open == 0 then
+						area.faction_open = nil
 						faction_info = nil
 					else
-						faction_info = table.concat(area.factions_names, ", ")
+						faction_info = table.concat(area.faction_open, ", ")
 					end
 				end
 			end
 
-			area.faction_open = faction_info
 			table.insert(areaStrings, ("%s [%u] (%s%s%s)")
 					:format(area.name, id, area.owner,
 					area.open and S(":open") or "",
-					faction_info and ":"..faction_info or ""))
+					faction_info and ": "..faction_info or ""))
 		end
 
 		for i, area in pairs(areas:getExternalHudEntries(pos)) do

@@ -99,7 +99,7 @@ function areas:canInteract(pos, name)
 					return true
 				end
 			else
-				factions_names = area.factions_names
+				factions_names = area.faction_open
 				if factions_names ~= nil then
 					for _, fname in ipairs(factions_names) do
 						if factions.player_is_in_faction(fname, name) then
