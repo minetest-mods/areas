@@ -92,14 +92,13 @@ function areas:canInteract(pos, name)
 		if area.owner == name or area.open then
 			return true
 		elseif areas.factions_available and area.faction_open then
-			local faction_name = nil
 			if factions.version == nil or factions.version < 2 then
-				faction_name = factions.get_player_faction(area.owner)
+				local faction_name = factions.get_player_faction(area.owner)
 				if faction_name ~= nil and faction_name == factions.get_player_faction(name) then
 					return true
 				end
 			else
-				factions_names = area.faction_open
+				local factions_names = area.faction_open
 				if factions_names ~= nil then
 					for _, fname in ipairs(factions_names) do
 						if factions.player_is_in_faction(fname, name) then
