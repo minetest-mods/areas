@@ -101,9 +101,13 @@ Commands
 
   * `/area_pos2 [X,Y,Z|X Y Z]` -- Sets area position two to your position or
 	the one supplied.
-	
+
   * `/areas_cleanup` -- Removes all ownerless areas.
 	Useful for cleaning after user deletion, for example using /remove_player.
+
+  * `/area_open <ID>` -- Toggle open/closed the specified area for everyone.
+
+  * `/area_faction_open <ID> [faction]` -- Toggle open/closed the specified area for members of the faction. Factions are created and managed by playerfactions mod. 
 
 License
 -------
