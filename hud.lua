@@ -25,17 +25,23 @@ minetest.register_globalstep(function(dtime)
 				if factions.version == nil or factions.version < 2 then
 					faction_info = factions.get_player_faction(area.owner)
 				else
+					-- Verify that every displayed faction still exists
+					local faction_open_changed = false
 					for i, fac_name in ipairs(area.faction_open) do
 						if not factions.get_owner(fac_name) then
 							table.remove(area.faction_open, i)
+							faction_open_changed = true
 						end
 					end
 					if #area.faction_open == 0 then
 						area.faction_open = nil
 						faction_info = nil
+						faction_open_changed = true
 					else
 						faction_info = table.concat(area.faction_open, ", ")
 					end
+					-- Save areas if a faction was disband
+					if faction_open_changed then areas:save()	end
 				end
 			end
 

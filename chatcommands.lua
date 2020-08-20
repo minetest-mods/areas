@@ -304,7 +304,7 @@ if areas.factions_available then
 						.." or is not owned by you.", id)
 			end
 			if factions.version == nil or factions.version < 2 or factions.mode_unique_faction then
-				local open = not areas.areas[id].faction_open and factions.get_player_faction(name)
+				local open = not areas.areas[id].faction_open and {factions.get_player_faction(name)}
 				-- Save false as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = open or nil
 				areas:save()
@@ -322,8 +322,8 @@ if areas.factions_available then
 				local removed = false
 				for i, fac_name in ipairs(fnames) do
 					if faction_name == fac_name then
-						removed = true
 						table.remove(fnames,i)
+						removed = true
 					end
 				end
 				if not removed then
@@ -332,7 +332,7 @@ if areas.factions_available then
 				if #fnames == 0 then
 					fnames = nil
 				end
-				-- Save false as nil to avoid inflating the DB.
+				-- Save {} as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = fnames
 				areas:save()
 				return true, fnames and S("Area is open for members of: @1",table.concat(fnames,", "))
