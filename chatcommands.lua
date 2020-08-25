@@ -301,7 +301,7 @@ if areas.factions_available then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
 			end
-			if (factions.version or 0) < 2 or factions.mode_unique_faction then
+			if (factions.version or 0) < 2 or (factions.mode_unique_faction and not params[2]) then
 				-- Single faction mode
 				local open
 				if (factions.version or 0) < 2 then
