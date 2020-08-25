@@ -92,7 +92,7 @@ function areas:canInteract(pos, name)
 		if area.owner == name or area.open then
 			return true
 		elseif areas.factions_available and area.faction_open then
-			if factions.version == nil or factions.version < 2 then
+			if (factions.version or 0) < 2 then
 				local faction_name = factions.get_player_faction(area.owner)
 				if faction_name ~= nil and faction_name == factions.get_player_faction(name) then
 					return true

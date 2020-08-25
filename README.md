@@ -5,6 +5,12 @@ Dependencies
 ------------
 
 Minetest 5.0.0+ is recommended, but 0.4.16+ should work as well.
+Minetest 5.0.0+
+
+Optional support for following mods:
+
+  * [playerfactions](https://forum.minetest.net/viewtopic.php?t=23281) by aldenp
+  * [factions](https://forum.minetest.net/viewtopic.php?t=20949) by Coder12
 
 
 Configuration
@@ -107,12 +113,16 @@ Commands
 
   * `/area_open <ID>` -- Toggle open/closed the specified area for everyone.
 
-  * `/area_faction_open <ID> [faction]` -- Toggle open/closed the specified area for members of the faction. Factions are created and managed by playerfactions mod. 
+  * `/area_faction_open <ID> [faction]` -- Toggle open/closed the specified
+	area for members of the faction. Factions are created and managed by
+	playerfactions mod.
 
 License
 -------
 
-Copyright (C) 2013 ShadowNinja
+Copyright (C) 2013-2017 ShadowNinja
+
+Copyright (C) 2015-2020 various contributors
 
 Licensed under the GNU LGPL version 2.1 or later.
 See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt

@@ -20,28 +20,30 @@ minetest.register_globalstep(function(dtime)
 		local areaStrings = {}
 
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			local faction_info = area.faction_open and areas.factions_available
-			if faction_info then
-				if factions.version == nil or factions.version < 2 then
+			local faction_info
+			if area.faction_open and areas.factions_available then
+				-- Gather and clean up disbanded factions
+				if (factions.version or 0) < 2 then
 					faction_info = factions.get_player_faction(area.owner)
 				else
 					-- Verify that every displayed faction still exists
-					local faction_open_changed = false
+					local changed = false
 					for i, fac_name in ipairs(area.faction_open) do
 						if not factions.get_owner(fac_name) then
 							table.remove(area.faction_open, i)
-							faction_open_changed = true
+							changed = true
 						end
 					end
 					if #area.faction_open == 0 then
+						-- Prevent DB clutter, remove value
 						area.faction_open = nil
-						faction_info = nil
-						faction_open_changed = true
 					else
 						faction_info = table.concat(area.faction_open, ", ")
 					end
-					-- Save areas if a faction was disband
-					if faction_open_changed then areas:save()	end
+					
+					if changed then
+						areas:save()
+					end
 				end
 			end
 
