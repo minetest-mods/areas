@@ -301,21 +301,7 @@ if areas.factions_available then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
 			end
-			if (factions.version or 0) < 2 or (factions.mode_unique_faction and not params[2]) then
-				-- Single faction mode
-				local open
-				if (factions.version or 0) < 2 then
-					open = not areas.areas[id].faction_open and {factions.get_player_faction(name)}
-				else
-					open = not areas.areas[id].faction_open and factions.get_player_factions(name)
-				end
-				-- Save false as nil to avoid inflating the DB.
-				areas.areas[id].faction_open = open or nil
-				areas:save()
-				return true, open and S("Area opened for faction members.")
-					or S("Area closed for faction members.")
-			end
-			-- Multiple factions support
+
 			local faction_name = params[2]
 			if not factions.get_owner(faction_name) then
 				return false, S("Faction doesn't exists")

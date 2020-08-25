@@ -113,7 +113,7 @@ Commands
 
   * `/area_open <ID>` -- Toggle open/closed the specified area for everyone.
 
-  * `/area_faction_open <ID> [faction]` -- Toggle open/closed the specified
+  * `/area_faction_open <ID> <faction>` -- Toggle open/closed the specified
 	area for members of the faction. Factions are created and managed by
 	playerfactions mod.
 
