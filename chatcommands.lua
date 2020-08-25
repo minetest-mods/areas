@@ -289,7 +289,7 @@ if areas.factions_available then
 		params = S("<ID> [faction_name]"),
 		description = S("Toggle an area open/closed for members in your faction."),
 		func = function(name, param)
-			params = param:split(" ")
+			local params = param:split(" ")
 
 			local id = tonumber(params[1])
 
