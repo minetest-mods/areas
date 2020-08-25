@@ -40,7 +40,7 @@ minetest.register_globalstep(function(dtime)
 					else
 						faction_info = table.concat(area.faction_open, ", ")
 					end
-					
+
 					if changed then
 						areas:save()
 					end
