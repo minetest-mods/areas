@@ -289,10 +289,8 @@ if areas.factions_available then
 		params = S("<ID> [faction_name]"),
 		description = S("Toggle an area open/closed for members in your faction."),
 		func = function(name, param)
-			local params = {}
-			for p in string.gmatch(param, "[^%s]+") do
-				table.insert(params, p)
-			end
+			params = param:split(" ")
+
 			local id = tonumber(params[1])
 
 			if not id then
