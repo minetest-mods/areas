@@ -303,41 +303,34 @@ if areas.factions_available then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
 			end
-			if factions.version == nil or factions.version < 2 or factions.mode_unique_faction then
+			if (factions.version or 0) < 2 or factions.mode_unique_faction then
 				local open = not areas.areas[id].faction_open and {factions.get_player_faction(name)}
 				-- Save false as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = open or nil
 				areas:save()
 				return true, open and S("Area opened for faction members.")
 					or S("Area closed for faction members.")
-			else
-				local faction_name = params[2]
-				if not factions.get_owner(faction_name) then
-					return false, S("Faction doesn't exists")
-				end
-				local fnames = areas.areas[id].faction_open
-				if fnames == nil then
-					fnames = {}
-				end
-				local removed = false
-				for i, fac_name in ipairs(fnames) do
-					if faction_name == fac_name then
-						table.remove(fnames,i)
-						removed = true
-					end
-				end
-				if not removed then
-					table.insert(fnames,faction_name)
-				end
-				if #fnames == 0 then
-					fnames = nil
-				end
-				-- Save {} as nil to avoid inflating the DB.
-				areas.areas[id].faction_open = fnames
-				areas:save()
-				return true, fnames and S("Area is open for members of: @1",table.concat(fnames,", "))
-					or S("Area closed for faction members.")
 			end
+			local faction_name = params[2]
+			if not factions.get_owner(faction_name) then
+				return false, S("Faction doesn't exists")
+			end
+			local fnames = areas.areas[id].faction_open or {}
+			local pos = table.indexof(fnames, faction_name)
+			if pos < 0 then
+				-- Add new faction to the list
+				table.insert(fnames, faction_name)
+			else
+				table.remove(fnames, pos)
+			end
+			if #fnames == 0 then
+				fnames = nil
+			end
+			-- Save {} as nil to avoid inflating the DB.
+			areas.areas[id].faction_open = fnames
+			areas:save()
+			return true, fnames and S("Area is open for members of: @1",table.concat(fnames,", "))
+				or S("Area closed for faction members.")
 		end
 	})
 end
