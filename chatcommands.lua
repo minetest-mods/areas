@@ -303,7 +303,7 @@ if areas.factions_available then
 			end
 			if (factions.version or 0) < 2 or factions.mode_unique_faction then
 				-- Single faction mode
-				local open = not areas.areas[id].faction_open and {factions.get_player_faction(name)}
+				local open = not areas.areas[id].faction_open and ((factions.version or 0) < 2 and {factions.get_player_faction(name)}) or factions.get_player_factions(name)
 				-- Save false as nil to avoid inflating the DB.
 				areas.areas[id].faction_open = open or nil
 				areas:save()
