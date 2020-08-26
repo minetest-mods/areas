@@ -9,8 +9,7 @@ Minetest 5.0.0+
 
 Optional support for following mods:
 
-  * [playerfactions](https://forum.minetest.net/viewtopic.php?t=23281) by aldenp
-  * [factions](https://forum.minetest.net/viewtopic.php?t=20949) by Coder12
+  * [playerfactions](https://git.leagueh.xyz/katp32/playerfactions/) by [katp32](https://git.leagueh.xyz/katp32) & [Kalio_42](https://git.leagueh.xyz/Kalio_42)
 
 
 Configuration
