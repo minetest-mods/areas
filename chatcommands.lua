@@ -292,8 +292,9 @@ if areas.factions_available then
 			local params = param:split(" ")
 
 			local id = tonumber(params[1])
+			local faction_name = params[2]
 
-			if not id then
+			if not id or not faction_name then
 				return false, S("Invalid usage, see /help @1.", "area_faction_open")
 			end
 
@@ -302,7 +303,7 @@ if areas.factions_available then
 						.." or is not owned by you.", id)
 			end
 
-			local faction_name = params[2]
+			
 			if not factions.get_owner(faction_name) then
 				return false, S("Faction doesn't exists")
 			end
