@@ -303,7 +303,6 @@ if areas.factions_available then
 						.." or is not owned by you.", id)
 			end
 
-			
 			if not factions.get_owner(faction_name) then
 				return false, S("Faction doesn't exists")
 			end
