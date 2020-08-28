@@ -18,7 +18,7 @@ end
 
 -- Save the areas table to a file
 function areas:save()
-	local datastr = minetest.serialize(self.areas)
+	local datastr = minetest.write_json(self.areas)
 	if not datastr then
 		minetest.log("error", "[areas] Failed to serialize area data!")
 		return
@@ -33,9 +33,18 @@ function areas:load()
 		self.areas = self.areas or {}
 		return err
 	end
-	self.areas = minetest.deserialize(file:read("*a"))
+	local data = file:read("*a")
+	if data:sub(1, 1) == "[" then
+		self.areas, err = minetest.parse_json(data)
+	else
+		self.areas, err = minetest.deserialize(data)
+	end
 	if type(self.areas) ~= "table" then
 		self.areas = {}
+	end
+	if err and #data > 10 then
+		minetest.log("error", "[areas] Failed to load area data: " ..
+			tostring(err))
 	end
 	file:close()
 	self:populateStore()
