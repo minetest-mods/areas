@@ -1,9 +1,11 @@
 # textdomain: areas
 
 
+
 ### chatcommands.lua ###
 
 <AreaName>=<NomeArea>
+<ID> [faction_name]= <ID> [nome_fazione]
 <NewOwner>=<NuovoProprietario>
 <ParentID>=<IDparent>
 <PlayerName>=<NomeGiocatore>
@@ -12,17 +14,16 @@
 @1 spanning up to @2x@3x@4.=@1 si estende fino a @2x@3@4.
 A regular expression is required.=È necessaria una espressione regolare.
 Area @1 does not exist or is not owned by you.=L'area @1 non esiste o non è di tua proprietà.
-Faction doesn't exists=La fazione non esiste
 Area closed for faction members.=Area chiusa per i membri della fazione.
 Area closed.=Area chiusa.
 Area does not exist.=L'area non esiste.
-Area opened for faction members.=Area aperta per i membri della fazione.
 Area is open for members of: @1=L'area è aperta ai membri di: @1
 Area opened.=Area aperta.
 Area protected. ID: @1=Area protetta. ID: @1
 Area renamed.=Area rinominata.
 Area successfully moved.=Area spostata con successo.
 Change the owner of an area using its ID=Cambia il proprietario di un'area usando il suo ID
+Faction doesn't exists=La fazione non esiste
 Find areas using a Lua regular expression=Trova aree usando una espressione regolare Lua
 Get information about area configuration and usage.=Ottieni informazioni sulla configurazione e l'uso delle aree.
 
@@ -45,6 +46,7 @@ Recursively remove areas using an ID=Elimina ricorsivamente delle aree usando un
 Remove an area using an ID=Elimina un'area usando un ID
 Removed area @1=Eliminata l'area @1
 Removed area @1 and it's sub areas.=Eliminata l'area @1 e le sue sotto-aree.
+Removes all ownerless areas=
 Rename an area that you own=Rinomina un'area che ti appartiene
 Self protection is disabled.=L'auto-protezione è disattivata.
 Self protection is enabled.=L'auto-protezione è attivata.
@@ -77,6 +79,12 @@ Invalid usage, see /help @1.=Utilizzo non valido, si veda /help @1.
 
 :open=:aperta
 Areas:=Aree:
+
+### init.lua ###
+
+Can administer areas.=
+Can protect areas.=
+Can protect more, bigger areas.=
 
 ### interact.lua ###
 
