@@ -12,10 +12,12 @@
 @1 spanning up to @2x@3x@4.=@1 s’étendant jusqu’à @2x@3x@4.
 A regular expression is required.=Une expression régulière est requise.
 Area @1 does not exist or is not owned by you.=La zone @1 n’existe pas ou ne vous appartient pas.
+Faction doesn't exists=La faction n'existe pas
 Area closed for faction members.=Zone fermée aux membres de la faction.
 Area closed.=Zone fermée.
 Area does not exist.=La zone n’existe pas.
 Area opened for faction members.=Zone ouverte aux membres de la faction.
+Area is open for members of: @1=Zone ouverte aux membres de ces factions : @1
 Area opened.=Zone ouverte.
 Area protected. ID: @1=Zone protégée. ID : @1
 Area renamed.=Zone renommée.

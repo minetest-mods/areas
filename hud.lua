@@ -20,13 +20,32 @@ minetest.register_globalstep(function(dtime)
 		local areaStrings = {}
 
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			local faction_info = area.faction_open and areas.factions_available and
-					factions.get_player_faction(area.owner)
-			area.faction_open = faction_info
+			local faction_info
+			if area.faction_open and areas.factions_available then
+				-- Gather and clean up disbanded factions
+				local changed = false
+				for i, fac_name in ipairs(area.faction_open) do
+					if not factions.get_owner(fac_name) then
+						table.remove(area.faction_open, i)
+						changed = true
+					end
+				end
+				if #area.faction_open == 0 then
+					-- Prevent DB clutter, remove value
+					area.faction_open = nil
+				else
+					faction_info = table.concat(area.faction_open, ", ")
+				end
+
+				if changed then
+					areas:save()
+				end
+			end
+
 			table.insert(areaStrings, ("%s [%u] (%s%s%s)")
 					:format(area.name, id, area.owner,
 					area.open and S(":open") or "",
-					faction_info and ":"..faction_info or ""))
+					faction_info and ": "..faction_info or ""))
 		end
 
 		for i, area in pairs(areas:getExternalHudEntries(pos)) do

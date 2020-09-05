@@ -5,6 +5,11 @@ Dependencies
 ------------
 
 Minetest 5.0.0+ is recommended, but 0.4.16+ should work as well.
+Minetest 5.0.0+
+
+Optional support for following mods:
+
+  * [playerfactions](https://git.leagueh.xyz/katp32/playerfactions/) by [katp32](https://git.leagueh.xyz/katp32) & [Kalio_42](https://git.leagueh.xyz/Kalio_42)
 
 
 Configuration
@@ -101,14 +106,22 @@ Commands
 
   * `/area_pos2 [X,Y,Z|X Y Z]` -- Sets area position two to your position or
 	the one supplied.
-	
+
   * `/areas_cleanup` -- Removes all ownerless areas.
 	Useful for cleaning after user deletion, for example using /remove_player.
+
+  * `/area_open <ID>` -- Toggle open/closed the specified area for everyone.
+
+  * `/area_faction_open <ID> <faction>` -- Toggle open/closed the specified
+	area for members of the faction. Factions are created and managed by
+	playerfactions mod.
 
 License
 -------
 
-Copyright (C) 2013 ShadowNinja
+Copyright (C) 2013-2017 ShadowNinja
+
+Copyright (C) 2015-2020 various contributors
 
 Licensed under the GNU LGPL version 2.1 or later.
 See LICENSE.txt and http://www.gnu.org/licenses/lgpl-2.1.txt

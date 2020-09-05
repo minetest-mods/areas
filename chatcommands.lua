@@ -286,11 +286,15 @@ minetest.register_chatcommand("area_open", {
 
 if areas.factions_available then
 	minetest.register_chatcommand("area_faction_open", {
-		params = S("<ID>"),
+		params = S("<ID> [faction_name]"),
 		description = S("Toggle an area open/closed for members in your faction."),
 		func = function(name, param)
-			local id = tonumber(param)
-			if not id then
+			local params = param:split(" ")
+
+			local id = tonumber(params[1])
+			local faction_name = params[2]
+
+			if not id or not faction_name then
 				return false, S("Invalid usage, see /help @1.", "area_faction_open")
 			end
 
@@ -298,11 +302,25 @@ if areas.factions_available then
 				return false, S("Area @1 does not exist"
 						.." or is not owned by you.", id)
 			end
-			local open = not areas.areas[id].faction_open
-			-- Save false as nil to avoid inflating the DB.
-			areas.areas[id].faction_open = open or nil
+
+			if not factions.get_owner(faction_name) then
+				return false, S("Faction doesn't exists")
+			end
+			local fnames = areas.areas[id].faction_open or {}
+			local pos = table.indexof(fnames, faction_name)
+			if pos < 0 then
+				-- Add new faction to the list
+				table.insert(fnames, faction_name)
+			else
+				table.remove(fnames, pos)
+			end
+			if #fnames == 0 then
+				-- Save {} as nil to avoid inflating the DB.
+				fnames = nil
+			end
+			areas.areas[id].faction_open = fnames
 			areas:save()
-			return true, open and S("Area opened for faction members.")
+			return true, fnames and S("Area is open for members of: @1", table.concat(fnames, ", "))
 				or S("Area closed for faction members.")
 		end
 	})

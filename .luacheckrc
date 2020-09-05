@@ -10,7 +10,7 @@ read_globals = {
 	"AreaStore",
 	"default",
 	"factions",
-	table = { fields = { "copy", "getn" } }
+	table = { fields = { "copy", "getn", "indexof" } }
 }
 
 globals = {
