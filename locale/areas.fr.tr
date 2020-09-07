@@ -1,9 +1,11 @@
 # textdomain: areas
 
 
+
 ### chatcommands.lua ###
 
 <AreaName>=<NomZone>
+<ID> [faction_name]=<ID> [nom_de_faction]
 <NewOwner>=<NouveauPropriétaire>
 <ParentID>=<IDZonePrincipale>
 <PlayerName>=<NomJoueur>
@@ -12,17 +14,16 @@
 @1 spanning up to @2x@3x@4.=@1 s’étendant jusqu’à @2x@3x@4.
 A regular expression is required.=Une expression régulière est requise.
 Area @1 does not exist or is not owned by you.=La zone @1 n’existe pas ou ne vous appartient pas.
-Faction doesn't exists=La faction n'existe pas
 Area closed for faction members.=Zone fermée aux membres de la faction.
 Area closed.=Zone fermée.
 Area does not exist.=La zone n’existe pas.
-Area opened for faction members.=Zone ouverte aux membres de la faction.
 Area is open for members of: @1=Zone ouverte aux membres de ces factions : @1
 Area opened.=Zone ouverte.
 Area protected. ID: @1=Zone protégée. ID : @1
 Area renamed.=Zone renommée.
 Area successfully moved.=Zone déplacée avec succès.
 Change the owner of an area using its ID=Change le propriétaire d’une zone en utilisant son ID.
+Faction doesn't exists=La faction n'existe pas
 Find areas using a Lua regular expression=Trouve les zones en utilisant une expression régulière Lua.
 Get information about area configuration and usage.=Obtient des informations sur la configuration des zones et l’utilisation des zones.
 
@@ -45,6 +46,7 @@ Recursively remove areas using an ID=Supprime les zones récursivement en utilis
 Remove an area using an ID=Supprime une zone en utilisant son ID.
 Removed area @1=Zone @1 supprimée.
 Removed area @1 and it's sub areas.=Zone @1 et ses sous-zones supprimées.
+Removes all ownerless areas=Supprime toutes les zones sans propriétaire
 Rename an area that you own=Renomme une zone qui vous appartient.
 Self protection is disabled.=L’autoprotection est désactivée.
 Self protection is enabled.=L’autoprotection est activée.
@@ -77,6 +79,12 @@ Invalid usage, see /help @1.=Utilisation incorrecte, voir /help @1.
 
 :open= : ouverte
 Areas:=Zones :
+
+### init.lua ###
+
+Can administer areas.=Permet d’administrer des zones.
+Can protect areas.=Permet de protéger des zones.
+Can protect more, bigger areas.=Permet de protéger plus, et de plus grandes zones.
 
 ### interact.lua ###
 

@@ -1,9 +1,11 @@
 # textdomain: areas
 
 
+
 ### chatcommands.lua ###
 
 <AreaName>=
+<ID> [faction_name]=
 <NewOwner>=
 <ParentID>=
 <PlayerName>=
@@ -12,17 +14,16 @@
 @1 spanning up to @2x@3x@4.=
 A regular expression is required.=
 Area @1 does not exist or is not owned by you.=
-Faction doesn't exists=
 Area closed for faction members.=
 Area closed.=
 Area does not exist.=
-Area opened for faction members.=
 Area is open for members of: @1=
 Area opened.=
 Area protected. ID: @1=
 Area renamed.=
 Area successfully moved.=
 Change the owner of an area using its ID=
+Faction doesn't exists=
 Find areas using a Lua regular expression=
 Get information about area configuration and usage.=
 
@@ -45,6 +46,7 @@ Recursively remove areas using an ID=
 Remove an area using an ID=
 Removed area @1=
 Removed area @1 and it's sub areas.=
+Removes all ownerless areas=
 Rename an area that you own=
 Self protection is disabled.=
 Self protection is enabled.=
@@ -67,8 +69,6 @@ You have extended area protection limits ("areas_high_limit" privilege).=
 You have the necessary privilege ("@1").=
 You need to select an area first.=
 
-Removes all ownerless areas.=
-
 ### chatcommands.lua ###
 ### pos.lua ###
 
@@ -79,6 +79,12 @@ Invalid usage, see /help @1.=
 
 :open=
 Areas:=
+
+### init.lua ###
+
+Can administer areas.=
+Can protect areas.=
+Can protect more, bigger areas.=
 
 ### interact.lua ###
 
