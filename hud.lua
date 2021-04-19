@@ -13,7 +13,7 @@ minetest.register_globalstep(function(dtime)
 	end
 
 	for _, player in pairs(minetest.get_connected_players()) do
-		local name = player:get_player_name() 
+		local name = player:get_player_name()
 		local pos = vector.round(player:get_pos())
 		pos = vector.apply(pos, function(p)
 			return math.max(math.min(p, 2147483), -2147483)
@@ -37,7 +37,6 @@ minetest.register_globalstep(function(dtime)
 				else
 					faction_info = table.concat(area.faction_open, ", ")
 				end
-
 				if changed then
 					areas:save()
 				end
@@ -92,14 +91,6 @@ end)
 minetest.register_on_leaveplayer(function(player)
 	areas.hud[player:get_player_name()] = nil
 end)
-
-local function tablefind(tab,el)
-	for index, value in pairs(tab) do
-		if value == el then
-			return index
-		end
-	end
-end
 
 minetest.register_chatcommand("area_hud_hide", {
 	params = "",
