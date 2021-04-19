@@ -1,6 +1,7 @@
 -- This is inspired by the landrush mod by Bremaweb
 local S = minetest.get_translator("areas")
 areas.hud = {}
+areas.disabled_hud = {}
 areas.hud.refresh = 0
 
 minetest.register_globalstep(function(dtime)
@@ -12,7 +13,7 @@ minetest.register_globalstep(function(dtime)
 	end
 
 	for _, player in pairs(minetest.get_connected_players()) do
-		local name = player:get_player_name()
+		local name = player:get_player_name() 
 		local pos = vector.round(player:get_pos())
 		pos = vector.apply(pos, function(p)
 			return math.max(math.min(p, 2147483), -2147483)
@@ -62,7 +63,11 @@ minetest.register_globalstep(function(dtime)
 				table.concat(areaStrings, "\n")
 		end
 		local hud = areas.hud[name]
-		if not hud then
+		if areas.disabled_hud[name] and hud then
+			player:hud_remove(hud.areasId)
+			hud = nil
+			areas.hud[name] = hud
+		elseif not(hud) and not(areas.disabled_hud[name]) then
 			hud = {}
 			areas.hud[name] = hud
 			hud.areasId = player:hud_add({
@@ -77,7 +82,7 @@ minetest.register_globalstep(function(dtime)
 			})
 			hud.oldAreas = areaString
 			return
-		elseif hud.oldAreas ~= areaString then
+		elseif hud and (hud.oldAreas ~= areaString) then
 			player:hud_change(hud.areasId, "text", areaString)
 			hud.oldAreas = areaString
 		end
@@ -87,3 +92,25 @@ end)
 minetest.register_on_leaveplayer(function(player)
 	areas.hud[player:get_player_name()] = nil
 end)
+
+local function tablefind(tab,el)
+	for index, value in pairs(tab) do
+		if value == el then
+			return index
+		end
+	end
+end
+
+minetest.register_chatcommand("area_hud_hide", {
+	params = "",
+	description = S("Show or hide the area HUD element"),
+	func = function(name, param)
+		if areas.disabled_hud[name] then
+			areas.disabled_hud[name] = nil
+			return true, "HUD shown"
+		else
+			areas.disabled_hud[name] = true
+			return true, "HUD hidden"
+		end
+	end,
+})
