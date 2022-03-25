@@ -84,10 +84,15 @@ end
 
 -- Checks if the area is unprotected or owned by you
 function areas:canInteract(pos, name)
+	if name == "" then
+		return true -- Mods, namely minetest.item_place_node
+	end
 	if minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
-	local owned = false
+
+	-- Disallow interaction by default when the restrictive setting is enabled
+	local owned = areas.config.require_protection
 	for _, area in pairs(self:getAreasAtPos(pos)) do
 		if area.owner == name or area.open then
 			return true

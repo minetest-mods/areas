@@ -16,7 +16,9 @@ dofile(areas.modpath.."/internal.lua")
 dofile(areas.modpath.."/chatcommands.lua")
 dofile(areas.modpath.."/pos.lua")
 dofile(areas.modpath.."/interact.lua")
-dofile(areas.modpath.."/legacy.lua")
+if areas.config.node_ownership_legacy then
+	dofile(areas.modpath.."/legacy.lua")
+end
 dofile(areas.modpath.."/hud.lua")
 
 areas:load()
