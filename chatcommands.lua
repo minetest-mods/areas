@@ -71,7 +71,7 @@ minetest.register_chatcommand("set_owner", {
 
 minetest.register_chatcommand("add_owner", {
 	params = S("<ParentID>").." "..S("<PlayerName>").." "..S("<AreaName>"),
-	description = S("Give a player access to a sub-area beetween two"
+	description = S("Give a player access to a sub-area between two"
 		.." positions that have already been protected,"
 		.." Use set_owner if you don't want the parent to be set."),
 	func = function(name, param)

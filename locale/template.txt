@@ -27,7 +27,7 @@ Faction doesn't exists=
 Find areas using a Lua regular expression=
 Get information about area configuration and usage.=
 
-Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.=
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=
 
 Invalid regular expression.=
 Limit: @1 areas=

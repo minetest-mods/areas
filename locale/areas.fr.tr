@@ -27,7 +27,7 @@ Faction doesn't exists=La faction n'existe pas
 Find areas using a Lua regular expression=Trouve les zones en utilisant une expression régulière Lua.
 Get information about area configuration and usage.=Obtient des informations sur la configuration des zones et l’utilisation des zones.
 
-Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Donne au joueur accès aux sous-zones entre deux positions qui ont déjà été protégées ; utilisez set_owner si vous ne voulez pas que la zone pricipale soit définie.
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Donne au joueur accès aux sous-zones entre deux positions qui ont déjà été protégées ; utilisez set_owner si vous ne voulez pas que la zone pricipale soit définie.
 
 Invalid regular expression.=Expression régulière invalide.
 Limit: @1 areas=Limite: @1 zones.
