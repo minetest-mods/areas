@@ -207,7 +207,7 @@ minetest.register_chatcommand("recursive_remove_areas", {
 
 		areas:remove(id, true)
 		areas:save()
-		return true, S("Removed area @1 and it's sub areas.", id)
+		return true, S("Removed area @1 and its sub areas.", id)
 	end
 })
 

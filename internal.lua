@@ -118,7 +118,7 @@ function areas:add(owner, name, pos1, pos2, parent)
 	return id
 end
 
---- Remove a area, and optionally it's children recursively.
+--- Remove a area, and optionally its children recursively.
 -- If a area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
 function areas:remove(id, recurse)
@@ -195,7 +195,7 @@ function areas:isSubarea(pos1, pos2, id)
 	end
 end
 
--- Returns a table (list) of children of an area given it's identifier
+-- Returns a table (list) of children of an area given its identifier
 function areas:getChildren(id)
 	local children = {}
 	for cid, area in pairs(self.areas) do

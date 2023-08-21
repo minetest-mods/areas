@@ -87,7 +87,7 @@ Commands
 
   * `/remove_area <ID>` -- Removes an area that you own. Any sub-areas of that
 	area are made sub-areas of the removed area's parent, if it exists.
-	If the removed area has no parent it's sub-areas will have no parent.
+	If the removed area has no parent its sub-areas will have no parent.
 
   * `/recursive_remove_areas <ID>` -- Removes an area and all sub-areas of it.
 
