@@ -123,7 +123,7 @@ Area position @1 set to @2=Position @1 de la zone définie à @2.
 Position @1 set to @2=Position @1 définie à @2.
 Position @1: =Position @1 :
 Select an area by ID.=Sélectionnez une zone par son ID.
-Select position @1 by punching a node.=Sélectionnez une position en frappant un bloc.
+Select position @1 by punching a node.=Sélectionnez une position @1 en frappant un bloc.
 Select positions by punching two nodes.=Sélectionnez une position en frappant deux blocs.
 
 Set area protection region position @1 to your location or the one specified=Définit la position @1 de la région de protection de zone à votre position ou à celle spécifiée.
