@@ -229,9 +229,9 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			self.config.self_protection_max_size_high or
 			self.config.self_protection_max_size
 	if
-			(pos2.x - pos1.x) > max_size.x or
-			(pos2.y - pos1.y) > max_size.y or
-			(pos2.z - pos1.z) > max_size.z then
+			(pos2.x - pos1.x + 1) > max_size.x or
+			(pos2.y - pos1.y + 1) > max_size.y or
+			(pos2.z - pos1.z + 1) > max_size.z then
 		return false, S("Area is too big.")
 	end
 
