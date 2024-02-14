@@ -37,16 +37,16 @@ Move (or resize) an area to the current positions.=移動一保護區至目前�
 No matches found.=找不到匹配項。
 No visible areas.=沒有保護區可供查閱。
 Owner changed.=擁有者已修改。
-Players with the "@1" privilege can protect up to @2 areas=擁有「@1」權限的玩家可以保護最多 @2 個保護區
+Players with the "@1" privilege can protect up to @2 areas=擁有「@1」權限的玩家最多可以保護 @2 個保護區
 
-Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家兩個座標之間區域的存取權，而不設定上級保護區參數
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家兩個座標之間區域的控制權，而不設定上級保護區
 
 Protect your own area=對您自己的地區施加保護
-Recursively remove areas using an ID=通過保護區編號遞歸移除保護區
+Recursively remove areas using an ID=通過保護區編號移除保護區以及其所有子保護區
 Remove an area using an ID=通過保護區編號移除一保護區
 Removed area @1=保護區 @1 已移除
-Removed area @1 and its sub areas.=保護區 @1 以及其子保護區已移除
-Removes all ownerless areas=所有無主保護區已移除。
+Removed area @1 and its sub areas.=保護區 @1 以及其所有子保護區已移除
+Removes all ownerless areas=移除所有無主保護區
 Rename an area that you own=重新命名您擁有的保護區
 Self protection is disabled.=自我保護被禁用。
 Self protection is enabled.=自我保護被啓用。
@@ -122,7 +122,7 @@ Area @1 selected.=保護區 @1 已選擇。
 Area position @1 set to @2=保護區座標 @1 已設定爲 @2。
 Position @1 set to @2=保護區座標 @1 已設定爲 @2。
 Position @1: =保護區座標 @1：
-Select an area by ID.=通過保護區編號選擇保護區
+Select an area by ID.=通過保護區編號選擇區域
 Select position @1 by punching a node.=請擊打方塊，以設定保護區座標 @1 的位置。
 Select positions by punching two nodes.=請擊打兩個方塊，以設定保護區座標的位置。
 

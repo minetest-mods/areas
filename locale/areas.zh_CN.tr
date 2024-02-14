@@ -39,7 +39,7 @@ No visible areas.=没有保护区可供查阅。
 Owner changed.=拥有者已修改。
 Players with the "@1" privilege can protect up to @2 areas=拥有“@1”权限的玩家最多可以保护 @2 个保护区
 
-Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家两个座标之间区域的存取权，而不设定上级保护区
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家两个座标之间区域的控制权，而不设定上级保护区
 
 Protect your own area=对您自己的地区施加保护
 Recursively remove areas using an ID=通过保护区编号移除保护区以及其所有子保护区
