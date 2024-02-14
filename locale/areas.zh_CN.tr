@@ -10,7 +10,7 @@
 <ParentID>=<上级保护区编号>
 <PlayerName>=<玩家名称>
 <newName>=<新名称>
-@1 has given you control over the area "@2" (ID @3).=@1 已将保护区「@2」（编号 @3）的控制权交与您。
+@1 has given you control over the area "@2" (ID @3).=@1 已将保护区“@2”（编号 @3）的控制权交与您。
 @1 spanning up to @2x@3x@4.=@1，最大为 @2x@3x@4。
 A regular expression is required.=需要正则表达式。
 Area @1 does not exist or is not owned by you.=保护区 @1 不存在，或并非由您拥有。
@@ -27,7 +27,7 @@ Faction doesn't exists=派系不存在
 Find areas using a Lua regular expression=使用 Lua 正则表达式寻找保护区
 Get information about area configuration and usage.=获得保护区配置与使用的资讯。
 
-Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=授予其他玩家已有保护区内一部分地方、两个座标之间区域 的的存取权。 如果不想上级保护区被设定，请使用 /set_owner。
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=授予其他玩家已有保护区内一部分地方、两个座标之间区域的的存取权。如果不想上级保护区被设定，请使用 /set_owner。
 
 Invalid regular expression.=正则表达式无效。
 Limit: @1 areas=限制：@1个保护区
@@ -37,36 +37,36 @@ Move (or resize) an area to the current positions.=移动一保护区至目前�
 No matches found.=找不到匹配项。
 No visible areas.=没有保护区可供查阅。
 Owner changed.=拥有者已修改。
-Players with the "@1" privilege can protect up to @2 areas=拥有「@1」权限的玩家可以保护最多 @2 个保护区
+Players with the "@1" privilege can protect up to @2 areas=拥有“@1”权限的玩家最多可以保护 @2 个保护区
 
-Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家两个座标之间区域的存取权，而不设定上级保护区参数
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家两个座标之间区域的存取权，而不设定上级保护区
 
 Protect your own area=对您自己的地区施加保护
-Recursively remove areas using an ID=通过保护区编号递归移除保护区
+Recursively remove areas using an ID=通过保护区编号移除保护区以及其所有子保护区
 Remove an area using an ID=通过保护区编号移除一保护区
 Removed area @1=保护区 @1 已移除
-Removed area @1 and its sub areas.=保护区 @1 以及其子保护区已移除
-Removes all ownerless areas=所有无主保护区已移除。
+Removed area @1 and its sub areas.=保护区 @1 以及其所有子保护区已移除。
+Removes all ownerless areas=移除所有无主保护区
 Rename an area that you own=重新命名您拥有的保护区
 Self protection is disabled.=自我保护被禁用。
 Self protection is enabled.=自我保护被启用。
 That area doesn't exist.=保护区不存在。
-The player "@1" does not exist.=玩家「@1」不存在。
+The player "@1" does not exist.=玩家“@1”不存在。
 Toggle an area open (anyone can interact) or closed=切换保护区开放状态（如开放，所有玩家均可互动）
 Toggle an area open/closed for members in your faction.=切换保护区对派系成员的开放状态
-You are an area administrator ("areas" privilege).=您是保护区管理员（拥有「area」权限）
+You are an area administrator ("areas" privilege).=您是保护区管理员（拥有“area”权限）
 You can protect areas=您可以建立保护区
 You can't protect that area.=您无法保护该区域。
 You can't protect that area: @1=您无法保护该区域：@1
-You don't have the necessary privilege ("@1").=您没有所需权限（「@1」）
+You don't have the necessary privilege ("@1").=您没有所需权限（“@1”）
 You don't own that area.=您并不拥有该保护区。
 You have @1 areas.=您有 @1 个保护区。
 
 You have been granted control over area #@1. Type /list_areas to show your areas.=您已被授予保护区 #@1 的控制权。 使用 /list_areas 以查看您的保护区。
 
-You have extended area protection limits ("areas_high_limit" privilege).=您拥有延伸保护权限（拥有「areas_high_limit」权限）
+You have extended area protection limits ("areas_high_limit" privilege).=您拥有延伸保护权限（拥有“areas_high_limit”权限）
 
-You have the necessary privilege ("@1").=您拥有所需权限（「@1」）
+You have the necessary privilege ("@1").=您拥有所需权限（“@1”）
 You need to select an area first.=请先选择范围。
 
 ### chatcommands.lua ###
@@ -122,8 +122,8 @@ Area @1 selected.=保护区 @1 已选择。
 Area position @1 set to @2=保护区座标 @1 已设定为 @2。
 Position @1 set to @2=保护区座标 @1 已设定为 @2。
 Position @1: =保护区座标 @1：
-Select an area by ID.=通过保护区编号选择保护区
-Select position @1 by punching a node.=请击打方块，以设定保护区座标 @1 的位置。
+Select an area by ID.=通过保护区编号选择区域
+Select position @1 by punching a node.=请击打方块以设定保护区座标 @1 的位置。
 Select positions by punching two nodes.=请击打两个方块，以设定保护区座标的位置。
 
 Set area protection region position @1 to your location or the one specified=将保护区座标 @1 的位置设定为您目前的位置或提供的座标
