@@ -1,0 +1,135 @@
+# textdomain: areas
+
+
+
+### chatcommands.lua ###
+
+<AreaName>=<保護區名稱>
+<ID> [faction_name]=<保護區編號> [派系名稱]
+<NewOwner>=<新擁有者>
+<ParentID>=<上級保護區編號>
+<PlayerName>=<玩家名稱>
+<newName>=<新名稱>
+@1 has given you control over the area "@2" (ID @3).=@1 已將保護區「@2」（編號 @3）的控制權交與您。
+@1 spanning up to @2x@3x@4.=@1，最大爲 @2x@3x@4。
+A regular expression is required.=需要正則表達式。
+Area @1 does not exist or is not owned by you.=保護區 @1 不存在，或並非由您擁有。
+Area closed for faction members.=保護區已對派系成員關閉。
+Area closed.=保護區已關閉。
+Area does not exist.=保護區不存在。
+Area is open for members of: @1=保護區已對以下派系的成員開放：@1
+Area opened.=保護區已開放。
+Area protected. ID: @1=成功進行保護。保護區編號：@1
+Area renamed.=保護區已重新命名。
+Area successfully moved.=成功移動保護區。
+Change the owner of an area using its ID=通過保護區編號改變其擁有者
+Faction doesn't exists=派系不存在
+Find areas using a Lua regular expression=使用 Lua 正則表達式尋找保護區
+Get information about area configuration and usage.=獲得保護區配置與使用的資訊。
+
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=授予其他玩家已有保護區內一部分地方、兩個座標之間區域的的存取權。如果不想上級保護區被設定，請使用 /set_owner。
+
+Invalid regular expression.=正則表達式無效。
+Limit: @1 areas=限制：@1個保護區
+Limit: no area count limit=限制：無數量限制
+List your areas, or all areas if you are an admin.=列出您擁有的保護區，或對於管理員而言，列出所有保護區。
+Move (or resize) an area to the current positions.=移動一保護區至目前座標，或改變其大小。
+No matches found.=找不到匹配項。
+No visible areas.=沒有保護區可供查閱。
+Owner changed.=擁有者已修改。
+Players with the "@1" privilege can protect up to @2 areas=擁有「@1」權限的玩家最多可以保護 @2 個保護區
+
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=授予其他玩家兩個座標之間區域的控制權，而不設定上級保護區
+
+Protect your own area=對您自己的地區施加保護
+Recursively remove areas using an ID=通過保護區編號移除保護區以及其所有子保護區
+Remove an area using an ID=通過保護區編號移除一保護區
+Removed area @1=保護區 @1 已移除
+Removed area @1 and its sub areas.=保護區 @1 以及其所有子保護區已移除
+Removes all ownerless areas=移除所有無主保護區
+Rename an area that you own=重新命名您擁有的保護區
+Self protection is disabled.=自我保護被禁用。
+Self protection is enabled.=自我保護被啓用。
+That area doesn't exist.=保護區不存在。
+The player "@1" does not exist.=玩家「@1」不存在。
+Toggle an area open (anyone can interact) or closed=切換保護區開放狀態（如開放，所有玩家均可互動）
+Toggle an area open/closed for members in your faction.=切換保護區對派系成員的開放狀態
+You are an area administrator ("areas" privilege).=您是保護區管理員（擁有「area」權限）
+You can protect areas=您可以建立保護區
+You can't protect that area.=您無法保護該區域。
+You can't protect that area: @1=您無法保護該區域：@1
+You don't have the necessary privilege ("@1").=您沒有所需權限（「@1」）
+You don't own that area.=您並不擁有改保護區。
+You have @1 areas.=您有 @1 個保護區。
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=您已被授予保護區 #@1 的控制權。使用 /list_areas 以查看您的保護區。
+
+You have extended area protection limits ("areas_high_limit" privilege).=您擁有延伸保護權限（擁有「areas_high_limit」權限）
+
+You have the necessary privilege ("@1").=您擁有所需權限（「@1」）
+You need to select an area first.=請先選擇範圍。
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=<保護區編號>
+Invalid usage, see /help @1.=無效用法，請參見 /help @1。
+
+### hud.lua ###
+
+:open=:開放
+Areas:=保護區：
+
+### init.lua ###
+
+Can administer areas.=可以管理保護區
+Can protect areas.=可以進行保護
+Can protect more, bigger areas.=進行保護時，數量以及體積上限提高。
+
+### interact.lua ###
+
+@1 is protected by @2.=@1 被 @2 保護。
+
+### internal.lua ###
+
+Area is too big.=區域過大。
+
+Self protection is disabled or you do not have the necessary privilege.=自我保護被禁用，或您沒有所需權限。
+
+The area intersects with @1 [@2] (@3).=區域與 @1 [@2] (@3) 重疊。
+
+You have reached the maximum amount of areas that you are allowed to protect.=您的現有保護區數量已達到所允許的上限。
+
+
+### legacy.lua ###
+
+<version>=<版本>
+Converted areas saved. Done.=轉換後的保護區已經保存。完成。
+Converting areas…=正在轉換保護區……
+Error loading legacy file: @1=載入舊檔案時發生錯誤：@1
+Invalid version number. (0 allowed)=無效版本號。（允許值：0）
+Legacy file loaded.=舊檔案已載入。
+
+Loads, converts, and saves the areas from a legacy save file.=載入、轉換並儲存舊存檔中的保護區。
+
+Table format updated.=表格格式已更新。
+unnamed=未命名
+
+### pos.lua ###
+
+<not set>=<未設定>
+Area @1 selected.=保護區 @1 已選擇。
+Area position @1 set to @2=保護區座標 @1 已設定爲 @2。
+Position @1 set to @2=保護區座標 @1 已設定爲 @2。
+Position @1: =保護區座標 @1：
+Select an area by ID.=通過保護區編號選擇區域
+Select position @1 by punching a node.=請擊打方塊，以設定保護區座標 @1 的位置。
+Select positions by punching two nodes.=請擊打兩個方塊，以設定保護區座標的位置。
+
+Set area protection region position @1 to your location or the one specified=將保護區座標 @1 的位置設定爲您目前的位置或提供的座標
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=擊打方塊設定保護區座標，或獲得其座標資訊
+
+The area @1 does not exist.=保護區 @1 不存在。
+Unable to get position.=無法獲得座標。
+Unknown subcommand: @1=子指令不明：@1
