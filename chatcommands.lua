@@ -173,13 +173,46 @@ minetest.register_chatcommand("find_areas", {
 
 
 minetest.register_chatcommand("list_areas", {
-	description = S("List your areas, or all areas if you are an admin."),
+	params = S("[<name>]"),
+	description = S("List your areas. Admins can list all areas or those of a specific player."),
 	func = function(name, param)
 		local admin = minetest.check_player_privs(name, areas.adminPrivs)
+		local admin_show_summary = admin
+		local owner_name = name
+
+		if admin and #param > 0 then
+			owner_name = param
+			admin_show_summary = false
+		end
+
 		local areaStrings = {}
-		for id, area in pairs(areas.areas) do
-			if admin or areas:isAreaOwner(id, name) then
-				table.insert(areaStrings, areas:toString(id))
+		if admin_show_summary then
+			-- Summary per-player
+			local indices = {}
+			local counts = {} -- { [1] = name, [2] = count }, ...
+			for _, area in pairs(areas.areas) do
+				local i = indices[area.owner]
+				if i then
+					counts[i][2] = counts[i][2] + 1
+				else
+					table.insert(counts, { area.owner, 1 })
+					indices[area.owner] = #counts
+				end
+			end
+			-- Alphabatical name sorting
+			table.sort(counts, function (kv_a, kv_b)
+				return kv_a[1] < kv_b[1]
+			end)
+			--  Output
+			for _, kv in ipairs(counts) do
+				table.insert(areaStrings, S("@1 : @2 area(s)", kv[1], kv[2]))
+			end
+		else
+			-- Detailed list
+			for id, area in pairs(areas.areas) do
+				if areas:isAreaOwner(id, owner_name) then
+					table.insert(areaStrings, areas:toString(id))
+				end
 			end
 		end
 		if #areaStrings == 0 then
