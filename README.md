@@ -101,10 +101,10 @@ Commands
   * `/area_pos {set,set1,set2,get}` -- Sets the area positions by punching
 	nodes or shows the current area positions.
 
-  * `/area_pos1 [X,Y,Z|X Y Z]` -- Sets area position one to your position or
+  * `/area_pos1 [X Y Z|X,Y,Z|X, Y, Z]` -- Sets area position one to your position or
 	the one supplied.
 
-  * `/area_pos2 [X,Y,Z|X Y Z]` -- Sets area position two to your position or
+  * `/area_pos2 [X Y Z|X,Y,Z|X, Y, Z]` -- Sets area position two to your position or
 	the one supplied.
 
   * `/areas_cleanup` -- Removes all ownerless areas.
