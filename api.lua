@@ -1,8 +1,13 @@
 local hudHandlers = {}
 
+areas.registered_protection_conditions = {}
 areas.registered_on_adds = {}
 areas.registered_on_removes = {}
 areas.registered_on_moves = {}
+
+function areas:registerProtectionCondition(func)
+	table.insert(areas.registered_protection_conditions, func)
+end
 
 function areas:registerOnAdd(func)
 	table.insert(areas.registered_on_adds, func)

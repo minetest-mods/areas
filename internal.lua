@@ -211,6 +211,8 @@ end
 -- if the area intersects other areas that they do not own.
 -- Also checks the size of the area and if the user already
 -- has more than max_areas.
+-- checks all possible restrictions registered with
+-- areas:registerProtectionCondition
 function areas:canPlayerAddArea(pos1, pos2, name)
 	local privs = minetest.get_player_privs(name)
 	if privs.areas then
@@ -258,7 +260,22 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 				area.name, id, area.owner)
 	end
 
-	return true
+	local allowed = true
+	local errMsg
+	for i=1, #areas.registered_protection_conditions do
+		local res, msg = areas.registered_protection_conditions[i](pos1, pos2, name)
+		if res == true then
+			-- always allow to protect, no matter of other conditions
+			return true
+		elseif res == false then
+			-- there might be another callback that returns true, so we can't break here
+			allowed = false
+			-- save the first error that occurred
+			errMsg = errMsg or msg
+		end
+	end
+
+	return allowed, errMsg
 end
 
 -- Given a id returns a string in the format:

@@ -5,9 +5,24 @@ API list
 ---
 
  * `areas:registerHudHandler(handler)` - Registers a handler to add items to the Areas HUD.  See [HUD](#hud).
+ * `areas:registerProtectionCondition(func(pos1, pos2, name))` - 
+See [Protection Conditions](#Protection-Conditions)
  * `areas:registerOnAdd(func(id, area))`
  * `areas:registerOnRemove(func(id))`
  * `areas:registerOnMove(func(id, area, pos1, pos2))`
+
+
+Protection Conditions
+---
+
+With `areas:registerProtectionCondition(func(pos1, pos2, name))`
+you can register rules to control whether to allow or prohibit the creation of an area.
+
+Return values:
+* `true` Always create the area, no matter of other conditions. 
+Note that this includes the conditions set by this mod.
+* `false, errMsg` Disable the creation of the area and return an error message.
+* `nil` Enable the creation of the area, if all other callbacks return `nil` too.
 
 
 HUD
