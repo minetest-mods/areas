@@ -19,10 +19,11 @@ With `areas:registerProtectionCondition(func(pos1, pos2, name))`
 you can register rules to control whether to allow or prohibit the creation of an area.
 
 Return values:
-* `true` Always create the area, no matter of other conditions. 
-Note that this includes the conditions set by this mod.
+* `true` Forcefully allows the area creation. This overwrites the outcome of any
+  previously executed conditions, including the default ones registered by this mod.
 * `false, errMsg` Disable the creation of the area and return an error message.
-* `nil` Enable the creation of the area, if all other callbacks return `nil` too.
+* `nil` (or no return value) Enable the creation of the area,
+  unless specified otherwise by the other registered callbacks.
 
 
 HUD
