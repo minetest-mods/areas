@@ -222,6 +222,11 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			allowed = false
 			-- save the first error that occurred
 			errMsg = errMsg or msg
+		elseif res ~= nil then
+			local origin = areas.callback_origins[areas.registered_protection_conditions[i]]
+			error("\n[Mod] areas: Invalid api usage from mod '" ..
+					origin.mod .. "' in callback registerProtectionCondition() at " ..
+					origin.source .. ":" .. origin.line)
 		end
 	end
 
