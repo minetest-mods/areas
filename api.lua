@@ -1,8 +1,21 @@
 local hudHandlers = {}
 
+areas.registered_protection_conditions = {}
 areas.registered_on_adds = {}
 areas.registered_on_removes = {}
 areas.registered_on_moves = {}
+
+areas.callback_origins = {}
+
+function areas:registerProtectionCondition(func)
+	table.insert(areas.registered_protection_conditions, func)
+	local debug_info = debug.getinfo(func, "S")
+	areas.callback_origins[func] = {
+		mod = core.get_current_modname() or "??",
+		source = debug_info.short_src or "??",
+		line = debug_info.linedefined or "??"
+	}
+end
 
 function areas:registerOnAdd(func)
 	table.insert(areas.registered_on_adds, func)
