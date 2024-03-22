@@ -41,13 +41,13 @@ minetest.register_chatcommand("select_area", {
 })
 
 minetest.register_chatcommand("area_pos1", {
-	params = "[X Y Z|X,Y,Z]",
+	params = "[X Y Z|X,Y,Z|X, Y, Z]",
 	description = S("Set area protection region position @1 to your"
 		.." location or the one specified", "1"),
 	privs = {},
 	func = function(name, param)
 		local pos
-		local found, _, x, y, z = param:find(
+		local found, _, x, y, z = param:gsub(", ", ","):find(
 				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
@@ -69,12 +69,12 @@ minetest.register_chatcommand("area_pos1", {
 })
 
 minetest.register_chatcommand("area_pos2", {
-	params = "[X Y Z|X,Y,Z]",
+	params = "[X Y Z|X,Y,Z|X, Y, Z]",
 	description = S("Set area protection region position @1 to your"
 		.." location or the one specified", "2"),
 	func = function(name, param)
 		local pos
-		local found, _, x, y, z = param:find(
+		local found, _, x, y, z = param:gsub(", ", ","):find(
 				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
 		if found then
 			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
