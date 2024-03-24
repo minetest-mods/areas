@@ -1,0 +1,135 @@
+# textdomain: areas
+
+
+
+### chatcommands.lua ###
+
+<AreaName>=<имя_территории>
+<ID> [faction_name]=<ID> [имя_фракции]
+<NewOwner>=<новый_владелец>
+<ParentID>=<ID_родительской>
+<PlayerName>=<имя_игрока>
+<newName>=<новое_имя>
+@1 has given you control over the area "@2" (ID @3).=@1 передал вам территорию "@2" (ID @3).
+@1 spanning up to @2x@3x@4.=@1 размером до @2x@3x@4.
+A regular expression is required.=Не указано регулярное выражение.
+Area @1 does not exist or is not owned by you.=Территория @1 не существует или Вы не имеете к ней доступа.
+Area closed for faction members.=Территория закрыта для фракций.
+Area closed.=Территория закрыта.
+Area does not exist.=Территория не существует.
+Area is open for members of: @1=Территория открыта для игроков из фракций: @1
+Area opened.=Территория открыта.
+Area protected. ID: @1=Территория защищена. ID: @1
+Area renamed.=Территория переименована.
+Area successfully moved.=Территория успешно перенесена.
+Change the owner of an area using its ID=Изменить владельца территории по её ID
+Faction doesn't exists=Фракция не существует.
+Find areas using a Lua regular expression=Поиск территорий с использованием регулярных выражений Lua
+Get information about area configuration and usage.=Получить информацию о конфигурации и использовании защиты территорий.
+
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Дать игроку доступ к выделенной территории, создав дополнительный регион. Используйте set_owner, если вы не хотите привязки к родительской территории.
+
+Invalid regular expression.=Неверное регулярное выражение.
+Limit: @1 areas=Ограничение: @1 территорий(я)
+Limit: no area count limit=Ограничение: нет ограничений на кол-во территорий
+List your areas, or all areas if you are an admin.=Вывести список доступных Вам территорий (или всех существующих территорий, если Вы имеете привилегию areas)
+Move (or resize) an area to the current positions.=Переместить (или изменить размер) территории.
+No matches found.=Совпадений не найдено.
+No visible areas.=Нет доступных территорий.
+Owner changed.=Владелец изменён.
+Players with the "@1" privilege can protect up to @2 areas=Игроки, имеющие привилегию "@1" могут защищать до @2 территорий
+
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Защитить территорию между двумя позициями и дать игроку доступ к ней без привязки к родительскому региону.
+
+Protect your own area=Защитить территорию и установить себя владельцем
+Recursively remove areas using an ID=Рекурсивное удаление территорий (вместе с дочерними) по его ID
+Remove an area using an ID=Удаление территории по его ID
+Removed area @1=Удалена территория @1
+Removed area @1 and its sub areas.=Удалена территория @1 и её дочерние территории.
+Removes all ownerless areas=Удалить все бесхозные территории (без владельца)
+Rename an area that you own=Переименовать территорию, которой вы владеете.
+Self protection is disabled.=Защита своих территорий отключена.
+Self protection is enabled.=Защита своих территорий включена.
+That area doesn't exist.=Территория не существует.
+The player "@1" does not exist.=Игрок "@1" не существует.
+Toggle an area open (anyone can interact) or closed=Открыть/закрыть территорию для других игроков
+Toggle an area open/closed for members in your faction.=Открыть/закрыть территорию для игроков вашей фракции.
+You are an area administrator ("areas" privilege).=Вы можете управлять всеми территориями (привилегия "areas")
+You can protect areas=Вы можете защищать территории
+You can't protect that area.=Вы не можете установить защиту на эту территорию.
+You can't protect that area: @1=Вы не можете установить защиту на территорию: @1
+You don't have the necessary privilege ("@1").=У Вас нет необходимой привилегии ("@1").
+You don't own that area.=Вы не являетесь владельцем этой территории.
+You have @1 areas.=У вас @1 территорий.
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=Вам выдан доступ к территории #@1.
+
+You have extended area protection limits ("areas_high_limit" privilege).=У вас увеличенный лимит на кол-во создаваемых вами защищённых территорий
+
+You have the necessary privilege ("@1").=У вас есть необходимая привилегия ("@1").
+You need to select an area first.=Сначала необходимо выделить территорию.
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=
+Invalid usage, see /help @1.=Неверное использование, см. /help @1.
+
+### hud.lua ###
+
+:open=:открытая
+Areas:=Территории:
+
+### init.lua ###
+
+Can administer areas.=Может управлять территориями.
+Can protect areas.=Может создавать защищённые территории.
+Can protect more, bigger areas.=Может создавать защищённые территории больше территорий и с бОльшим размером.
+
+### interact.lua ###
+
+@1 is protected by @2.=@1 - принадлежит @2.
+
+### internal.lua ###
+
+Area is too big.=Территория слишком велика.
+
+Self protection is disabled or you do not have the necessary privilege.=Возможность защиты территорий отключена или же Вы не имеете необходимых привилегий.
+
+The area intersects with @1 [@2] (@3).=Территория пересекается с @1 [@2] (@3).
+
+You have reached the maximum amount of areas that you are allowed to protect.=Вы достигли максимально допустимого количества на создание защищённых территорий.
+
+
+### legacy.lua ###
+
+<version>=<версия>
+Converted areas saved. Done.=Готово. Сконвертированные территории сохранены.
+Converting areas…=Конвертирование территорий…
+Error loading legacy file: @1=Ошибка загрузки файла с устаревшим форматом: @1
+Invalid version number. (0 allowed)=Неверный номер версии. (поддерживается 0)
+Legacy file loaded.=Файл с устаревшим форматом загружен.
+
+Loads, converts, and saves the areas from a legacy save file.=Загружает, конвертирует и сохраняет файл с устаревшим форматом.
+
+Table format updated.=Формат обновлён.
+unnamed=<без_названия>
+
+### pos.lua ###
+
+<not set>=<не_установлена>
+Area @1 selected.=Территория @1 выбрана.
+Area position @1 set to @2=Позиция @1 установлена в @2
+Position @1 set to @2=Позиция @1 установлена в @2
+Position @1: =Позиция @1:
+Select an area by ID.=Выбрать территорию по её ID.
+Select position @1 by punching a node.=Установите позицию @1, ударив по блоку.
+Select positions by punching two nodes.=Установите позиции, ударив по двум блокам.
+
+Set area protection region position @1 to your location or the one specified=Установить позицию @1 для выбора защищаемой территории
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=Установить позиции 1 и/или 2, ударяя по блокам, или вывести ранее установленные позиции
+
+The area @1 does not exist.=Территория @1 не существует.
+Unable to get position.=Не удалось получить позицию.
+Unknown subcommand: @1=Неизвестная под-команда/аргумент.
