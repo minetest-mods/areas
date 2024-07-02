@@ -47,19 +47,27 @@ minetest.register_chatcommand("area_pos1", {
 	privs = {},
 	func = function(name, param)
 		local pos
-		local found, _, x, y, z = param:find(
-				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
+		local player = minetest.get_player_by_name(name)
+		if player then
+			pos = player:get_pos()
+		end
+		local found, _, x_str, y_str, z_str = param:find(
+			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
 		if found then
-			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
-		elseif param == "" then
-			local player = minetest.get_player_by_name(name)
-			if player then
-				pos = player:get_pos()
-			else
-				return false, S("Unable to get position.")
+			local x = pos and minetest.parse_relative_number(x_str, pos.x)
+				or tonumber(x_str)
+			local y = pos and minetest.parse_relative_number(y_str, pos.y)
+				or tonumber(y_str)
+			local z = pos and minetest.parse_relative_number(z_str, pos.z)
+				or tonumber(z_str)
+			if x and y and z then
+				pos = { x = x, y = y, z = z }
 			end
-		else
+		elseif param ~= "" then
 			return false, S("Invalid usage, see /help @1.", "area_pos1")
+		end
+		if not pos then
+			return false, S("Unable to get position.")
 		end
 		pos = posLimit(vector.round(pos))
 		areas:setPos1(name, pos)
@@ -74,19 +82,27 @@ minetest.register_chatcommand("area_pos2", {
 		.." location or the one specified", "2"),
 	func = function(name, param)
 		local pos
-		local found, _, x, y, z = param:find(
-				"^(-?%d+)[, ](-?%d+)[, ](-?%d+)$")
+		local player = minetest.get_player_by_name(name)
+		if player then
+			pos = player:get_pos()
+		end
+		local found, _, x_str, y_str, z_str = param:find(
+			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
 		if found then
-			pos = {x=tonumber(x), y=tonumber(y), z=tonumber(z)}
-		elseif param == "" then
-			local player = minetest.get_player_by_name(name)
-			if player then
-				pos = player:get_pos()
-			else
-				return false, S("Unable to get position.")
+			local x = pos and minetest.parse_relative_number(x_str, pos.x)
+				or tonumber(x_str)
+			local y = pos and minetest.parse_relative_number(y_str, pos.y)
+				or tonumber(y_str)
+			local z = pos and minetest.parse_relative_number(z_str, pos.z)
+				or tonumber(z_str)
+			if x and y and z then
+				pos = { x = x, y = y, z = z }
 			end
-		else
+		elseif param ~= "" then
 			return false, S("Invalid usage, see /help @1.", "area_pos2")
+		end
+		if not pos then
+			return false, S("Unable to get position.")
 		end
 		pos = posLimit(vector.round(pos))
 		areas:setPos2(name, pos)
