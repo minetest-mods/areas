@@ -49,7 +49,7 @@ minetest.register_chatcommand("area_pos1", {
 		local pos
 		local player = minetest.get_player_by_name(name)
 		if player then
-			pos = player:get_pos()
+			pos = vector.round(player:get_pos())
 		end
 		local found, _, x_str, y_str, z_str = param:find(
 			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
@@ -84,7 +84,7 @@ minetest.register_chatcommand("area_pos2", {
 		local pos
 		local player = minetest.get_player_by_name(name)
 		if player then
-			pos = player:get_pos()
+			pos = vector.round(player:get_pos())
 		end
 		local found, _, x_str, y_str, z_str = param:find(
 			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
