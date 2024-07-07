@@ -133,3 +133,5 @@ Set area protection region, position 1, or position 2 by punching nodes, or disp
 The area @1 does not exist.=L'area @1 non esiste.
 Unable to get position.=Impossibile ottenere la posizione.
 Unknown subcommand: @1=Sotto-comando sconosciuto: @1
+
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=

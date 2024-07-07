@@ -22,6 +22,37 @@ local function posLimit(pos)
 	}
 end
 
+local parse_relative_pos
+
+if minetest.parse_relative_number then
+	parse_relative_pos = function(x_str, y_str, z_str, pos)
+
+		local x = pos and minetest.parse_relative_number(x_str, pos.x)
+			or tonumber(x_str)
+		local y = pos and minetest.parse_relative_number(y_str, pos.y)
+			or tonumber(y_str)
+		local z = pos and minetest.parse_relative_number(z_str, pos.z)
+			or tonumber(z_str)
+		if x and y and z then
+			return vector.new(x, y, z)
+		end
+	end
+else
+	parse_relative_pos = function(x_str, y_str, z_str, pos)
+		local x = tonumber(x_str)
+		local y = tonumber(y_str)
+		local z = tonumber(z_str)
+		if x and y and z then
+			return vector.new(x, y, z)
+		elseif string.sub(x_str, 1, 1) == "~"
+			or string.sub(y_str, 1, 1) == "~"
+			or string.sub(z_str, 1, 1) == "~" then
+			return nil, S("Relative coordinates is not supported on this server. " ..
+				"Please upgrade Minetest to 5.7.0 or newer versions.")
+		end
+	end
+end
+
 minetest.register_chatcommand("select_area", {
 	params = S("<ID>"),
 	description = S("Select an area by ID."),
@@ -54,14 +85,11 @@ minetest.register_chatcommand("area_pos1", {
 		local found, _, x_str, y_str, z_str = param:find(
 			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
 		if found then
-			local x = pos and minetest.parse_relative_number(x_str, pos.x)
-				or tonumber(x_str)
-			local y = pos and minetest.parse_relative_number(y_str, pos.y)
-				or tonumber(y_str)
-			local z = pos and minetest.parse_relative_number(z_str, pos.z)
-				or tonumber(z_str)
-			if x and y and z then
-				pos = { x = x, y = y, z = z }
+			local get_pos, reason = parse_relative_pos(x_str, y_str, z_str, pos)
+			if get_pos then
+				pos = get_pos
+			elseif not get_pos and reason then
+				return false, reason
 			end
 		elseif param ~= "" then
 			return false, S("Invalid usage, see /help @1.", "area_pos1")
@@ -89,14 +117,11 @@ minetest.register_chatcommand("area_pos2", {
 		local found, _, x_str, y_str, z_str = param:find(
 			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
 		if found then
-			local x = pos and minetest.parse_relative_number(x_str, pos.x)
-				or tonumber(x_str)
-			local y = pos and minetest.parse_relative_number(y_str, pos.y)
-				or tonumber(y_str)
-			local z = pos and minetest.parse_relative_number(z_str, pos.z)
-				or tonumber(z_str)
-			if x and y and z then
-				pos = { x = x, y = y, z = z }
+			local get_pos, reason = parse_relative_pos(x_str, y_str, z_str, pos)
+			if get_pos then
+				pos = get_pos
+			elseif not get_pos and reason then
+				return false, reason
 			end
 		elseif param ~= "" then
 			return false, S("Invalid usage, see /help @1.", "area_pos2")

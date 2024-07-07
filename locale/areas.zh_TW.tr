@@ -133,3 +133,5 @@ Set area protection region, position 1, or position 2 by punching nodes, or disp
 The area @1 does not exist.=保護區 @1 不存在。
 Unable to get position.=無法獲得座標。
 Unknown subcommand: @1=子指令不明：@1
+
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=此伺服器不支援相對座標。請更新Minetest至5.7.0或之後的版本。
