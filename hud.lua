@@ -66,6 +66,7 @@ minetest.register_globalstep(function(dtime)
 			hud = {}
 			areas.hud[name] = hud
 			hud.areasId = player:hud_add({
+				hud_elem_type = "text", -- ignored on new clients
 				type = "text",
 				name = "Areas",
 				number = 0xFFFFFF,
