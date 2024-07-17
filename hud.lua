@@ -66,7 +66,7 @@ minetest.register_globalstep(function(dtime)
 			hud = {}
 			areas.hud[name] = hud
 			hud.areasId = player:hud_add({
-				hud_elem_type = "text",
+				[minetest.features.hud_def_type_field and "type" or "hud_elem_type"] = "text", -- compatible with older versions
 				name = "Areas",
 				number = 0xFFFFFF,
 				position = {x=0, y=1},
