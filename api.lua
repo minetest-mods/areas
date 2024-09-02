@@ -95,36 +95,49 @@ function areas:getAreasIntersectingArea(pos1, pos2)
 	return res
 end
 
--- Checks if the area is unprotected or owned by you
+-- Checks if the area is unprotected, open, owned by player
+-- or player is part of faction of smallest area at position.
 function areas:canInteract(pos, name)
 	if minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
-	local owned = false
+	-- Determine smallest area at position
+	-- If multiple areas have the same volume, larger id takes precedence.
+	local smallest_area, smallest_volume, volume
 	for _, area in pairs(self:getAreasAtPos(pos)) do
-		if area.owner == name or area.open then
-			return true
-		elseif areas.factions_available and area.faction_open then
-			if (factions.version or 0) < 2 then
-				local faction_name = factions.get_player_faction(name)
-				if faction_name then
-					for _, fname in ipairs(area.faction_open or {}) do
-						if faction_name == fname then
-							return true
-						end
-					end
-				end
-			else
-				for _, fname in ipairs(area.faction_open or {}) do
-					if factions.player_is_in_faction(fname, name) then
+		volume =	(area.pos2.x - area.pos1.x + 1)
+					* (area.pos2.y - area.pos1.y + 1)
+					* (area.pos2.z - area.pos1.z + 1)
+		if not smallest_volume or smallest_volume >= volume then
+			smallest_area = area
+			smallest_volume = volume
+		end
+	end
+	-- No area, player owns it or area is open
+	if not smallest_area
+		or smallest_area.owner == name
+		or smallest_area.open
+	then
+		return true
+	elseif areas.factions_available and smallest_area.faction_open then
+		if (factions.version or 0) < 2 then
+			local faction_name = factions.get_player_faction(name)
+			if faction_name then
+				for _, fname in ipairs(smallest_area.faction_open or {}) do
+					if faction_name == fname then
 						return true
 					end
 				end
 			end
+		else
+			for _, fname in ipairs(smallest_area.faction_open or {}) do
+				if factions.player_is_in_faction(fname, name) then
+					return true
+				end
+			end
 		end
-		owned = true
 	end
-	return not owned
+	return false
 end
 
 -- Returns a table (list) of all players that own an area
