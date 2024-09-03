@@ -95,15 +95,10 @@ function areas:getAreasIntersectingArea(pos1, pos2)
 	return res
 end
 
--- Checks if the area is unprotected, open, owned by player
--- or player is part of faction of smallest area at position.
-function areas:canInteract(pos, name)
-	if minetest.check_player_privs(name, self.adminPrivs) then
-		return true
-	end
-	-- Determine smallest area at position
-	-- If multiple areas have the same volume, larger id takes precedence.
-	local smallest_area, smallest_volume, volume
+-- Returns smallest area at position or nil.
+-- If multiple areas have the same volume, larger id takes precedence.
+function areas:getSmallestAreaAtPos(pos)
+	local smallest_area, smallest_volume, volume = nil
 	for _, area in pairs(self:getAreasAtPos(pos)) do
 		volume =	(area.pos2.x - area.pos1.x + 1)
 					* (area.pos2.y - area.pos1.y + 1)
@@ -113,24 +108,34 @@ function areas:canInteract(pos, name)
 			smallest_volume = volume
 		end
 	end
+	return smallest_area
+end
+
+-- Checks if the area is unprotected, open, owned by player
+-- or player is part of faction of smallest area at position.
+function areas:canInteract(pos, name)
+	if minetest.check_player_privs(name, self.adminPrivs) then
+		return true
+	end
+	local area = self:getSmallestAreaAtPos(pos)
 	-- No area, player owns it or area is open
-	if not smallest_area
-		or smallest_area.owner == name
-		or smallest_area.open
+	if not area
+		or area.owner == name
+		or area.open
 	then
 		return true
-	elseif areas.factions_available and smallest_area.faction_open then
+	elseif areas.factions_available and area.faction_open then
 		if (factions.version or 0) < 2 then
 			local faction_name = factions.get_player_faction(name)
 			if faction_name then
-				for _, fname in ipairs(smallest_area.faction_open or {}) do
+				for _, fname in ipairs(area.faction_open or {}) do
 					if faction_name == fname then
 						return true
 					end
 				end
 			end
 		else
-			for _, fname in ipairs(smallest_area.faction_open or {}) do
+			for _, fname in ipairs(area.faction_open or {}) do
 				if factions.player_is_in_faction(fname, name) then
 					return true
 				end
