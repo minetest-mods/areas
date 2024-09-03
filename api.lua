@@ -95,20 +95,21 @@ function areas:getAreasIntersectingArea(pos1, pos2)
 	return res
 end
 
--- Returns smallest area at position or nil.
+-- Returns smallest area at position and its id or nil.
 -- If multiple areas have the same volume, larger id takes precedence.
 function areas:getSmallestAreaAtPos(pos)
-	local smallest_area, smallest_volume, volume = nil
-	for _, area in pairs(self:getAreasAtPos(pos)) do
+	local smallest_area, smallest_id, smallest_volume, volume = nil
+	for id, area in pairs(self:getAreasAtPos(pos)) do
 		volume =	(area.pos2.x - area.pos1.x + 1)
 					* (area.pos2.y - area.pos1.y + 1)
 					* (area.pos2.z - area.pos1.z + 1)
 		if not smallest_volume or smallest_volume >= volume then
 			smallest_area = area
+			smallest_id = id
 			smallest_volume = volume
 		end
 	end
-	return smallest_area
+	return smallest_area, smallest_id
 end
 
 -- Checks if the area is unprotected, open, owned by player
