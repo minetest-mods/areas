@@ -98,12 +98,13 @@ end
 -- Returns smallest area at position and its id or nil.
 -- If multiple areas have the same volume, larger id takes precedence.
 function areas:getSmallestAreaAtPos(pos)
-	local smallest_area, smallest_id, smallest_volume, volume = nil
+	local smallest_area, smallest_id, volume
+	local smallest_volume = math.huge
 	for id, area in pairs(self:getAreasAtPos(pos)) do
 		volume =	(area.pos2.x - area.pos1.x + 1)
 					* (area.pos2.y - area.pos1.y + 1)
 					* (area.pos2.z - area.pos1.z + 1)
-		if not smallest_volume or smallest_volume >= volume then
+		if smallest_volume >= volume then
 			smallest_area = area
 			smallest_id = id
 			smallest_volume = volume
