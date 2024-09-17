@@ -3,6 +3,9 @@
 # Static paths do not work well with settings
 #areas.filename (Configuration file path) string (world_path)/areas.dat
 
+# Use smallest area volume precedence concept. (experimental may change)
+areas.use_smallest_area_precedence (Smallest area rules) bool false
+
 # Allow players with a privilege create their own areas using /protect
 # within the specified size and amount limits.
 areas.self_protection (Self protection) bool false
