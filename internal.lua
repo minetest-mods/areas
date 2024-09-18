@@ -92,7 +92,7 @@ local function findFirstUnusedIndex(t)
 	return i
 end
 
---- Add a area.
+--- Add an area.
 -- @return The new area's ID.
 function areas:add(owner, name, pos1, pos2, parent)
 	local id = findFirstUnusedIndex(self.areas)
@@ -118,8 +118,8 @@ function areas:add(owner, name, pos1, pos2, parent)
 	return id
 end
 
---- Remove a area, and optionally its children recursively.
--- If a area is deleted non-recursively the children will
+--- Remove an area, and optionally its children recursively.
+-- If an area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
 function areas:remove(id, recurse)
 	if recurse then
@@ -136,7 +136,6 @@ function areas:remove(id, recurse)
 			-- The subarea parent will be niled out if the
 			-- removed area does not have a parent
 			self.areas[cid].parent = parent
-
 		end
 	end
 
@@ -172,7 +171,7 @@ function areas:move(id, area, pos1, pos2)
 	end
 end
 
--- Checks if a area between two points is entirely contained by another area.
+-- Checks if an area between two points is entirely contained by another area.
 -- Positions must be sorted.
 function areas:isSubarea(pos1, pos2, id)
 	local area = self.areas[id]
@@ -291,7 +290,7 @@ areas:registerProtectionCondition(function(pos1, pos2, name)
 	end
 end)
 
--- Given a id returns a string in the format:
+-- Given an id returns a string in the format:
 -- "name [id]: owner (x1, y1, z1) (x2, y2, z2) -> children"
 function areas:toString(id)
 	local area = self.areas[id]
