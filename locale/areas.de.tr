@@ -1,0 +1,137 @@
+# textdomain: areas
+
+
+
+### chatcommands.lua ###
+
+<AreaName>=<Bereichsname>
+<ID> [faction_name]=<ID> [Fraktionsname]
+<NewOwner>=<NeuerBesitzer>
+<ParentID>=<Eltern-ID>
+<PlayerName>=<Spielername>
+<newName>=<neuer Name>
+@1 has given you control over the area "@2" (ID @3).=@1 hat dir die Kontrolle über den Bereich „@2“ (ID @3) gegeben.
+@1 spanning up to @2x@3x@4.=@1 erstreckt sich bis zu @2x@3x@4.
+A regular expression is required.=Ein regulärer Ausdruck ist erforderlich.
+Area @1 does not exist or is not owned by you.=Bereich @1 existiert nicht oder gehört nicht dir.
+Area closed for faction members.=Bereich für Fraktionsmitglieder geschlossen.
+Area closed.=Bereich geschlossen.
+Area does not exist.=Bereich existiert nicht.
+Area is open for members of: @1=Bereich ist offen für Mitglieder von: @1
+Area opened.=Bereich geöffnet.
+Area protected. ID: @1=Bereich geschützt. ID: @1
+Area renamed.=Bereich umbenannt.
+Area successfully moved.=Bereich erfolgreich verschoben.
+Change the owner of an area using its ID=Ändere den Besitzer eines Bereichs anhand seiner ID.
+Faction doesn't exists=Fraktion existiert nicht.
+Find areas using a Lua regular expression=Suche Bereiche mithilfe eines regulären Lua-Ausdrucks.
+Get information about area configuration and usage.=Erhalte Informationen zur Bereichskonfiguration und -verwendung.
+
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Gib einem Spieler Zugriff auf einen Unterbereich zwischen zwei Positionen, die bereits geschützt wurden. Benutze set_owner, wenn du nicht willst, dass der übergeordnete Bereich festgelegt wird.
+
+Invalid regular expression.=Ungültiger regulärer Ausdruck.
+Limit: @1 areas=Begrenzung: @1 Bereiche
+Limit: no area count limit=Begrenzung: keine Bereichsanzahlbegrenzung
+List your areas, or all areas if you are an admin.=Liste deine Bereiche auf, oder alle Bereiche, wenn du ein Administrator bist.
+Move (or resize) an area to the current positions.=Beweg (oder skaliere) einen Bereich auf die aktuellen Positionen.
+No matches found.=Keine Übereinstimmungen gefunden.
+No visible areas.=Keine sichtbaren Bereiche.
+Owner changed.=Besitzer geändert.
+Players with the "@1" privilege can protect up to @2 areas=Spieler mit dem Privileg „@1“ können bis zu @2 Bereiche schützen
+
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Schütze einen Bereich zwischen zwei Positionen und gib einem Spieler Zugriff darauf, ohne den übergeordneten Bereich des Bereichs auf einen vorhandenen Bereich festzulegen
+
+Protect your own area=Schütze deinen eigenen Bereich
+Recursively remove areas using an ID=Entferne Bereiche rekursiv anhand einer ID
+Remove an area using an ID=Entferne einen Bereich anhand seiner ID
+Removed area @1=Bereich @1 entfernt
+Removed area @1 and its sub areas.=Bereich @1 und seine Unterbereiche entfernt.
+Removes all ownerless areas=Entfernt alle herrenlosen Bereiche
+Rename an area that you own=Benenne einen Bereich um, den du besitzt
+Self protection is disabled.=Selbstschutz ist deaktiviert, Spieler können keine Bereiche bestimmen.
+Self protection is enabled.=Selbstschutz ist aktiviert, Spieler können selbst Bereiche bestimmen.
+That area doesn't exist.=Dieser Bereich existiert nicht.
+The player "@1" does not exist.=Der Spieler „@1“ existiert nicht.
+Toggle an area open (anyone can interact) or closed=Schalte einen Bereich offen (jeder kann interagieren) oder geschlossen
+Toggle an area open/closed for members in your faction.=Schalte einen Bereich offen/geschlossen für Mitglieder deiner Fraktion.
+You are an area administrator ("areas" privilege).=Du bist ein Bereichsadministrator (Berechtigung „areas“).
+You can protect areas=Du kannst Bereiche schützen.
+You can't protect that area.=Du kannst diesen Bereich nicht schützen.
+You can't protect that area: @1=Du kannst diesen Bereich nicht schützen: @1
+You don't have the necessary privilege ("@1").=Du hast nicht die erforderliche Berechtigung („@1“).
+You don't own that area.=Du besitzt diesen Bereich nicht.
+You have @1 areas.=Du hast @1 Bereiche.
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=Dir wurde die Kontrolle über Bereich #@1 gewährt. Gib /list_areas ein, um deine Bereiche anzuzeigen.
+
+You have extended area protection limits ("areas_high_limit" privilege).=Du hast erweiterte Bereichsschutzgrenzen (Berechtigung „areas_high_limit“).
+
+You have the necessary privilege ("@1").=Du hast die erforderliche Berechtigung („@1“).
+You need to select an area first.=Du musst zuerst einen Bereich auswählen.
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=<ID>
+Invalid usage, see /help @1.=Ungültige Verwendung, siehe /help @1.
+
+### hud.lua ###
+
+:open=:offen
+Areas:=Bereiche:
+
+### init.lua ###
+
+Can administer areas.=Kann Bereiche verwalten.
+Can protect areas.=Kann Bereiche schützen.
+Can protect more, bigger areas.=Kann mehr, grössere Bereiche schützen.
+
+### interact.lua ###
+
+@1 is protected by @2.=@1 wird durch @2 geschützt.
+
+### internal.lua ###
+
+Area is too big.=Bereich ist zu gross.
+
+Self protection is disabled or you do not have the necessary privilege.=Selbstschutz ist deaktiviert oder du hast nicht die erforderlichen Berechtigungen.
+
+The area intersects with @1 [@2] (@3).=Der Bereich überschneidet sich mit @1 [@2] (@3).
+
+You have reached the maximum amount of areas that you are allowed to protect.=Du hast die maximale Anzahl, der Bereiche, die du schützen darfst erreicht.
+
+
+### legacy.lua ###
+
+<version>=<Version>
+Converted areas saved. Done.=Konvertierte Bereiche gespeichert. Fertig.
+Converting areas…=Bereiche werden konvertiert…
+Error loading legacy file: @1=Fehler beim Laden der Vorgänger-Datei: @1
+Invalid version number. (0 allowed)=Ungültige Versionsnummer. (Erlaubt: 0)
+Legacy file loaded.=Vorgänger-Datei geladen.
+
+Loads, converts, and saves the areas from a legacy save file.=Lädt, konvertiert und speichert die Bereiche aus einer Vorgänger-Speicherdatei.
+
+Table format updated.=Tabellenformat aktualisiert.
+unnamed=unbenannt
+
+### pos.lua ###
+
+<not set>=<nicht festgelegt>
+Area @1 selected.=Bereich @1 ausgewählt.
+Area position @1 set to @2=Bereichsposition @1 auf @2 festgelegt
+Position @1 set to @2=Position @1 auf @2 festgelegt
+Position @1: =Position @1:
+Select an area by ID.=Wähle einen Bereich anhand seiner ID.
+Select position @1 by punching a node.=Wähle Position @1, durch schlagen eines Knoten.
+Select positions by punching two nodes.=Wähle Positionen, durch schlagen zweier Knoten.
+
+Set area protection region position @1 to your location or the one specified=Setzt die Bereichsschutzregion-Position @1 auf deinen Standort oder den angegebenen.
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=Setzt die Bereichsschutzregion, Position 1 oder Position 2 fest, durch schlagen von Knoten, oder zeigt die Region an.
+
+The area @1 does not exist.=Der Bereich @1 existiert nicht.
+Unable to get position.=Position konnte nicht ermittelt werden.
+Unknown subcommand: @1=Unbekannter Unterbefehl: @1
+
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=Relative Koordinaten werden auf diesem Server nicht unterstützt. Bitte aktualisiere Minetest auf Version 5.7.0 oder neuer.
