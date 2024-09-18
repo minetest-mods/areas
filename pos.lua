@@ -152,7 +152,7 @@ minetest.register_chatcommand("area_pos", {
 			areas.set_pos[name] = "pos2"
 			return true, S("Select position @1 by punching a node.", "2")
 		elseif param == "get" then -- Display current area positions
-			local pos1str, pos2str = S("Position @1: ", "1"), S("Position @1: ", "2")
+			local pos1str, pos2str = S("Position @1:", " 1"), S("Position @1:", " 2")
 			if areas.pos1[name] then
 				pos1str = pos1str..minetest.pos_to_string(areas.pos1[name])
 			else
