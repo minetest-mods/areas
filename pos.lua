@@ -4,7 +4,7 @@ local S = minetest.get_translator("areas")
 -- permission to use those commands and you don't have
 -- /area_pos{1,2} [X Y Z|X,Y,Z].
 -- Since this is mostly copied from WorldEdit it is mostly
--- licensed under the AGPL. (select_area is a exception)
+-- licensed under the AGPL. (select_area is an exception)
 
 areas.marker1 = {}
 areas.marker2 = {}
