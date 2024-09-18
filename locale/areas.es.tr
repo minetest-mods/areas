@@ -1,0 +1,137 @@
+# textdomain: areas
+
+
+
+### chatcommands.lua ###
+
+<AreaName>=<nombre del área>
+<ID> [faction_name]=<ID> [nombre_de_facción]
+<NewOwner>=<nuevo_propietario>
+<ParentID>=<ID_de_padre>
+<PlayerName>=<nombre_del_jugador>
+<newName>=<nuevo nombre>
+@1 has given you control over the area "@2" (ID @3).=@1 te ha dado control sobre el área "@2" (ID @3).
+@1 spanning up to @2x@3x@4.=@1 abarca hasta @2x@3x@4.
+A regular expression is required.=Se requiere una expresión regular.
+Area @1 does not exist or is not owned by you.=El área @1 no existe o no es de tu propiedad.
+Area closed for faction members.=Área cerrada para miembros de la facción.
+Area closed.=Área cerrada.
+Area does not exist.=El área no existe.
+Area is open for members of: @1=El área está abierta para miembros de: @1
+Area opened.=Área abierta.
+Area protected. ID: @1=Área protegida. ID: @1
+Area renamed.=Área renombrada.
+Area successfully moved.=Área movida exitosamente.
+Change the owner of an area using its ID=Cambia el propietario de un área usando su ID
+Faction doesn't exists=La facción no existe
+Find areas using a Lua regular expression=Encuentra áreas usando una expresión regular de Lua
+Get information about area configuration and usage.=Obtén información sobre la configuración y el uso del área.
+
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Otorgue a un jugador acceso a una área secundaria entre dos posiciones que ya han sido protegidas. Usa set_owner si no deseas que se configure la área principal como padre.
+
+Invalid regular expression.=Expresión regular no válida.
+Limit: @1 areas=Límite: @1 áreas
+Limit: no area count limit=Límite: sin límite de recuento de áreas
+List your areas, or all areas if you are an admin.=Enumere tus áreas o todas las áreas si eres administrador.
+Move (or resize) an area to the current positions.=Mueve (o redimensiona) una área a las posiciones actuales.
+No matches found.=No se encontraron coincidencias.
+No visible areas.=No hay áreas visibles.
+Owner changed.=Se cambió el propietario.
+Players with the "@1" privilege can protect up to @2 areas=Los jugadores con el privilegio "@1" pueden proteger hasta @2 áreas
+
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Proteje una área entre dos posiciones y otorgue acceso a un jugador sin configurarle una área como padre
+
+Protect your own area=Proteje tu propia área
+Recursively remove areas using an ID=Elimina áreas recursivamente usando una ID
+Remove an area using an ID=Elimina una área usando una ID
+Removed area @1=Área @1 eliminada
+Removed area @1 and its sub areas.=Área @1 y sus subáreas eliminadas.
+Removes all ownerless areas=Elimina todas las áreas sin propietario
+Rename an area that you own=Cambia el nombre de una áreas que es de tu propiedad
+Self protection is disabled.=La protección por sí mismo está deshabilitada.
+Self protection is enabled.=La protección por sí mismo está habilitada.
+That area doesn't exist.=Esa área no existe.
+The player "@1" does not exist.=El jugador "@1" no existe.
+Toggle an area open (anyone can interact) or closed=Activa o desactiva la apertura o el cierre de una área para todos los jugadores
+Toggle an area open/closed for members in your faction.=Activa o desactiva la apertura o el cierre de una área para los miembros de tu facción.
+You are an area administrator ("areas" privilege).=Eres un administrador de área (privilegio "areas").
+You can protect areas=Puedes proteger áreas
+You can't protect that area.=No puedes proteger esa área.
+You can't protect that area: @1=No puedes proteger esa área: @1
+You don't have the necessary privilege ("@1").=No tienes el privilegio necesario ("@1").
+You don't own that area.=No eres el propietario de esa área.
+You have @1 areas.=Te pertenecen @1 áreas.
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=Se te ha otorgado el control sobre el área #@1. Escribe /list_areas para mostrar tus áreas.
+
+You have extended area protection limits ("areas_high_limit" privilege).=Tienes límites de protección de área extendidos (privilegio "areas_high_limit").
+
+You have the necessary privilege ("@1").=Tienes el privilegio necesario ("@1").
+You need to select an area first.=Primero debes seleccionar una área.
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=<ID>
+Invalid usage, see /help @1.=Uso no válido, consulta /help @1.
+
+### hud.lua ###
+
+:open=:abierta
+Areas:=Áreas:
+
+### init.lua ###
+
+Can administer areas.=Puede administrar áreas.
+Can protect areas.=Puede proteger áreas.
+Can protect more, bigger areas.=Puede proteger más áreas, más grandes.
+
+### interact.lua ###
+
+@1 is protected by @2.=@1 está protegido por @2.
+
+### internal.lua ###
+
+Area is too big.=El área es demasiado grande.
+
+Self protection is disabled or you do not have the necessary privilege.=La protección por sí mismo está deshabilitada o no tienes el privilegio necesario.
+
+The area intersects with @1 [@2] (@3).=El área se interseca con @1 [@2] (@3).
+
+You have reached the maximum amount of areas that you are allowed to protect.=Has alcanzado la cantidad máxima de áreas que tienes permitido proteger.
+
+
+### legacy.lua ###
+
+<version>=<versión>
+Converted areas saved. Done.=Áreas convertidas guardadas. Listo.
+Converting areas…=Convirtiendo áreas…
+Error loading legacy file: @1=Error al cargar archivo heredado: @1
+Invalid version number. (0 allowed)=Número de versión no válido. (Solo se permite: 0)
+Legacy file loaded.=Archivo heredado cargado.
+
+Loads, converts, and saves the areas from a legacy save file.=Carga, convierte y guarda las áreas desde un archivo guardado heredado.
+
+Table format updated.=Formato de tabla actualizado.
+unnamed=sin nombre
+
+### pos.lua ###
+
+<not set>=<no establecida>
+Area @1 selected.=Área @1 seleccionada.
+Area position @1 set to @2=Posición del área @1 establecida en @2
+Position @1 set to @2=Posición @1 establecida en @2
+Position @1: =Posición @1: 
+Select an area by ID.=Selecciona una área por ID.
+Select position @1 by punching a node.=Selecciona la posición @1 golpeando un nodo.
+Select positions by punching two nodes.=Selecciona las posiciones golpeando dos nodos.
+
+Set area protection region position @1 to your location or the one specified=Establece la posición de la región de protección del área @1 en tu ubicación o en la especificada
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=Establece la región de protección del área, la posición 1 o la posición 2 golpeando nodos, o muestre la región
+
+The area @1 does not exist.=El área @1 no existe.
+Unable to get position.=No se puede obtener la posición.
+Unknown subcommand: @1=Subcomando desconocido: @1
+
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=Las coordenadas relativas no son compatibles con este servidor. Actualiza Minetest a 5.7.0 o versiones más nuevas.
