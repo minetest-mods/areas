@@ -119,60 +119,43 @@ function areas:canInteract(pos, name)
 	if minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
+	local areas_list
 	if areas.config.use_smallest_area_precedence then
-		local area = self:getSmallestAreaAtPos(pos)
-		-- No area, player owns it or area is open
-		if not area
-			or area.owner == name
-			or area.open
-		then
+		local smallest_area = self:getSmallestAreaAtPos(pos)
+		-- No area
+		if not smallest_area then
+			return true
+		end
+		areas_list = { smallest_area }
+	else
+		areas_list = self:getAreasAtPos(pos)
+	end
+	local owned = false
+	for _, area in pairs(areas_list) do
+		-- Player owns the area or area is open
+		if area.owner == name or area.open then
 			return true
 		elseif areas.factions_available and area.faction_open then
 			if (factions.version or 0) < 2 then
 				local faction_name = factions.get_player_faction(name)
 				if faction_name then
-					for _, fname in ipairs(area.faction_open or {}) do
+					for _, fname in ipairs(area.faction_open) do
 						if faction_name == fname then
 							return true
 						end
 					end
 				end
 			else
-				for _, fname in ipairs(area.faction_open or {}) do
+				for _, fname in ipairs(area.faction_open) do
 					if factions.player_is_in_faction(fname, name) then
 						return true
 					end
 				end
 			end
 		end
-		return false
-	else
-		local owned = false
-		for _, area in pairs(self:getAreasAtPos(pos)) do
-			if area.owner == name or area.open then
-				return true
-			elseif areas.factions_available and area.faction_open then
-				if (factions.version or 0) < 2 then
-					local faction_name = factions.get_player_faction(name)
-					if faction_name then
-						for _, fname in ipairs(area.faction_open or {}) do
-							if faction_name == fname then
-								return true
-							end
-						end
-					end
-				else
-					for _, fname in ipairs(area.faction_open or {}) do
-						if factions.player_is_in_faction(fname, name) then
-							return true
-						end
-					end
-				end
-			end
-			owned = true
-		end
-		return not owned
+		owned = true
 	end
+	return not owned
 end
 
 -- Returns a table (list) of all players that own an area
