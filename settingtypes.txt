@@ -4,6 +4,14 @@
 #areas.filename (Configuration file path) string (world_path)/areas.dat
 
 # Use smallest area volume precedence concept. (experimental may change)
+# Determine area access based on the smallest area volume that contains
+# the interaction position. Sharing areas is achieved with factions instead
+# of using /add_owner.
+# This allows players to have private areas within a greater open/shared area
+# and also define open/shared areas within those private areas.
+# If set to `false`: interacting is allowed if the interaction position
+# resides in the players own area, area is open or shared with factions.
+# Even if other more restrictive areas enclose the interaction position.
 areas.use_smallest_area_precedence (Smallest area rules) bool false
 
 # Allow players with a privilege create their own areas using /protect
