@@ -121,11 +121,7 @@ function areas:canInteract(pos, name)
 	end
 	local areas_list
 	if areas.config.use_smallest_area_precedence then
-		local smallest_area = self:getSmallestAreaAtPos(pos)
-		-- No area
-		if not smallest_area then
-			return true
-		end
+		local smallest_area, _ = self:getSmallestAreaAtPos(pos)
 		areas_list = { smallest_area }
 	else
 		areas_list = self:getAreasAtPos(pos)
