@@ -3,6 +3,20 @@
 # Static paths do not work well with settings
 #areas.filename (Configuration file path) string (world_path)/areas.dat
 
+# Use smallest area volume precedence concept. (experimental; may change)
+#
+# If set to `true`:
+#    The interaction permission is defined by the smallest area volume that
+#    contains the interaction position. Granting access to areas is achieved
+#    by factions instead of using `/add_owner`.
+#    This allows players to have private areas within a greater open/shared
+#    area and also define open/shared areas within those private areas.
+# If set to `false`: (default)
+#    Interacting is permitted if the interaction position resides in any of the
+#    player's own areas, shared or open areas.
+#    This permission is not impacted by more restrictive, intersecting areas.
+areas.use_smallest_area_precedence (Smallest area rules) bool false
+
 # Allow players with a privilege create their own areas using /protect
 # within the specified size and amount limits.
 areas.self_protection (Self protection) bool false
