@@ -7,7 +7,7 @@ areas = {}
 areas.factions_available = minetest.get_modpath("playerfactions") and true
 
 areas.adminPrivs = {areas=true}
-areas.startTime = os.clock()
+local startTime = os.clock()
 
 areas.modpath = minetest.get_modpath("areas")
 dofile(areas.modpath.."/settings.lua")
@@ -43,6 +43,6 @@ if not minetest.registered_privileges[areas.config.self_protection_privilege] th
 end
 
 if minetest.settings:get_bool("log_mods") then
-	local diffTime = os.clock() - areas.startTime
+	local diffTime = os.clock() - startTime
 	minetest.log("action", "areas loaded in "..diffTime.."s.")
 end
