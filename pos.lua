@@ -6,8 +6,6 @@ local S = minetest.get_translator("areas")
 -- Since this is mostly copied from WorldEdit it is mostly
 -- licensed under the AGPL. (select_area is an exception)
 
-areas.marker1 = {}
-areas.marker2 = {}
 areas.set_pos = {}
 areas.pos1 = {}
 areas.pos2 = {}
@@ -181,38 +179,70 @@ function areas:getPos(playerName)
 	return areas:sortPos(pos1, pos2)
 end
 
-function areas:setPos1(playerName, pos)
-	areas.pos1[playerName] = posLimit(pos)
-	areas.markPos1(playerName)
+function areas:setPos1(name, pos)
+	local old_pos = areas.pos1[name]
+	pos = posLimit(pos)
+	areas.pos1[name] = pos
+
+	local entity = minetest.add_entity(pos, "areas:pos1")
+	if entity then
+		local luaentity = entity:get_luaentity()
+		if luaentity then
+			luaentity.player = name
+		end
+	end
+
+	if old_pos then
+		for object in core.objects_inside_radius(old_pos, 0.01) do
+			local luaentity = object:get_luaentity()
+			if luaentity and luaentity.name == "areas:pos1" and luaentity.player == name then
+				object:remove()
+			end
+		end
+	end
 end
 
-function areas:setPos2(playerName, pos)
-	areas.pos2[playerName] = posLimit(pos)
-	areas.markPos2(playerName)
-end
+function areas:setPos2(name, pos)
+	local old_pos = areas.pos2[name]
+	pos = posLimit(pos)
+	areas.pos2[name] = pos
 
+	local entity = minetest.add_entity(pos, "areas:pos2")
+	if entity then
+		local luaentity = entity:get_luaentity()
+		if luaentity then
+			luaentity.player = name
+		end
+	end
+
+	if old_pos then
+		for object in core.objects_inside_radius(old_pos, 0.01) do
+			local luaentity = object:get_luaentity()
+			if luaentity and luaentity.name == "areas:pos2" and luaentity.player == name then
+				object:remove()
+			end
+		end
+	end
+end
 
 minetest.register_on_punchnode(function(pos, node, puncher)
 	local name = puncher:get_player_name()
 	-- Currently setting position
 	if name ~= "" and areas.set_pos[name] then
 		if areas.set_pos[name] == "pos1" then
-			areas.pos1[name] = pos
-			areas.markPos1(name)
+			areas:setPos1(name, pos)
 			areas.set_pos[name] = "pos2"
 			minetest.chat_send_player(name,
 					S("Position @1 set to @2", "1",
 					minetest.pos_to_string(pos)))
 		elseif areas.set_pos[name] == "pos1only" then
-			areas.pos1[name] = pos
-			areas.markPos1(name)
+			areas:setPos1(name, pos)
 			areas.set_pos[name] = nil
 			minetest.chat_send_player(name,
 					S("Position @1 set to @2", "1",
 					minetest.pos_to_string(pos)))
 		elseif areas.set_pos[name] == "pos2" then
-			areas.pos2[name] = pos
-			areas.markPos2(name)
+			areas:setPos2(name, pos)
 			areas.set_pos[name] = nil
 			minetest.chat_send_player(name,
 					S("Position @1 set to @2", "2",
@@ -237,32 +267,6 @@ function areas:sortPos(pos1, pos2)
 	return pos1, pos2
 end
 
--- Marks area position 1
-areas.markPos1 = function(name)
-	local pos = areas.pos1[name]
-	if areas.marker1[name] ~= nil then -- Marker already exists
-		areas.marker1[name]:remove() -- Remove marker
-		areas.marker1[name] = nil
-	end
-	if pos ~= nil then -- Add marker
-		areas.marker1[name] = minetest.add_entity(pos, "areas:pos1")
-		areas.marker1[name]:get_luaentity().active = true
-	end
-end
-
--- Marks area position 2
-areas.markPos2 = function(name)
-	local pos = areas.pos2[name]
-	if areas.marker2[name] ~= nil then -- Marker already exists
-		areas.marker2[name]:remove() -- Remove marker
-		areas.marker2[name] = nil
-	end
-	if pos ~= nil then -- Add marker
-		areas.marker2[name] = minetest.add_entity(pos, "areas:pos2")
-		areas.marker2[name]:get_luaentity().active = true
-	end
-end
-
 minetest.register_entity("areas:pos1", {
 	initial_properties = {
 		visual = "cube",
@@ -271,17 +275,10 @@ minetest.register_entity("areas:pos1", {
 		            "areas_pos1.png", "areas_pos1.png",
 		            "areas_pos1.png", "areas_pos1.png"},
 		collisionbox = {-0.55, -0.55, -0.55, 0.55, 0.55, 0.55},
+		hp_max = 1,
+		armor_groups = {fleshy=100},
+		static_save = false,
 	},
-	on_step = function(self, dtime)
-		if self.active == nil then
-			self.object:remove()
-		end
-	end,
-	on_punch = function(self, hitter)
-		self.object:remove()
-		local name = hitter:get_player_name()
-		areas.marker1[name] = nil
-	end,
 })
 
 minetest.register_entity("areas:pos2", {
@@ -292,15 +289,8 @@ minetest.register_entity("areas:pos2", {
 		            "areas_pos2.png", "areas_pos2.png",
 		            "areas_pos2.png", "areas_pos2.png"},
 		collisionbox = {-0.55, -0.55, -0.55, 0.55, 0.55, 0.55},
+		hp_max = 1,
+		armor_groups = {fleshy=100},
+		static_save = false,
 	},
-	on_step = function(self, dtime)
-		if self.active == nil then
-			self.object:remove()
-		end
-	end,
-	on_punch = function(self, hitter)
-		self.object:remove()
-		local name = hitter:get_player_name()
-		areas.marker2[name] = nil
-	end,
 })
