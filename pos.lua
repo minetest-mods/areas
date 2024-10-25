@@ -229,23 +229,17 @@ minetest.register_on_punchnode(function(pos, node, puncher)
 	local name = puncher:get_player_name()
 	-- Currently setting position
 	if name ~= "" and areas.set_pos[name] then
-		if areas.set_pos[name] == "pos1" then
-			areas:setPos1(name, pos)
-			areas.set_pos[name] = "pos2"
-			minetest.chat_send_player(name,
-					S("Position @1 set to @2", "1",
-					minetest.pos_to_string(pos)))
-		elseif areas.set_pos[name] == "pos1only" then
-			areas:setPos1(name, pos)
-			areas.set_pos[name] = nil
-			minetest.chat_send_player(name,
-					S("Position @1 set to @2", "1",
-					minetest.pos_to_string(pos)))
-		elseif areas.set_pos[name] == "pos2" then
+		if areas.set_pos[name] == "pos2" then
 			areas:setPos2(name, pos)
 			areas.set_pos[name] = nil
 			minetest.chat_send_player(name,
 					S("Position @1 set to @2", "2",
+					minetest.pos_to_string(pos)))
+		else
+			areas:setPos1(name, pos)
+			areas.set_pos[name] = areas.set_pos[name] == "pos1" and "pos2" or nil
+			minetest.chat_send_player(name,
+					S("Position @1 set to @2", "1",
 					minetest.pos_to_string(pos)))
 		end
 	end
