@@ -83,19 +83,19 @@ function areas:populateStore()
 	self.store_ids = store_ids
 end
 
--- Finds the first usable index in a table
--- Eg: {[1]=false,[4]=true} -> 2
-local function findFirstUnusedIndex(t)
-	local i = 0
-	repeat i = i + 1
-	until t[i] == nil
-	return i
+-- Guarentees returning an unused index in areas.areas
+local index_cache = 0
+local function findFirstUnusedIndex()
+	local t = areas.areas
+	repeat index_cache = index_cache + 1
+	until t[index_cache] == nil
+	return index_cache
 end
 
 --- Add an area.
 -- @return The new area's ID.
 function areas:add(owner, name, pos1, pos2, parent)
-	local id = findFirstUnusedIndex(self.areas)
+	local id = findFirstUnusedIndex()
 	self.areas[id] = {
 		name = name,
 		pos1 = pos1,
