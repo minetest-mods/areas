@@ -12,6 +12,10 @@ areas.startTime = os.clock()
 areas.modpath = minetest.get_modpath("areas")
 dofile(areas.modpath.."/settings.lua")
 dofile(areas.modpath.."/api.lua")
+
+local async_dofile = core.register_async_dofile or dofile
+async_dofile(areas.modpath.."/async.lua")
+
 dofile(areas.modpath.."/internal.lua")
 dofile(areas.modpath.."/chatcommands.lua")
 dofile(areas.modpath.."/pos.lua")
