@@ -180,7 +180,11 @@ minetest.register_chatcommand("list_areas", {
 		local admin_show_summary = admin
 		local owner_name = name
 
-		if admin and #param > 0 then
+		param = param:trim()
+
+		if param == "*" then
+			admin_show_summary = false
+		elseif admin and #param > 0 then
 			owner_name = param
 			admin_show_summary = false
 		end
