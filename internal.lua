@@ -60,6 +60,8 @@ function areas:load()
 	end
 	file:close()
 	self:populateStore()
+
+	areas:_checkHierarchy()
 end
 
 --- Checks an AreaStore ID.
@@ -207,6 +209,7 @@ function areas:isSubarea(pos1, pos2, id)
 end
 
 -- Returns a table (list) of children of an area given its identifier
+-- This is not recursive, meaning that only children and not grand-children are returned.
 function areas:getChildren(id)
 	local children = {}
 	for cid, area in pairs(self.areas) do
@@ -342,14 +345,70 @@ function areas:isAreaOwner(id, name)
 	if cur and minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
-	while cur do
+	local seen = {}
+	while cur and not seen[cur] do
 		if cur.owner == name then
 			return true
 		elseif cur.parent then
+			-- Prevent lock-ups
+			seen[cur] = true
 			cur = self.areas[cur.parent]
 		else
 			return false
 		end
 	end
 	return false
+end
+
+local function get_parent_chain_if_recursive(area, completed)
+	-- Get uppermost parent
+	local affected = {}
+	while area do
+		if affected[area] then
+			-- List of affected areas
+			return affected
+		end
+		if completed[area] then
+			-- Already checked by another function call --> all OK
+			return nil
+		end
+		affected[area] = true
+		completed[area] = true
+
+		area = areas.areas[area.parent]
+	end
+	return nil -- all OK
+end
+
+--- Internal function to ensure there are no circular parent/children occurrences
+function areas:_checkHierarchy()
+	local needs_save = false
+	local completed = {}
+	for _, area_1 in pairs(self.areas) do
+		local chain = get_parent_chain_if_recursive(area_1, completed)
+		if chain then
+			-- How can it be fixed if there is a longer chain?
+			local list = {}
+			for area, _ in pairs(chain) do
+				list[#list + 1] = area.parent
+			end
+
+			local instruction
+			if #list == 1 then
+				-- Trivial case, can be resolved in-place
+				instruction = "The issue was corrected automatically."
+				area_1.parent = nil
+				needs_save = true
+			else
+				instruction = "Please resolve this conflict manually. Expect issues."
+			end
+
+			core.log("error", "[areas] LOGIC ERROR! Detected a circular area hierarchy in the "
+				.. "following area ID(s): " .. table.concat(list, ", ") .. ". " .. instruction)
+		end
+	end
+	if needs_save then
+		-- Prevent repetitive spam upon startup
+		self:save()
+	end
 end
