@@ -69,68 +69,53 @@ minetest.register_chatcommand("select_area", {
 	end,
 })
 
+local function area_pos_handler(name, param, nr)
+	local pos
+	local player = minetest.get_player_by_name(name)
+	if player then
+		pos = vector.round(player:get_pos())
+	end
+
+	-- Input parsing
+	local error_msg
+	local found, _, x_str, y_str, z_str = param:find(
+		"^(~?-?%d*)[, ] *(~?-?%d*)[, ] *(~?-?%d*)$")
+	if found then
+		pos, error_msg = parse_relative_pos(x_str, y_str, z_str, pos)
+	elseif param ~= "" then
+		return false, S("Invalid usage, see /help @1.", "area_pos" .. nr)
+	end
+	if not pos then
+		return false, error_msg or S("Unable to get position.")
+	end
+
+	-- Assign the position
+	pos = posLimit(vector.round(pos))
+	if nr == 1 then
+		areas:setPos1(name, pos)
+	else
+		areas:setPos2(name, pos)
+	end
+	return true, S("Area position @1 set to @2", tostring(nr),
+			minetest.pos_to_string(pos))
+end
+
 minetest.register_chatcommand("area_pos1", {
-	params = "[X Y Z|X,Y,Z]",
+	params = "[X Y Z|X,Y,Z|X, Y, Z]",
 	description = S("Set area protection region position @1 to your"
 		.." location or the one specified", "1"),
 	privs = {},
 	func = function(name, param)
-		local pos
-		local player = minetest.get_player_by_name(name)
-		if player then
-			pos = vector.round(player:get_pos())
-		end
-		local found, _, x_str, y_str, z_str = param:find(
-			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
-		if found then
-			local get_pos, reason = parse_relative_pos(x_str, y_str, z_str, pos)
-			if get_pos then
-				pos = get_pos
-			elseif not get_pos and reason then
-				return false, reason
-			end
-		elseif param ~= "" then
-			return false, S("Invalid usage, see /help @1.", "area_pos1")
-		end
-		if not pos then
-			return false, S("Unable to get position.")
-		end
-		pos = posLimit(vector.round(pos))
-		areas:setPos1(name, pos)
-		return true, S("Area position @1 set to @2", "1",
-				minetest.pos_to_string(pos))
+		return area_pos_handler(name, param, 1)
 	end,
 })
 
 minetest.register_chatcommand("area_pos2", {
-	params = "[X Y Z|X,Y,Z]",
+	params = "[X Y Z|X,Y,Z|X, Y, Z]",
 	description = S("Set area protection region position @1 to your"
 		.." location or the one specified", "2"),
 	func = function(name, param)
-		local pos
-		local player = minetest.get_player_by_name(name)
-		if player then
-			pos = vector.round(player:get_pos())
-		end
-		local found, _, x_str, y_str, z_str = param:find(
-			"^(~?-?%d*)[, ](~?-?%d*)[, ](~?-?%d*)$")
-		if found then
-			local get_pos, reason = parse_relative_pos(x_str, y_str, z_str, pos)
-			if get_pos then
-				pos = get_pos
-			elseif not get_pos and reason then
-				return false, reason
-			end
-		elseif param ~= "" then
-			return false, S("Invalid usage, see /help @1.", "area_pos2")
-		end
-		if not pos then
-			return false, S("Unable to get position.")
-		end
-		pos = posLimit(vector.round(pos))
-		areas:setPos2(name, pos)
-		return true, S("Area position @1 set to @2", "2",
-			minetest.pos_to_string(pos))
+		return area_pos_handler(name, param, 2)
 	end,
 })
 
