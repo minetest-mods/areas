@@ -1,10 +1,12 @@
 local S = minetest.get_translator("areas")
 
--- I could depend on WorldEdit for this, but you need to have the 'worldedit'
--- permission to use those commands and you don't have
--- /area_pos{1,2} [X Y Z|X,Y,Z].
--- Since this is mostly copied from WorldEdit it is mostly
--- licensed under the AGPL. (select_area is an exception)
+--[[
+The logic concerning 'pos1', 'pos2' and the chat command '/area_pos' originate
+from WorldEdit (C) Uberi 2012. The author allowed its use under LGPL 2.1+.
+
+Original source:    https://github.com/Uberi/Minetest-WorldEdit
+Relicense approval: https://github.com/minetest-mods/areas/issues/90#issuecomment-3866184014
+]]
 
 areas.set_pos = {}
 areas.pos1 = {}
