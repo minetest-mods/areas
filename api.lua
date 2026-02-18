@@ -128,8 +128,10 @@ function areas:canInteract(pos, name)
 	end
 	local owned = false
 	for _, area in pairs(areas_list) do
-		-- Player owns the area or area is open
-		if area.owner == name or area.open then
+		-- Player owns the area, area is open, or player is a co-owner
+		if area.owner == name
+			or area.open
+			or (area.co_owners and area.co_owners[name]) then
 			return true
 		elseif areas.factions_available and area.faction_open then
 			if (factions.version or 0) < 2 then

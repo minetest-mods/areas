@@ -220,6 +220,30 @@ function areas:getChildren(id)
 	return children
 end
 
+-- Add a co-owner to an area
+function areas:addCoOwner(id, name)
+	local entry = self.areas[id]
+	entry.co_owners = entry.co_owners or {}
+	entry.co_owners[name] = true
+end
+
+-- Remove a co-owner from an area
+function areas:removeCoOwner(id, name)
+	local entry = self.areas[id]
+	if entry.co_owners then
+		entry.co_owners[name] = nil
+		if next(entry.co_owners) == nil then
+			entry.co_owners = nil
+		end
+	end
+end
+
+-- Return the list of co-owners
+function areas:listCoOwners(id)
+	local entry = self.areas[id]
+	return entry.co_owners and table.copy(entry.co_owners) or {}
+end
+
 -- checks all possible restrictions registered with
 -- areas:registerProtectionCondition
 -- builtin callbacks below

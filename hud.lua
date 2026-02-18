@@ -42,10 +42,16 @@ minetest.register_globalstep(function(dtime)
 				end
 			end
 
-			table.insert(areaStrings, ("%s [%u] (%s%s%s)")
+			local coOwnersCount = 0
+			for _ in pairs(areas:listCoOwners(id)) do
+				coOwnersCount = coOwnersCount + 1
+			end
+
+			table.insert(areaStrings, ("%s [%u] (%s%s%s)%s")
 					:format(area.name, id, area.owner,
 					area.open and S(":open") or "",
-					faction_info and ": "..faction_info or ""))
+					faction_info and ": "..faction_info or "",
+					coOwnersCount ~= 0 and " +" .. coOwnersCount or ""))
 		end
 
 		for i, area in pairs(areas:getExternalHudEntries(pos)) do

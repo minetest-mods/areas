@@ -286,11 +286,96 @@ minetest.register_chatcommand("change_owner", {
 					.." or is not owned by you.", id)
 		end
 		areas.areas[id].owner = newOwner
+		areas:removeCoOwner(id, newOwner)
 		areas:save()
 		minetest.chat_send_player(newOwner,
 			S("@1 has given you control over the area \"@2\" (ID @3).",
 				name, areas.areas[id].name, id))
 		return true, S("Owner changed.")
+	end
+})
+
+minetest.register_chatcommand("add_co_owner", {
+	params = S("<ID>").." "..S("<CoOwner>"),
+	description = S("Add a co-owner to an area"),
+	func = function(name, param)
+		local id, coOwner = param:match("^(%d+)%s(%S+)$")
+		if not id then
+			return false, S("Invalid usage, see"
+					.." /help @1.", "add_co_owner")
+		end
+
+		if not areas:player_exists(coOwner) then
+			return false, S("The player \"@1\" does not exist.", coOwner)
+		end
+
+		id = tonumber(id)
+		if not areas:isAreaOwner(id, name) then
+			return false, S("Area @1 does not exist"
+					.." or is not owned by you.", id)
+		end
+		areas:addCoOwner(id, coOwner)
+		areas:save()
+		minetest.chat_send_player(coOwner,
+			S("@1 has added you as a co-owner of the area \"@2\" (ID @3).",
+				name, areas.areas[id].name, id))
+		return true, S("Co-owner added.")
+	end
+})
+
+minetest.register_chatcommand("remove_co_owner", {
+	params = S("<ID>").." "..S("<CoOwner>"),
+	description = S("Remove a co-owner from an area"),
+	func = function(name, param)
+		local id, coOwner = param:match("^(%d+)%s(%S+)$")
+		if not id then
+			return false, S("Invalid usage, see"
+					.." /help @1.", "remove_co_owner")
+		end
+
+		if not areas:player_exists(coOwner) then
+			return false, S("The player \"@1\" does not exist.", coOwner)
+		end
+
+		id = tonumber(id)
+		if not areas:isAreaOwner(id, name) then
+			return false, S("Area @1 does not exist"
+					.." or is not owned by you.", id)
+		end
+		areas:removeCoOwner(id, coOwner)
+		areas:save()
+		minetest.chat_send_player(coOwner,
+			S("@1 has removed you from the list of co-owners of the area \"@2\" (ID @3).",
+				name, areas.areas[id].name, id))
+		return true, S("Co-owner removed.")
+	end
+})
+
+minetest.register_chatcommand("list_co_owners", {
+	params = S("<ID>"),
+	description = S("List co-owners of an area"),
+	func = function(name, param)
+		local id = tonumber(param)
+		if not id then
+			return false, S("Invalid usage, see /help @1.", "area_open")
+		end
+
+		local entry = areas.areas[id]
+		if not entry then
+			return false, S("The area @1 does not exist.", id)
+		end
+
+		local coOwners = {}
+		for coOwner in pairs(areas:listCoOwners(id)) do
+			coOwners[#coOwners+1] = coOwner
+		end
+
+		if #coOwners == 0 then
+			return true, S("The area \"@1\" (ID @2) have no co-owners.", entry.name, id)
+		end
+
+		return true, S("Co-owners of area \"@1\" (ID @2): @3",
+			entry.name, id, table.concat(coOwners, ", "))
 	end
 })
 
