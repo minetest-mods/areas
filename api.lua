@@ -7,14 +7,53 @@ areas.registered_on_moves = {}
 
 areas.callback_origins = {}
 
-function areas:registerProtectionCondition(func)
-	table.insert(areas.registered_protection_conditions, func)
+function areas:registerProtectionCondition(name, func)
+	if not func then
+		-- Backwards compat. Handle optional `name`.
+		func = name
+		name = nil
+	end
+
+	assert(type(func) == "function")
+	assert(not name or type(name) == "string")
+	assert(not areas.callback_origins[func], "Already registered.")
+
+	local conditions = areas.registered_protection_conditions
+	local replace_i
+	if name then
+		-- Remove existing registration
+		for i, cb in ipairs(conditions) do
+			if areas.callback_origins[cb].name == name then
+				areas.callback_origins[cb] = nil
+				replace_i = i
+				break
+			end
+		end
+	end
+
+	if replace_i then
+		conditions[replace_i] = func
+	else
+		table.insert(conditions, func)
+	end
 	local debug_info = debug.getinfo(func, "S")
 	areas.callback_origins[func] = {
+		name = name,
 		mod = core.get_current_modname() or "??",
 		source = debug_info.short_src or "??",
 		line = debug_info.linedefined or "??"
 	}
+end
+
+function areas:getProtectionCondition(name)
+	assert(type(name) == "string")
+
+	for cb, origin in pairs(areas.callback_origins) do
+		if origin.name == name then
+			return cb, origin.mod
+		end
+	end
+	return nil, nil
 end
 
 function areas:registerOnAdd(func)
