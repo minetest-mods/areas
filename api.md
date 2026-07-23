@@ -1,12 +1,11 @@
 Areas mod API
 ===
 
+*NOTE: Undocumented variables, functions and behaviour may change at any time.*
+
 API list
 ---
 
- * `areas:registerHudHandler(handler)` - Registers a handler to add items to the Areas HUD.  See [HUD](#hud).
- * `areas:registerProtectionCondition(func(pos1, pos2, name))` - 
-See [Protection Conditions](#Protection-Conditions)
  * `areas:registerOnAdd(func(id, area))`
  * `areas:registerOnRemove(func(id))`
  * `areas:registerOnMove(func(id, area, pos1, pos2))`
@@ -15,19 +14,33 @@ See [Protection Conditions](#Protection-Conditions)
 Protection Conditions
 ---
 
-With `areas:registerProtectionCondition(func(pos1, pos2, name))`
-you can register rules to control whether to allow or prohibit the creation of an area.
-
-Return values:
-* `true` Forcefully allows the area creation. This overwrites the outcome of any
-  previously executed conditions, including the default ones registered by this mod.
-* `false, errMsg` Disable the creation of the area and return an error message.
-* `nil` (or no return value) Enable the creation of the area,
-  unless specified otherwise by the other registered callbacks.
+* `areas:registerProtectionCondition([name,] func(pos1, pos2, name))`
+   * Registers a rule to control whether to allow or prohibit the creation of an area.
+   * `name` (optional, string): Unique name of the condition. Should follow the
+     `modname:callbackname` convention.
+   * If a condition already exist under the same `name`, it is overwritten.
+   * Callback arguments:
+      * `pos1` (min), `pos2` (max): vector. Edge positions of the area.
+      * `name` (string): Player name.
+   * Callback return value(s):
+      * `true`: Forcefully allows the area creation. This overwrites the outcome of any
+        previously executed conditions, including the default ones registered by this mod.
+      * `false, errMsg`: Disable the creation of the area and return an error message.
+      * `nil` (or no return value): Enable the creation of the area,
+        unless specified otherwise by the other registered callbacks.
+* `areas:getProtectionCondition(name)`
+   * `name` (string): Unique name of the condition.
+   * Return values:
+      1. (function) Callback function.
+      2. (string) Originating mod name. May be `"??"` if the mod could not be determined.
+   * Returns `nil, nil` if `name` could not be found.
 
 
 HUD
 ---
+
+* `areas:registerHudHandler(handler)`
+   * Registers a handler to add items to the Areas HUD.
 
 If you are making a protection mod or a similar mod that adds invisible regions
 to the world, and you would like then to show up in the areas HUD element, you

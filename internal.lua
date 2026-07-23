@@ -220,53 +220,59 @@ function areas:getChildren(id)
 	return children
 end
 
+local cached_privs
+
 -- checks all possible restrictions registered with
 -- areas:registerProtectionCondition
 -- builtin callbacks below
 function areas:canPlayerAddArea(pos1, pos2, name)
+	cached_privs = core.get_player_privs(name)
 	local allowed = true
 	local errMsg
-	for i=1, #areas.registered_protection_conditions do
-		local res, msg = areas.registered_protection_conditions[i](pos1, pos2, name)
+	for _, func in ipairs(areas.registered_protection_conditions) do
+		local res, msg = func(pos1, pos2, name)
 		if res == true then
 			-- always allow to protect, no matter of other conditions
-			return true
+			allowed = true
+			errMsg = nil
+			break
 		elseif res == false then
 			-- there might be another callback that returns true, so we can't break here
 			allowed = false
 			-- save the first error that occurred
 			errMsg = errMsg or msg
 		elseif res ~= nil then
-			local origin = areas.callback_origins[areas.registered_protection_conditions[i]]
-			error("\n[Mod] areas: Invalid api usage from mod '" ..
+			local origin = areas.callback_origins[func]
+			error("\n[Mod] areas: Invalid API usage from mod '" ..
 					origin.mod .. "' in callback registerProtectionCondition() at " ..
 					origin.source .. ":" .. origin.line)
 		end
 	end
+	cached_privs = nil
 
 	return allowed, errMsg
 end
 
 -- Checks if the user has sufficient privileges.
-areas:registerProtectionCondition(function(pos1, pos2, name)
-	local privs = minetest.get_player_privs(name)
-	if privs.areas then
+areas:registerProtectionCondition("areas:privs", function(pos1, pos2, name)
+	if cached_privs.areas then
 		-- always allow administrators to create areas
 		return true
 	end
+end)
 
+areas:registerProtectionCondition("areas:self_protect", function(pos1, pos2, name)
 	-- Check self protection privilege
 	if not areas.config.self_protection or
-			not privs[areas.config.self_protection_privilege] then
+			not cached_privs[areas.config.self_protection_privilege] then
 		return false, S("Self protection is disabled or you do not have"
 				.." the necessary privilege.")
 	end
 end)
 
 -- check if the area is too big
-areas:registerProtectionCondition(function(pos1, pos2, name)
-	local privs = minetest.get_player_privs(name)
-	local max_size = privs.areas_high_limit and
+areas:registerProtectionCondition("areas:self_protect_size", function(pos1, pos2, name)
+	local max_size = cached_privs.areas_high_limit and
 			areas.config.self_protection_max_size_high or
 			areas.config.self_protection_max_size
 	if
@@ -278,15 +284,14 @@ areas:registerProtectionCondition(function(pos1, pos2, name)
 end)
 
 -- Check number of areas the user has and make sure it not above the max
-areas:registerProtectionCondition(function(pos1, pos2, name)
-	local privs = minetest.get_player_privs(name)
+areas:registerProtectionCondition("areas:self_protect_count", function(pos1, pos2, name)
 	local count = 0
 	for _, area in pairs(areas.areas) do
 		if area.owner == name then
 			count = count + 1
 		end
 	end
-	local max_areas = privs.areas_high_limit and
+	local max_areas = cached_privs.areas_high_limit and
 			areas.config.self_protection_max_areas_high or
 			areas.config.self_protection_max_areas
 	if count >= max_areas then
@@ -296,7 +301,7 @@ areas:registerProtectionCondition(function(pos1, pos2, name)
 end)
 
 -- checks if the area intersects other areas that the player do not own.
-areas:registerProtectionCondition(function(pos1, pos2, name)
+areas:registerProtectionCondition("areas:interact", function(pos1, pos2, name)
 	local can, id = areas:canInteractInArea(pos1, pos2, name)
 	if not can then
 		local area = areas.areas[id]
