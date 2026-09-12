@@ -10,6 +10,7 @@
 <ParentID>=<ID_родительской>
 <PlayerName>=<имя_игрока>
 <newName>=<новое_имя>
+@1 : @2 area(s)=@1 : @2 территорий
 @1 has given you control over the area "@2" (ID @3).=@1 передал вам территорию "@2" (ID @3).
 @1 spanning up to @2x@3x@4.=@1 размером до @2x@3x@4.
 A regular expression is required.=Не указано регулярное выражение.
@@ -32,7 +33,7 @@ Give a player access to a sub-area between two positions that have already been 
 Invalid regular expression.=Неверное регулярное выражение.
 Limit: @1 areas=Ограничение: @1 территорий(я)
 Limit: no area count limit=Ограничение: нет ограничений на кол-во территорий
-List your areas, or all areas if you are an admin.=Вывести список доступных Вам территорий или всех существующих территорий, если вы администратор.
+List your areas. Admins can list all areas or those of a specific player.=Вывести список доступных Вам территорий. Администратор может выводить список всех территорий или территорий конкретного игрока.
 Move (or resize) an area to the current positions.=Переместить (или изменить размер) территории.
 No matches found.=Совпадений не найдено.
 No visible areas.=Нет доступных территорий.
@@ -72,7 +73,7 @@ You need to select an area first.=Сначала необходимо выдел
 ### chatcommands.lua ###
 ### pos.lua ###
 
-<ID>=
+<ID>=<ID>
 Invalid usage, see /help @1.=Неверное использование, см. /help @1.
 
 ### hud.lua ###
@@ -134,4 +135,4 @@ The area @1 does not exist.=Территория @1 не существует.
 Unable to get position.=Не удалось получить позицию.
 Unknown subcommand: @1=Неизвестная под-команда/аргумент.
 
-Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=Относительные координаты не поддерживаются на этом сервере. Пожалуйста, обновите Minetest/Luanti до версии 5.7.0 или новее.

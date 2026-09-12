@@ -10,6 +10,7 @@
 <ParentID>=<上级保护区编号>
 <PlayerName>=<玩家名称>
 <newName>=<新名称>
+@1 : @2 area(s)=
 @1 has given you control over the area "@2" (ID @3).=@1 已将保护区“@2”（编号 @3）的控制权交与您。
 @1 spanning up to @2x@3x@4.=@1，最大为 @2x@3x@4。
 A regular expression is required.=需要正则表达式。
@@ -32,7 +33,7 @@ Give a player access to a sub-area between two positions that have already been 
 Invalid regular expression.=正则表达式无效。
 Limit: @1 areas=限制：@1个保护区
 Limit: no area count limit=限制：无数量限制
-List your areas, or all areas if you are an admin.=列出您拥有的保护区，或对于管理员而言，列出所有保护区。
+List your areas. Admins can list all areas or those of a specific player.=
 Move (or resize) an area to the current positions.=移动一保护区至目前座标，或改变其大小。
 No matches found.=找不到匹配项。
 No visible areas.=没有保护区可供查阅。

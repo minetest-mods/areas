@@ -1,0 +1,138 @@
+# textdomain: areas
+
+
+
+### chatcommands.lua ###
+
+<AreaName>=<назва_ділянки>
+<ID> [faction_name]=<ID> [назва_фракції]
+<NewOwner>=<новий_власник>
+<ParentID>=<ID_батьківської_ділянки>
+<PlayerName>=<ім'я_гравця>
+<newName>=<нова_назва>
+@1 : @2 area(s)=@1 : @2 ділянок
+@1 has given you control over the area "@2" (ID @3).=@1 передав вам контроль над ділянкою "@2" (ID @3)
+@1 spanning up to @2x@3x@4.=@1 має розмір @2x@3x@4.
+A regular expression is required.=Регулярний вираз не вказано.
+Area @1 does not exist or is not owned by you.=Ділянка @1 не існує або не належить вам.
+Area closed for faction members.=Ділянка зачинена для гравців фракцій.
+Area closed.=Ділянка зачинена.
+Area does not exist.=Ділянка не існує.
+Area is open for members of: @1=Ділянка відчинена для гравців фракцій @1
+Area opened.=Ділянка відчинена
+Area protected. ID: @1=Ділянка захищена. ID: @1
+Area renamed.=Ділянка перейменована.
+Area successfully moved.=Ділянка успішно переміщена.
+Change the owner of an area using its ID=Змініть власника ділянки, використовуючи її ID
+Faction doesn't exists=Фракція не існує
+Find areas using a Lua regular expression=Знайдіть ділянки, використовуючи регулярні вирази Lua
+Get information about area configuration and usage.=Отримати інформацію щодо використання ділянок, конфігурації і привілеїв.
+
+Give a player access to a sub-area between two positions that have already been protected, Use set_owner if you don't want the parent to be set.=Надати гравцю доступ до вже захищеної ділянки, створивши дочірню ділянку, прив'язану до батьківської ділянки. Використовуйте /set_owner щоб уникнути прив'язки.
+
+Invalid regular expression.=Неправильний регулярний вираз.
+Limit: @1 areas=Ліміт: @1 ділянок
+Limit: no area count limit=Ліміт: немає
+List your areas. Admins can list all areas or those of a specific player.=Вивести список ваших ділянок. Адміністратори можуть виводити список всіх ділянок або ділянок конкретного гравця.
+Move (or resize) an area to the current positions.=Перемістити (або перемасштабувати) ділянку до поточних обраних позицій.
+No matches found.=Збігів не знайдено.
+No visible areas.=Немає видимих ділянок.
+Owner changed.=Власника змінено.
+Players with the "@1" privilege can protect up to @2 areas=Гравець з привілеєм "@1" може захистити не більше @2 ділянок
+
+Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Надати гравцю доступ до вже захищеної ділянки, створивши відповідну ділянку, без прив'язки до батьківської ділянки.
+
+Protect your own area=Захистити власну ділянку
+Recursively remove areas using an ID=Рекурсивно видалити ділянки (разом з дочірніми), використовуючи ID
+Remove an area using an ID=Видалити ділянку, використовуючи ID
+Removed area @1=Видалено ділянку @1
+Removed area @1 and its sub areas.=Видалено ділянку @1 і її підділянки.
+Removes all ownerless areas=Видалити всі ділянки без власників
+Rename an area that you own=Перейменувати ділянку, якою ви володієте
+Self protection is disabled.=Самостійний захист ділянок відключений.
+Self protection is enabled.=Самостійний захист ділянок ввімкнений.
+That area doesn't exist.=Ділянка не існує.
+The player "@1" does not exist.=Гравець "@1" не існує.
+Toggle an area open (anyone can interact) or closed=Дозволити чи заборонити іншим гравцям взаємодіяти з вашою ділянкою
+Toggle an area open/closed for members in your faction.=Дозволити чи заборонити гравцям вашої фракції взаємодіяти з вашою ділянкою.
+You are an area administrator ("areas" privilege).=Ви можете керувати всіма ділянками (привілей "areas").
+You can protect areas=Ви можете захищати ділянки
+You can't protect that area.=Ви не можете захистити цю ділянку.
+You can't protect that area: @1=Ви не можете захистити ділянку: @1
+You don't have the necessary privilege ("@1").=Ви не маєте відповідного привілею ("@1").
+You don't own that area.=Ви не є власником цієї ділянки.
+You have @1 areas.=Ви маєте @1 ділянок.
+
+You have been granted control over area #@1. Type /list_areas to show your areas.=Вам надано контроль над ділянкою #@1. Введіть /list_areas щоб показати ваші ділянки.
+
+You have extended area protection limits ("areas_high_limit" privilege).=Ви маєте розширені ліміти на захист ділянок (привілей "areas_high_limit").
+
+You have the necessary privilege ("@1").=Ви маєте необхідний привілей ("@1").
+You need to select an area first.=Ви маєте попередньо обрати ділянку (команда /select_area).
+
+### chatcommands.lua ###
+### pos.lua ###
+
+<ID>=<ID>
+Invalid usage, see /help @1.=Неправильне використання, перегляньте /help @1.
+
+### hud.lua ###
+
+:open=:відкрита
+Areas:=Ділянки:
+
+### init.lua ###
+
+Can administer areas.=Може керувати ділянками.
+Can protect areas.=Може захищати ділянки.
+Can protect more, bigger areas.=Може захищати більше ділянок, більшого розміру.
+
+### interact.lua ###
+
+@1 is protected by @2.=Ділянка @1 захищена гравцем @2.
+
+### internal.lua ###
+
+Area is too big.=Ділянка занадто велика.
+
+Self protection is disabled or you do not have the necessary privilege.=Самостійний захист ділянок відключений або ви не маєте відповідного привілею.
+
+The area intersects with @1 [@2] (@3).=Ділянка перетинається з ділянкою @1 [@2] (@3)
+
+You have reached the maximum amount of areas that you are allowed to protect.=Ви досягли максимальної кількості ділянок, які ви можете захистити.
+
+
+### legacy.lua ###
+
+<version>=<версія>
+Converted areas saved. Done.=Конвертовані ділянки збережено. Готово.
+Converting areas…=Конвертування ділянок…
+Error loading legacy file: @1=Помилка при завантаженні файлу застарілого формату: @1
+Invalid version number. (0 allowed)=Неправильний номер версії (дозволено 0).
+Legacy file loaded.=Файл застарілого формату завантажено.
+
+Loads, converts, and saves the areas from a legacy save file.=Завантажує, конвертує і зберігає ділянки з файлу застарілого формату.
+
+Table format updated.=Формат даних оновлено.
+unnamed=без_імені
+
+### pos.lua ###
+
+<not set>=<не встановлено>
+Area @1 selected.=Обрано ділянку @1.
+Area position @1 set to @2=Позицію @1 встановлено в @2
+Position @1 set to @2=Позицію @1 встановлено в @2
+Position @1:=Позиція @1:
+Select an area by ID.=Обрати ділянку за ID.
+Select position @1 by punching a node.=Оберіть позицію @1, вдаривши відповідний блок.
+Select positions by punching two nodes.=Оберіть позиції, вдаривши відповідні два блоки.
+
+Set area protection region position @1 to your location or the one specified=Встановіть позицію @1 для захисту ділянки відповідно до вашої поточної позиції чи вказаним координатам
+
+Set area protection region, position 1, or position 2 by punching nodes, or display the region=Встановити регіон для захисту ділянки (весь регіон, або позицію 1 чи 2 окремо), вдаривши відповідні блоки, або відобразити обраний регіон
+
+The area @1 does not exist.=Ділянка @1 не існує.
+Unable to get position.=Не вдалось отримати позицію.
+Unknown subcommand: @1=Невідома підкоманда: @1
+
+Relative coordinates is not supported on this server. Please upgrade Minetest to 5.7.0 or newer versions.=Відносні координати не підтримуються на цьому сервері. Будь-ласка, оновіть Minetest/Luanti до версії 5.7.0 або новішої.

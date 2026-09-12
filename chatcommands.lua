@@ -173,7 +173,7 @@ minetest.register_chatcommand("find_areas", {
 
 
 minetest.register_chatcommand("list_areas", {
-	params = S("[<name>]"),
+	params = "["..S("<PlayerName>").."]",
 	description = S("List your areas. Admins can list all areas or those of a specific player."),
 	func = function(name, param)
 		local admin = minetest.check_player_privs(name, areas.adminPrivs)
