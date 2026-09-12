@@ -10,6 +10,7 @@
 <ParentID>=<IDZonePrincipale>
 <PlayerName>=<NomJoueur>
 <newName>=<nouveau nom>
+@1 : @2 area(s)=
 @1 has given you control over the area "@2" (ID @3).=@1 t'a donné le contrôle de la zone "@2" (ID @3).
 @1 spanning up to @2x@3x@4.=@1 s’étendant jusqu’à @2x@3x@4.
 A regular expression is required.=Une expression régulière est requise.
@@ -32,7 +33,7 @@ Give a player access to a sub-area between two positions that have already been 
 Invalid regular expression.=Expression régulière invalide.
 Limit: @1 areas=Limite: @1 zones.
 Limit: no area count limit=Limite: pas de limite de nombre de zones.
-List your areas, or all areas if you are an admin.=Liste tes zones, ou toutes les zones si tu es administrateur.
+List your areas. Admins can list all areas or those of a specific player.=
 Move (or resize) an area to the current positions.=Déplace (ou redimensionne) une zone aux positions actuelles.
 No matches found.=Aucun résultat.
 No visible areas.=Pas de zone visible.

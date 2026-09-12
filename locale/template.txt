@@ -10,6 +10,7 @@
 <ParentID>=
 <PlayerName>=
 <newName>=
+@1 : @2 area(s)=
 @1 has given you control over the area "@2" (ID @3).=
 @1 spanning up to @2x@3x@4.=
 A regular expression is required.=
@@ -32,7 +33,7 @@ Give a player access to a sub-area between two positions that have already been 
 Invalid regular expression.=
 Limit: @1 areas=
 Limit: no area count limit=
-List your areas, or all areas if you are an admin.=
+List your areas. Admins can list all areas or those of a specific player.=
 Move (or resize) an area to the current positions.=
 No matches found.=
 No visible areas.=
